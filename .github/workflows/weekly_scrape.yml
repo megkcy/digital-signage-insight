@@ -1,0 +1,33 @@
+name: Weekly Competitor Scrape
+
+on:
+  schedule:
+    - cron: "0 22 * * 0"  # 每週一 06:00 台灣時間 (UTC Sunday 22:00)
+  workflow_dispatch:        # 允許手動觸發
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 lxml
+
+      - name: Run scraper
+        run: python backend/scraper_static.py
+
+      - name: Commit & push data.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add frontend/data.json
+          git diff --cached --quiet || git commit -m "data: weekly scrape $(date +'%Y-%m-%d')"
+          git push
