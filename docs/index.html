@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
+
 <body>
   <header>
     <div class="header-inner">
@@ -144,7 +145,7 @@
     <div class="modal modal-sm">
       <button class="modal-close" onclick="closeSettings()">✕</button>
       <h2>設定</h2>
-      <p style="color:var(--text-muted);font-size:13px;margin:8px 0 16px">需要 GitHub Personal Access Token 才能儲存數據和觸發爬蟲。</p>
+      <p style="color:var(--text-muted);font-size:13px;margin:8px 0 16px">只有「立即爬取」按鈕需要 GitHub Token，新增/編輯對手不再需要。</p>
       <div class="form-group">
         <label>GitHub Token</label>
         <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
@@ -158,6 +159,6 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

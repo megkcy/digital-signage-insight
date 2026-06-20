@@ -48,7 +48,7 @@ COMPETITORS = [
     {"name": "LG Business", "url": "https://www.lg.com", "facebook": "LGElectronics", "instagram": "lgelectronics", "x": "lgus", "linkedin": "company/lg-electronics"},
     {"name": "Lookr (Kabob)", "url": "https://www.kabob.io", "facebook": "", "instagram": "", "x": "", "linkedin": "company/kabob-digital-signage"},
     {"name": "Mvix Digital Signage", "url": "https://mvixdigitalsignage.com", "facebook": "mvixdigitalsignage", "instagram": "mvixdigitalsignage", "x": "mvixusa", "linkedin": "company/mvix"},
-    {"name": "Navori Labs", "url": "https://navori.com", "facebook": "navorilabs", "instagram": "navorilabs", "x": "navorilabs", "linkedin": "company/navori-labs"},
+    {"name": "Navori Labs", "url": "https://navori.com", "facebook": "navorilabs", "instagram": "navorilabs", "x": "navorilabs", "linkedin": "company/navori-sa"},
     {"name": "NewSoft (NuSoft)", "url": "https://www.nusoft.com.tw", "facebook": "nusoft.com.tw", "instagram": "", "x": "", "linkedin": "company/nusoft-technology"},
     {"name": "NoviSign", "url": "https://www.novisign.com", "facebook": "novisign", "instagram": "novisign", "x": "novisign", "linkedin": "company/novisign"},
     {"name": "NOW Signage", "url": "https://www.nowsignage.com", "facebook": "nowsignage", "instagram": "nowsignage", "x": "nowsignage", "linkedin": "company/now-signage"},
@@ -201,7 +201,36 @@ def scrape_x(handle):
     return None
 
 
+def _get_firestore():
+    try:
+        import firebase_admin
+        from firebase_admin import credentials, firestore as fs
+        if not firebase_admin._apps:
+            sa = os.environ.get("FIREBASE_SERVICE_ACCOUNT")
+            if sa:
+                import tempfile
+                with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+                    f.write(sa)
+                    sa_path = f.name
+                cred = credentials.Certificate(sa_path)
+            else:
+                cred = credentials.ApplicationDefault()
+            firebase_admin.initialize_app(cred)
+        return fs.client()
+    except Exception as e:
+        print(f"Firestore unavailable: {e}")
+        return None
+
+
 def load_existing():
+    db = _get_firestore()
+    if db:
+        try:
+            snap = db.collection("insight").document("data").get()
+            if snap.exists:
+                return snap.to_dict()
+        except Exception as e:
+            print(f"Firestore read failed: {e}")
     if os.path.exists(DATA_PATH):
         with open(DATA_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -209,6 +238,15 @@ def load_existing():
 
 
 def save_data(data):
+    # Write to Firestore
+    db = _get_firestore()
+    if db:
+        try:
+            db.collection("insight").document("data").set(data)
+            print("Saved to Firestore")
+        except Exception as e:
+            print(f"Firestore write failed: {e}")
+    # Also write local data.json as backup
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
     with open(DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)

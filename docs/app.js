@@ -1,32 +1,60 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBW3QGkqvw1fuLaDEd9t69oQU6-LTMG090",
+  authDomain: "digital-signage-insight.firebaseapp.com",
+  projectId: "digital-signage-insight",
+  storageBucket: "digital-signage-insight.firebasestorage.app",
+  messagingSenderId: "537464295756",
+  appId: "1:537464295756:web:029092e4fd6a58baee7fe9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const REPO = "megkcy/digital-signage-insight";
-const DATA_PATH = "docs/data.json";
 const WORKFLOW = "weekly_scrape.yml";
 
 let allData = [];
-let fileSha = null;
 let editingIndex = null;
 let charts = {};
 
-// ── GitHub API ────────────────────────────────────────────────────────────────
+// ── GitHub Token (only needed for scrape trigger) ─────────────────────────────
 function getToken() { return localStorage.getItem("gh_token") || ""; }
 
+// ── Firestore ─────────────────────────────────────────────────────────────────
 async function loadData() {
   try {
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_PATH}`, {
-      headers: getToken() ? { Authorization: `token ${getToken()}` } : {}
-    });
-    const file = await r.json();
-    fileSha = file.sha;
-    const json = JSON.parse(atob(file.content.replace(/\n/g, "")));
-    applyData(json);
-  } catch {
-    try {
-      const r = await fetch("data.json?t=" + Date.now());
-      applyData(await r.json());
-    } catch {
-      document.getElementById("tableBody").innerHTML =
-        '<tr><td colspan="10" class="loading">⚠ 無法載入數據</td></tr>';
+    const snap = await getDoc(doc(db, "insight", "data"));
+    if (snap.exists()) {
+      applyData(snap.data());
+      return;
     }
+  } catch (e) {
+    console.warn("Firestore failed, falling back to data.json", e);
+  }
+  // fallback to local data.json
+  try {
+    const r = await fetch("data.json?t=" + Date.now());
+    applyData(await r.json());
+  } catch {
+    document.getElementById("tableBody").innerHTML =
+      '<tr><td colspan="10" class="loading">⚠ 無法載入數據</td></tr>';
+  }
+}
+
+async function saveData(updatedCompetitors, _message) {
+  const json = {
+    last_updated: updatedCompetitors.find(c => c.latest?.date)?.latest?.date || null,
+    competitors: updatedCompetitors
+  };
+  try {
+    await setDoc(doc(db, "insight", "data"), json);
+    return true;
+  } catch (e) {
+    showToast("❌ 儲存失敗：" + e.message);
+    return false;
   }
 }
 
@@ -43,27 +71,9 @@ function applyData(json) {
   filterTable();
 }
 
-async function saveData(updatedCompetitors, message) {
-  if (!getToken()) { openSettings(); showToast("請先設定 GitHub Token"); return false; }
-  const json = {
-    last_updated: updatedCompetitors.find(c => c.latest?.date)?.latest?.date || null,
-    competitors: updatedCompetitors
-  };
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(json, null, 2))));
-  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${DATA_PATH}`, {
-    method: "PUT",
-    headers: { Authorization: `token ${getToken()}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ message, content, sha: fileSha })
-  });
-  if (!r.ok) { showToast("❌ 儲存失敗，請確認 Token 有 repo 權限"); return false; }
-  const res = await r.json();
-  fileSha = res.content.sha;
-  return true;
-}
-
 // ── Scrape trigger ────────────────────────────────────────────────────────────
 async function triggerScrape() {
-  if (!getToken()) { openSettings(); showToast("請先設定 GitHub Token"); return; }
+  if (!getToken()) { openSettings(); showToast("請先設定 GitHub Token 以觸發爬蟲"); return; }
   const btn = document.querySelector(".btn-scrape");
   btn.disabled = true; btn.textContent = "⏳ 執行中…";
   const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches`, {
@@ -219,7 +229,7 @@ async function saveCompetitor(e) {
   else updated.push(entry);
   updated.sort((a, b) => a.name.localeCompare(b.name));
   showToast("儲存中…");
-  const ok = await saveData(updated, editingIndex !== null ? `update: ${entry.name}` : `add: ${entry.name}`);
+  const ok = await saveData(updated, "");
   if (ok) { allData = updated; filterTable(); closeEditModal(); showToast("✓ 已儲存"); }
 }
 async function deleteCompetitor() {
@@ -227,11 +237,11 @@ async function deleteCompetitor() {
   const name = allData[editingIndex].name;
   if (!confirm(`確定要刪除「${name}」？`)) return;
   const updated = allData.filter((_, i) => i !== editingIndex);
-  const ok = await saveData(updated, `remove: ${name}`);
+  const ok = await saveData(updated, "");
   if (ok) { allData = updated; filterTable(); closeEditModal(); showToast("✓ 已刪除"); }
 }
 
-// ── Settings modal ────────────────────────────────────────────────────────────
+// ── Settings modal (GitHub Token for scrape trigger only) ─────────────────────
 function openSettings() {
   document.getElementById("ghToken").value = getToken();
   document.getElementById("settingsModal").classList.add("open");
@@ -242,7 +252,7 @@ function closeSettings(e) {
 }
 function saveToken() {
   const t = document.getElementById("ghToken").value.trim();
-  if (t) { localStorage.setItem("gh_token", t); showToast("✓ Token 已儲存"); closeSettings(); loadData(); }
+  if (t) { localStorage.setItem("gh_token", t); showToast("✓ Token 已儲存"); closeSettings(); }
   else { localStorage.removeItem("gh_token"); showToast("Token 已清除"); }
 }
 
@@ -254,6 +264,19 @@ function showToast(msg) {
   setTimeout(() => t.remove(), 3500);
 }
 
+// ── Expose to HTML onclick handlers ──────────────────────────────────────────
+window.filterTable = filterTable;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.openEditModal = openEditModal;
+window.closeEditModal = closeEditModal;
+window.openAddModal = openAddModal;
+window.saveCompetitor = saveCompetitor;
+window.deleteCompetitor = deleteCompetitor;
+window.triggerScrape = triggerScrape;
+window.openSettings = openSettings;
+window.closeSettings = closeSettings;
+window.saveToken = saveToken;
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 loadData();
-if (!getToken()) setTimeout(() => showToast("💡 點右上角 ⚙ 設定 GitHub Token 以啟用編輯和爬取功能"), 2000);

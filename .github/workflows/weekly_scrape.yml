@@ -19,9 +19,11 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4 lxml
+        run: pip install requests beautifulsoup4 lxml firebase-admin
 
       - name: Run scraper
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: python backend/scraper_static.py
 
       - name: Commit & push data.json
