@@ -63,9 +63,7 @@ function applyData(json) {
   document.getElementById("cardLastScrape").textContent = json.last_updated || "未爬取";
   document.getElementById("statusBadge").textContent =
     `${json.competitors.length} 個對手 · 最後更新: ${json.last_updated || "—"}`;
-  const seoCount = json.competitors.filter(c => c.latest?.open_pagerank != null).length;
-  const socialCount = json.competitors.filter(c => c.latest?.facebook_followers != null).length;
-  document.getElementById("cardSeo").textContent = seoCount;
+  const socialCount = json.competitors.filter(c => c.latest?.linkedin_followers != null).length;
   document.getElementById("cardSocial").textContent = socialCount;
   allData = json.competitors;
   filterTable();
@@ -131,7 +129,6 @@ function renderTable(data) {
         <div class="comp-name"><a href="${d.url}" target="_blank">${d.name}</a></div>
         <div class="comp-url">${d.url||""}</div>
       </td>
-      <td>${fmtPR(l.open_pagerank)}</td>
       <td>${fmtTech(l.tech_stack)}</td>
       <td>${l.sitemap_pages!=null?`<span class="num">${l.sitemap_pages.toLocaleString()}</span>`:'<span class="na">N/A</span>'}</td>
       <td>${fmt(l.facebook_followers)}</td>
@@ -155,7 +152,6 @@ function openModal(idx) {
   const urlEl = document.getElementById("modalUrl");
   urlEl.textContent = comp.url||""; urlEl.href = comp.url||"#";
   document.getElementById("modalMeta").innerHTML = `
-    <div class="meta-item"><div class="label">PageRank</div><div class="value">${l.open_pagerank!=null?parseFloat(l.open_pagerank).toFixed(2):"N/A"}</div></div>
     <div class="meta-item"><div class="label">網站頁數</div><div class="value">${l.sitemap_pages!=null?l.sitemap_pages.toLocaleString():"N/A"}</div></div>
     <div class="meta-item"><div class="label">Facebook</div><div class="value">${l.facebook_followers!=null?l.facebook_followers.toLocaleString():"N/A"}</div></div>
     <div class="meta-item"><div class="label">Instagram</div><div class="value">${l.instagram_followers!=null?l.instagram_followers.toLocaleString():"N/A"}</div></div>
@@ -176,9 +172,9 @@ function renderCharts(history) {
   Object.values(charts).forEach(c => c.destroy()); charts = {};
   const labels = history.map(r => r.date);
   const opts = { responsive:true, plugins:{ legend:{ labels:{ color:"#6b7280", font:{size:11} } } }, scales:{ x:{ticks:{color:"#6b7280",font:{size:10}},grid:{color:"#f0f2f5"}}, y:{ticks:{color:"#6b7280",font:{size:10}},grid:{color:"#f0f2f5"}} } };
-  charts.pagerank = new Chart(document.getElementById("chartPagerank"), { type:"line", options:opts, data:{ labels, datasets:[{ label:"PageRank", data:history.map(r=>r.open_pagerank), borderColor:"#4f6ef7", backgroundColor:"rgba(79,110,247,.1)", tension:.4, fill:true, pointRadius:4 }] } });
   charts.pages = new Chart(document.getElementById("chartPages"), { type:"line", options:opts, data:{ labels, datasets:[{ label:"頁數", data:history.map(r=>r.sitemap_pages), borderColor:"#16a34a", backgroundColor:"rgba(22,163,74,.1)", tension:.4, fill:true, pointRadius:4 }] } });
   charts.social = new Chart(document.getElementById("chartSocial"), { type:"line", options:opts, data:{ labels, datasets:[
+    { label:"LinkedIn", data:history.map(r=>r.linkedin_followers), borderColor:"#0a66c2", backgroundColor:"rgba(10,102,194,.1)", tension:.4, fill:true, pointRadius:4 },
     { label:"Facebook", data:history.map(r=>r.facebook_followers), borderColor:"#3b82f6", tension:.4, pointRadius:4 },
     { label:"Instagram", data:history.map(r=>r.instagram_followers), borderColor:"#ec4899", tension:.4, pointRadius:4 },
     { label:"X", data:history.map(r=>r.x_followers), borderColor:"#6b7280", tension:.4, pointRadius:4 },

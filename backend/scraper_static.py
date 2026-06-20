@@ -191,13 +191,21 @@ def scrape_instagram(handle):
 def scrape_x(handle):
     if not handle:
         return None
-    try:
-        resp = requests.get(f"https://nitter.net/{handle}", headers=HEADERS, timeout=10)
-        m = re.search(r'([\d,]+)\s*Followers', resp.text, re.IGNORECASE)
-        if m:
-            return _parse_number(m.group(1))
-    except Exception:
-        pass
+    instances = [
+        "https://xcancel.com",
+        "https://nitter.privacyredirect.com",
+        "https://nitter.poast.org",
+        "https://nitter.tiekoetter.com",
+        "https://nitter.catsarch.com",
+    ]
+    for base in instances:
+        try:
+            resp = requests.get(f"{base}/{handle}", headers=HEADERS, timeout=10)
+            m = re.search(r'([\d,]+)\s*Followers', resp.text, re.IGNORECASE)
+            if m:
+                return _parse_number(m.group(1))
+        except Exception:
+            continue
     return None
 
 

@@ -36,10 +36,6 @@
         <div class="card-value" id="cardLastScrape">—</div>
       </div>
       <div class="card">
-        <div class="card-label">已有 SEO 數據</div>
-        <div class="card-value" id="cardSeo">—</div>
-      </div>
-      <div class="card">
         <div class="card-label">已有社群數據</div>
         <div class="card-value" id="cardSocial">—</div>
       </div>
@@ -49,7 +45,6 @@
       <input id="search" type="text" placeholder="搜尋競爭對手…" oninput="filterTable()" />
       <select id="sortBy" onchange="filterTable()">
         <option value="name">名稱排序</option>
-        <option value="open_pagerank">PageRank 排序</option>
         <option value="sitemap_pages">網站頁數排序</option>
         <option value="facebook_followers">Facebook 追蹤排序</option>
         <option value="instagram_followers">Instagram 追蹤排序</option>
@@ -66,7 +61,6 @@
         <thead>
           <tr>
             <th>競爭對手</th>
-            <th>PageRank</th>
             <th>Tech Stack</th>
             <th>網站頁數</th>
             <th>Facebook</th>
@@ -92,7 +86,6 @@
       <a id="modalUrl" href="#" target="_blank" class="modal-url"></a>
       <div class="modal-meta" id="modalMeta"></div>
       <div class="charts-grid">
-        <div class="chart-box"><h3>PageRank 趨勢</h3><canvas id="chartPagerank"></canvas></div>
         <div class="chart-box"><h3>社群追蹤趨勢</h3><canvas id="chartSocial"></canvas></div>
         <div class="chart-box"><h3>網站頁數趨勢</h3><canvas id="chartPages"></canvas></div>
       </div>
