@@ -12,7 +12,7 @@ from urllib.parse import urlparse, urljoin
 import requests
 from bs4 import BeautifulSoup
 
-DATA_PATH = os.path.join(os.path.dirname(__file__), "../frontend/data.json")
+DATA_PATH = os.path.join(os.path.dirname(__file__), "../docs/data.json")
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
