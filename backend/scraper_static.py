@@ -12,6 +12,8 @@ from urllib.parse import urlparse, urljoin
 import requests
 from bs4 import BeautifulSoup
 
+REFERENCE_KEYWORD = "digital signage"
+
 DATA_PATH = os.path.join(os.path.dirname(__file__), "../docs/data.json")
 
 HEADERS = {
@@ -238,6 +240,23 @@ def scrape_linkedin(handle):
     return None
 
 
+def get_google_trends(name):
+    try:
+        from pytrends.request import TrendReq
+        pt = TrendReq(hl='en-US', tz=0)
+        # Compare against reference to normalize across batches
+        kw = [name, REFERENCE_KEYWORD]
+        pt.build_payload(kw, timeframe='today 12-w', geo='')
+        df = pt.interest_over_time()
+        if df.empty or name not in df.columns:
+            return None
+        avg = int(df[name].mean())
+        return avg if avg > 0 else None
+    except Exception as e:
+        print(f"  Trends error for {name}: {e}")
+        return None
+
+
 def _get_firestore():
     try:
         import firebase_admin
@@ -319,6 +338,7 @@ def scrape_all(delay=2.0):
         ig = scrape_instagram(comp["instagram"])
         x = scrape_x(comp["x"])
         li = scrape_linkedin(comp["linkedin"])
+        trends = get_google_trends(comp["name"])
         time.sleep(delay)
 
         snapshot = {
@@ -332,6 +352,7 @@ def scrape_all(delay=2.0):
             "instagram_followers": ig,
             "x_followers": x,
             "linkedin_followers": li,
+            "trends_score": trends,
         }
 
         # Keep last 52 weeks of history
@@ -352,7 +373,7 @@ def scrape_all(delay=2.0):
             "history": history,
         })
 
-        print(f"  PR:{pagerank} Pages:{pages} FB:{fb} IG:{ig} X:{x} LI:{li}")
+        print(f"  PR:{pagerank} Pages:{pages} LI:{li} Trends:{trends}")
 
     data = {"last_updated": today, "competitors": result_competitors}
     save_data(data)

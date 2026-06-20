@@ -40,7 +40,7 @@ async function loadData() {
     applyData(await r.json());
   } catch {
     document.getElementById("tableBody").innerHTML =
-      '<tr><td colspan="10" class="loading">⚠ 無法載入數據</td></tr>';
+      '<tr><td colspan="7" class="loading">⚠ 無法載入數據</td></tr>';
   }
 }
 
@@ -120,7 +120,7 @@ function filterTable() {
 
 function renderTable(data) {
   const tbody = document.getElementById("tableBody");
-  if (!data.length) { tbody.innerHTML = '<tr><td colspan="10" class="loading">沒有符合的結果</td></tr>'; return; }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="7" class="loading">沒有符合的結果</td></tr>'; return; }
   tbody.innerHTML = data.map(d => {
     const l = d.latest || {};
     const idx = allData.indexOf(d);
@@ -131,10 +131,8 @@ function renderTable(data) {
       </td>
       <td>${fmtTech(l.tech_stack)}</td>
       <td>${l.sitemap_pages!=null?`<span class="num">${l.sitemap_pages.toLocaleString()}</span>`:'<span class="na">N/A</span>'}</td>
-      <td>${fmt(l.facebook_followers)}</td>
-      <td>${fmt(l.instagram_followers)}</td>
-      <td>${fmt(l.x_followers)}</td>
       <td>${fmt(l.linkedin_followers)}</td>
+      <td>${l.trends_score!=null?`<span class="pill pill-blue">${l.trends_score}</span>`:'<span class="na">N/A</span>'}</td>
       <td>${l.date||'<span class="na">—</span>'}</td>
       <td style="display:flex;gap:4px">
         <button class="btn-detail" onclick="openModal(${idx})">圖表</button>
@@ -153,9 +151,6 @@ function openModal(idx) {
   urlEl.textContent = comp.url||""; urlEl.href = comp.url||"#";
   document.getElementById("modalMeta").innerHTML = `
     <div class="meta-item"><div class="label">網站頁數</div><div class="value">${l.sitemap_pages!=null?l.sitemap_pages.toLocaleString():"N/A"}</div></div>
-    <div class="meta-item"><div class="label">Facebook</div><div class="value">${l.facebook_followers!=null?l.facebook_followers.toLocaleString():"N/A"}</div></div>
-    <div class="meta-item"><div class="label">Instagram</div><div class="value">${l.instagram_followers!=null?l.instagram_followers.toLocaleString():"N/A"}</div></div>
-    <div class="meta-item"><div class="label">X (Twitter)</div><div class="value">${l.x_followers!=null?l.x_followers.toLocaleString():"N/A"}</div></div>
     <div class="meta-item"><div class="label">LinkedIn</div><div class="value">${l.linkedin_followers!=null?l.linkedin_followers.toLocaleString():"N/A"}</div></div>
     <div class="meta-item" style="grid-column:1/-1"><div class="label">Tech Stack</div><div class="value" style="font-size:13px">${l.tech_stack||"N/A"}</div></div>
     ${l.meta_title?`<div class="meta-item" style="grid-column:1/-1"><div class="label">Page Title</div><div class="value" style="font-size:12px;font-weight:400">${l.meta_title}</div></div>`:""}
@@ -172,12 +167,10 @@ function renderCharts(history) {
   Object.values(charts).forEach(c => c.destroy()); charts = {};
   const labels = history.map(r => r.date);
   const opts = { responsive:true, plugins:{ legend:{ labels:{ color:"#6b7280", font:{size:11} } } }, scales:{ x:{ticks:{color:"#6b7280",font:{size:10}},grid:{color:"#f0f2f5"}}, y:{ticks:{color:"#6b7280",font:{size:10}},grid:{color:"#f0f2f5"}} } };
+  charts.trends = new Chart(document.getElementById("chartTrends"), { type:"line", options:opts, data:{ labels, datasets:[{ label:"Google Trends", data:history.map(r=>r.trends_score), borderColor:"#f59e0b", backgroundColor:"rgba(245,158,11,.1)", tension:.4, fill:true, pointRadius:4 }] } });
   charts.pages = new Chart(document.getElementById("chartPages"), { type:"line", options:opts, data:{ labels, datasets:[{ label:"頁數", data:history.map(r=>r.sitemap_pages), borderColor:"#16a34a", backgroundColor:"rgba(22,163,74,.1)", tension:.4, fill:true, pointRadius:4 }] } });
   charts.social = new Chart(document.getElementById("chartSocial"), { type:"line", options:opts, data:{ labels, datasets:[
     { label:"LinkedIn", data:history.map(r=>r.linkedin_followers), borderColor:"#0a66c2", backgroundColor:"rgba(10,102,194,.1)", tension:.4, fill:true, pointRadius:4 },
-    { label:"Facebook", data:history.map(r=>r.facebook_followers), borderColor:"#3b82f6", tension:.4, pointRadius:4 },
-    { label:"Instagram", data:history.map(r=>r.instagram_followers), borderColor:"#ec4899", tension:.4, pointRadius:4 },
-    { label:"X", data:history.map(r=>r.x_followers), borderColor:"#6b7280", tension:.4, pointRadius:4 },
   ] } });
 }
 
