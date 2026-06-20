@@ -201,21 +201,52 @@ def scrape_x(handle):
     return None
 
 
+def scrape_linkedin(handle):
+    if not handle:
+        return None
+    # handle format: "company/yodeck"
+    slug = handle.replace("company/", "").strip("/")
+    url = f"https://www.linkedin.com/company/{slug}/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    }
+    try:
+        resp = requests.get(url, headers=headers, timeout=15)
+        text = resp.text
+        # Try JSON-LD structured data first
+        for pat in [
+            r'"numberOfEmployees"\s*:\s*\{[^}]*"value"\s*:\s*(\d+)',
+            r'"followerCount"\s*:\s*(\d+)',
+            r'([\d,]+)\s*followers',
+            r'([\d,]+)\s*(?:人追蹤|追蹤者)',
+        ]:
+            m = re.search(pat, text, re.IGNORECASE)
+            if m:
+                return _parse_number(m.group(1))
+    except Exception:
+        pass
+    return None
+
+
 def _get_firestore():
     try:
         import firebase_admin
         from firebase_admin import credentials, firestore as fs
         if not firebase_admin._apps:
             sa = os.environ.get("FIREBASE_SERVICE_ACCOUNT")
-            if sa:
-                import tempfile
-                with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
-                    f.write(sa)
-                    sa_path = f.name
-                cred = credentials.Certificate(sa_path)
-            else:
-                cred = credentials.ApplicationDefault()
+            if not sa:
+                print("FIREBASE_SERVICE_ACCOUNT env var not set, skipping Firestore")
+                return None
+            print(f"FIREBASE_SERVICE_ACCOUNT found, length={len(sa)}")
+            import tempfile
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+                f.write(sa)
+                sa_path = f.name
+            cred = credentials.Certificate(sa_path)
             firebase_admin.initialize_app(cred)
+            print("Firebase app initialized")
         return fs.client()
     except Exception as e:
         print(f"Firestore unavailable: {e}")
@@ -279,6 +310,7 @@ def scrape_all(delay=2.0):
         fb = scrape_facebook(comp["facebook"])
         ig = scrape_instagram(comp["instagram"])
         x = scrape_x(comp["x"])
+        li = scrape_linkedin(comp["linkedin"])
         time.sleep(delay)
 
         snapshot = {
@@ -291,7 +323,7 @@ def scrape_all(delay=2.0):
             "facebook_followers": fb,
             "instagram_followers": ig,
             "x_followers": x,
-            "linkedin_followers": None,
+            "linkedin_followers": li,
         }
 
         # Keep last 52 weeks of history
@@ -312,7 +344,7 @@ def scrape_all(delay=2.0):
             "history": history,
         })
 
-        print(f"  PR:{pagerank} Pages:{pages} FB:{fb} IG:{ig} X:{x}")
+        print(f"  PR:{pagerank} Pages:{pages} FB:{fb} IG:{ig} X:{x} LI:{li}")
 
     data = {"last_updated": today, "competitors": result_competitors}
     save_data(data)
