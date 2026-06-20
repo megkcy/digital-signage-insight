@@ -1843,8 +1843,8 @@
       "handles": {
         "facebook": "yodeck.digital.signage",
         "instagram": "yodeck_signage/",
-        "x": "https://twitter.com/yodecksignage",
-        "linkedin": "https://www.linkedin.com/company/flipnode-llc/"
+        "x": "yodecksignage",
+        "linkedin": "/company/flipnode-llc/"
       },
       "latest": {
         "date": "2026-06-20",
