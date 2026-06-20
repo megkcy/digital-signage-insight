@@ -17,12 +17,14 @@
       </div>
       <div class="header-actions">
         <div class="status-badge" id="statusBadge">載入中…</div>
+        <button class="btn-secondary" onclick="openAddModal()">+ 新增對手</button>
+        <button class="btn-scrape" onclick="triggerScrape()">▶ 立即爬取</button>
+        <button class="btn-settings" onclick="openSettings()" title="設定">⚙</button>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Summary cards -->
     <section class="cards">
       <div class="card">
         <div class="card-label">競爭對手數</div>
@@ -33,16 +35,15 @@
         <div class="card-value" id="cardLastScrape">—</div>
       </div>
       <div class="card">
-        <div class="card-label">SEO 快照數</div>
+        <div class="card-label">已有 SEO 數據</div>
         <div class="card-value" id="cardSeo">—</div>
       </div>
       <div class="card">
-        <div class="card-label">社群快照數</div>
+        <div class="card-label">已有社群數據</div>
         <div class="card-value" id="cardSocial">—</div>
       </div>
     </section>
 
-    <!-- Filters -->
     <section class="toolbar">
       <input id="search" type="text" placeholder="搜尋競爭對手…" oninput="filterTable()" />
       <select id="sortBy" onchange="filterTable()">
@@ -59,7 +60,6 @@
       </select>
     </section>
 
-    <!-- Main table -->
     <section class="table-wrap">
       <table id="mainTable">
         <thead>
@@ -83,28 +83,77 @@
     </section>
   </main>
 
-  <!-- Detail modal -->
+  <!-- Detail / chart modal -->
   <div id="modal" class="modal-overlay" onclick="closeModal(event)">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()">✕</button>
       <h2 id="modalTitle">—</h2>
       <a id="modalUrl" href="#" target="_blank" class="modal-url"></a>
-
       <div class="modal-meta" id="modalMeta"></div>
-
       <div class="charts-grid">
-        <div class="chart-box">
-          <h3>PageRank 趨勢</h3>
-          <canvas id="chartPagerank"></canvas>
+        <div class="chart-box"><h3>PageRank 趨勢</h3><canvas id="chartPagerank"></canvas></div>
+        <div class="chart-box"><h3>社群追蹤趨勢</h3><canvas id="chartSocial"></canvas></div>
+        <div class="chart-box"><h3>網站頁數趨勢</h3><canvas id="chartPages"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit competitor modal -->
+  <div id="editModal" class="modal-overlay" onclick="closeEditModal(event)">
+    <div class="modal modal-sm">
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+      <h2 id="editModalTitle">新增競爭對手</h2>
+      <form id="editForm" onsubmit="saveCompetitor(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>名稱 *</label>
+            <input type="text" id="fName" required placeholder="e.g. Yodeck" />
+          </div>
+          <div class="form-group">
+            <label>網址 *</label>
+            <input type="url" id="fUrl" required placeholder="https://yodeck.com" />
+          </div>
+          <div class="form-group">
+            <label>Facebook 帳號</label>
+            <input type="text" id="fFacebook" placeholder="e.g. yodeckdigitalsignage" />
+          </div>
+          <div class="form-group">
+            <label>Instagram 帳號</label>
+            <input type="text" id="fInstagram" placeholder="e.g. yodeck.digitalsignage" />
+          </div>
+          <div class="form-group">
+            <label>X (Twitter) 帳號</label>
+            <input type="text" id="fX" placeholder="e.g. yodeck" />
+          </div>
+          <div class="form-group">
+            <label>LinkedIn 帳號</label>
+            <input type="text" id="fLinkedin" placeholder="e.g. company/yodeck" />
+          </div>
         </div>
-        <div class="chart-box">
-          <h3>社群追蹤趨勢</h3>
-          <canvas id="chartSocial"></canvas>
+        <div class="form-actions">
+          <button type="button" class="btn-danger" id="btnDelete" onclick="deleteCompetitor()" style="display:none">刪除</button>
+          <button type="button" class="btn-secondary" onclick="closeEditModal()">取消</button>
+          <button type="submit" class="btn-scrape">儲存</button>
         </div>
-        <div class="chart-box">
-          <h3>網站頁數趨勢</h3>
-          <canvas id="chartPages"></canvas>
+      </form>
+    </div>
+  </div>
+
+  <!-- Settings modal -->
+  <div id="settingsModal" class="modal-overlay" onclick="closeSettings(event)">
+    <div class="modal modal-sm">
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+      <h2>設定</h2>
+      <p style="color:var(--text-muted);font-size:13px;margin:8px 0 16px">需要 GitHub Personal Access Token 才能儲存數據和觸發爬蟲。</p>
+      <div class="form-group">
+        <label>GitHub Token</label>
+        <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">
+          前往 GitHub → Settings → Developer settings → Personal access tokens → 勾選 <strong>repo</strong> 和 <strong>workflow</strong>
         </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-scrape" onclick="saveToken()">儲存 Token</button>
       </div>
     </div>
   </div>
