@@ -14,9 +14,9 @@
         "date": "2026-06-20",
         "open_pagerank": null,
         "sitemap_pages": 9,
-        "meta_title": "The Best Digital Signage Software in 2026 | Yodeck",
-        "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck digital signage software lets you create dynamic displays in minutes. First screen is FREE.",
-        "tech_stack": "WordPress, HubSpot, Nginx",
+        "meta_title": "403 Forbidden",
+        "meta_description": null,
+        "tech_stack": "Nginx",
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
@@ -28,9 +28,9 @@
           "date": "2026-06-20",
           "open_pagerank": null,
           "sitemap_pages": 9,
-          "meta_title": "The Best Digital Signage Software in 2026 | Yodeck",
-          "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck digital signage software lets you create dynamic displays in minutes. First screen is FREE.",
-          "tech_stack": "WordPress, HubSpot, Nginx",
+          "meta_title": "403 Forbidden",
+          "meta_description": null,
+          "tech_stack": "Nginx",
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
@@ -773,10 +773,10 @@
       "latest": {
         "date": "2026-06-20",
         "open_pagerank": null,
-        "sitemap_pages": 5,
-        "meta_title": "Homepage - EDBAK",
-        "meta_description": "We are a manufacturer of mounting systems for LED/LCD screens and projectors. We also offer video conferencing carts, stands, multi-screen video walls, wall and desk mounts, projector mounts, information kiosks and solutions for the retail industry.",
-        "tech_stack": "WordPress, Cloudflare",
+        "sitemap_pages": null,
+        "meta_title": "415 Unsupported Media Type",
+        "meta_description": null,
+        "tech_stack": "Cloudflare",
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
@@ -787,10 +787,10 @@
         {
           "date": "2026-06-20",
           "open_pagerank": null,
-          "sitemap_pages": 5,
-          "meta_title": "Homepage - EDBAK",
-          "meta_description": "We are a manufacturer of mounting systems for LED/LCD screens and projectors. We also offer video conferencing carts, stands, multi-screen video walls, wall and desk mounts, projector mounts, information kiosks and solutions for the retail industry.",
-          "tech_stack": "WordPress, Cloudflare",
+          "sitemap_pages": null,
+          "meta_title": "415 Unsupported Media Type",
+          "meta_description": null,
+          "tech_stack": "Cloudflare",
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
@@ -811,10 +811,10 @@
       "latest": {
         "date": "2026-06-20",
         "open_pagerank": null,
-        "sitemap_pages": 5,
-        "meta_title": "廣迅媒體數位科技 | 數位電子看板、拼接電視牆一站整合規劃團隊",
-        "meta_description": "廣迅媒體（ETS Media）創立於 2009 年，長期深耕數位電子看板與顯示整合服務。我們專注於多媒體顯示應用與拼接電視牆規劃，透過設備整合銷售、系統規劃建置、專業解決方案與維運代管等服務，提供從前期規劃到後續維護的一條龍專業支援。",
-        "tech_stack": "WordPress, Nginx",
+        "sitemap_pages": null,
+        "meta_title": "415 Unsupported Media Type",
+        "meta_description": null,
+        "tech_stack": "Nginx",
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
@@ -825,10 +825,10 @@
         {
           "date": "2026-06-20",
           "open_pagerank": null,
-          "sitemap_pages": 5,
-          "meta_title": "廣迅媒體數位科技 | 數位電子看板、拼接電視牆一站整合規劃團隊",
-          "meta_description": "廣迅媒體（ETS Media）創立於 2009 年，長期深耕數位電子看板與顯示整合服務。我們專注於多媒體顯示應用與拼接電視牆規劃，透過設備整合銷售、系統規劃建置、專業解決方案與維運代管等服務，提供從前期規劃到後續維護的一條龍專業支援。",
-          "tech_stack": "WordPress, Nginx",
+          "sitemap_pages": null,
+          "meta_title": "415 Unsupported Media Type",
+          "meta_description": null,
+          "tech_stack": "Nginx",
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
@@ -1350,7 +1350,7 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 87,
+        "linkedin_followers": 88,
         "trends_score": null
       },
       "history": [
@@ -1364,7 +1364,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 87,
+          "linkedin_followers": 88,
           "trends_score": null
         }
       ]
@@ -1806,7 +1806,7 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 53,
+        "linkedin_followers": 52,
         "trends_score": null
       },
       "history": [
@@ -1820,7 +1820,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 53,
+          "linkedin_followers": 52,
           "trends_score": null
         }
       ]
@@ -1844,7 +1844,7 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 185469,
+        "linkedin_followers": 185460,
         "trends_score": null
       },
       "history": [
@@ -1858,7 +1858,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 185469,
+          "linkedin_followers": 185460,
           "trends_score": null
         }
       ]
