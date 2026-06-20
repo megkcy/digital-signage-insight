@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insight — 競爭對手追蹤</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◎</span>
+        <span>Insight</span>
+        <span class="logo-sub">競爭對手追蹤</span>
+      </div>
+      <div class="header-actions">
+        <div class="status-badge" id="statusBadge">載入中…</div>
+        <button class="btn-scrape" id="btnScrape" onclick="triggerScrape()">▶ 立即爬取</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Summary cards -->
+    <section class="cards">
+      <div class="card">
+        <div class="card-label">競爭對手數</div>
+        <div class="card-value" id="cardTotal">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">上次更新</div>
+        <div class="card-value" id="cardLastScrape">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SEO 快照數</div>
+        <div class="card-value" id="cardSeo">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">社群快照數</div>
+        <div class="card-value" id="cardSocial">—</div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="toolbar">
+      <input id="search" type="text" placeholder="搜尋競爭對手…" oninput="filterTable()" />
+      <select id="sortBy" onchange="filterTable()">
+        <option value="name">名稱排序</option>
+        <option value="open_pagerank">PageRank 排序</option>
+        <option value="sitemap_pages">網站頁數排序</option>
+        <option value="facebook_followers">Facebook 追蹤排序</option>
+        <option value="instagram_followers">Instagram 追蹤排序</option>
+        <option value="x_followers">X 追蹤排序</option>
+      </select>
+      <select id="sortDir" onchange="filterTable()">
+        <option value="desc">由高到低</option>
+        <option value="asc">由低到高</option>
+      </select>
+    </section>
+
+    <!-- Main table -->
+    <section class="table-wrap">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th>競爭對手</th>
+            <th>PageRank</th>
+            <th>Tech Stack</th>
+            <th>網站頁數</th>
+            <th>Facebook</th>
+            <th>Instagram</th>
+            <th>X (Twitter)</th>
+            <th>LinkedIn</th>
+            <th>更新日期</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="10" class="loading">載入數據中…</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Detail modal -->
+  <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h2 id="modalTitle">—</h2>
+      <a id="modalUrl" href="#" target="_blank" class="modal-url"></a>
+
+      <div class="modal-meta" id="modalMeta"></div>
+
+      <div class="charts-grid">
+        <div class="chart-box">
+          <h3>PageRank 趨勢</h3>
+          <canvas id="chartPagerank"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>社群追蹤趨勢</h3>
+          <canvas id="chartSocial"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>網站頁數趨勢</h3>
+          <canvas id="chartPages"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
