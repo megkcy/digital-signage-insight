@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-21",
+  "last_updated": "2026-06-26",
   "competitors": [
     {
       "name": "Yodeck",
@@ -11,11 +11,11 @@
         "linkedin": "company/yodeck"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
-        "sitemap_pages": 9,
+        "sitemap_pages": 10,
         "meta_title": "The Best Digital Signage Software in 2026 | Yodeck",
-        "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck digital signage software lets you create dynamic displays in minutes. First screen is FREE.",
+        "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck is proven smart and easy digital signage software. Create dynamic displays in minutes. Start free today.",
         "tech_stack": "WordPress, HubSpot, Nginx",
         "facebook_followers": null,
         "instagram_followers": null,
@@ -25,24 +25,37 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 9,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": null,
-          "tech_stack": "Nginx",
+          "linkedin_followers": null,
           "meta_title": "403 Forbidden",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": 9,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "Nginx",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
-          "date": "2026-06-21",
-          "open_pagerank": null,
-          "sitemap_pages": 9,
+          "linkedin_followers": null,
           "meta_title": "The Best Digital Signage Software in 2026 | Yodeck",
+          "x_followers": null,
+          "instagram_followers": null,
           "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck digital signage software lets you create dynamic displays in minutes. First screen is FREE.",
+          "sitemap_pages": 9,
+          "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, HubSpot, Nginx",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
+          "open_pagerank": null,
+          "sitemap_pages": 10,
+          "meta_title": "The Best Digital Signage Software in 2026 | Yodeck",
+          "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck is proven smart and easy digital signage software. Create dynamic displays in minutes. Start free today.",
           "tech_stack": "WordPress, HubSpot, Nginx",
           "facebook_followers": null,
           "instagram_followers": null,
@@ -62,7 +75,7 @@
         "linkedin": "company/qwaiting"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 302,
         "meta_title": "Queue Management Software for Appointments, Walk-ins & More",
@@ -76,20 +89,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 302,
-          "date": "2026-06-20",
+          "linkedin_followers": 9,
+          "x_followers": null,
+          "meta_title": "Queue Management Software for Appointments, Walk-ins & More",
           "instagram_followers": null,
           "meta_description": "Reduce wait times by 35% with Qwaiting's queue management software. Manage walk-ins, appointments & multi-branch operations. Trusted by 65,000+ businesses. Try free.",
+          "sitemap_pages": 302,
           "tech_stack": "WordPress",
-          "meta_title": "Queue Management Software for Appointments, Walk-ins & More",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 9,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 10,
+          "meta_title": "Queue Management Software for Appointments, Walk-ins & More",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Reduce wait times by 35% with Qwaiting's queue management software. Manage walk-ins, appointments & multi-branch operations. Trusted by 65,000+ businesses. Try free.",
+          "sitemap_pages": 302,
+          "tech_stack": "WordPress",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 302,
           "meta_title": "Queue Management Software for Appointments, Walk-ins & More",
@@ -113,7 +139,7 @@
         "linkedin": "company/look-digital-signage"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 2176,
         "meta_title": "Digital Signage Software for Business - Look DS",
@@ -127,20 +153,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 2176,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Сloud-based and on-premise digital signage software for remotely managing any screen or TV. Use ready-made templates, create AI-powered content, and display live data from 50+ built-in apps.",
-          "tech_stack": "Cloudflare",
+          "linkedin_followers": null,
           "meta_title": "Digital Signage Software for Business - Look DS",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Сloud-based and on-premise digital signage software for remotely managing any screen or TV. Use ready-made templates, create AI-powered content, and display live data from 50+ built-in apps.",
+          "sitemap_pages": 2176,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "Cloudflare",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "Digital Signage Software for Business - Look DS",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Сloud-based and on-premise digital signage software for remotely managing any screen or TV. Use ready-made templates, create AI-powered content, and display live data from 50+ built-in apps.",
+          "sitemap_pages": 2176,
+          "tech_stack": "Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 2176,
           "meta_title": "Digital Signage Software for Business - Look DS",
@@ -164,7 +203,7 @@
         "linkedin": "company/nento"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 5,
         "meta_title": "Nento Digital Signage Solution | Digital Displays For Businesses - NENTO",
@@ -178,20 +217,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 5,
-          "date": "2026-06-20",
+          "linkedin_followers": 17,
+          "x_followers": null,
+          "meta_title": "Nento Digital Signage Solution | Digital Displays For Businesses - NENTO",
           "instagram_followers": null,
           "meta_description": "Nento digital signage software for every business. Effortlessly distribute content, including apps, integrations, and live casting, to single or multiple screens throughout your workplace. Get your 30-day trial today.",
+          "sitemap_pages": 5,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "WordPress",
-          "meta_title": "Nento Digital Signage Solution | Digital Displays For Businesses - NENTO",
-          "x_followers": null,
           "open_pagerank": null,
-          "linkedin_followers": 17,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 17,
+          "meta_title": "Nento Digital Signage Solution | Digital Displays For Businesses - NENTO",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Nento digital signage software for every business. Effortlessly distribute content, including apps, integrations, and live casting, to single or multiple screens throughout your workplace. Get your 30-day trial today.",
+          "sitemap_pages": 5,
+          "tech_stack": "WordPress",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 5,
           "meta_title": "Nento Digital Signage Solution | Digital Displays For Businesses - NENTO",
@@ -215,7 +267,7 @@
         "linkedin": "company/hexnode"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 892,
         "meta_title": "Hexnode | Enterprise Device Management & Security",
@@ -224,25 +276,38 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 521,
+        "linkedin_followers": 523,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 892,
-          "date": "2026-06-20",
+          "linkedin_followers": 519,
+          "x_followers": null,
+          "meta_title": "Hexnode | Enterprise Device Management & Security",
           "instagram_followers": null,
           "meta_description": "The complete platform for UEM and XDR. Securely manage mobiles, desktops, and IoT devices while defending against advanced cyber threats. Try Hexnode free.",
+          "sitemap_pages": 892,
           "tech_stack": "WordPress, Next.js, Nginx",
-          "meta_title": "Hexnode | Enterprise Device Management & Security",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 519,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 521,
+          "meta_title": "Hexnode | Enterprise Device Management & Security",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "The complete platform for UEM and XDR. Securely manage mobiles, desktops, and IoT devices while defending against advanced cyber threats. Try Hexnode free.",
+          "sitemap_pages": 892,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Next.js, Nginx",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 892,
           "meta_title": "Hexnode | Enterprise Device Management & Security",
@@ -251,7 +316,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 521,
+          "linkedin_followers": 523,
           "trends_score": null
         }
       ]
@@ -266,7 +331,7 @@
         "linkedin": "company/22miles"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 5,
         "meta_title": "22Miles Award-Winning Digital Signage & Wayfinding Solutions",
@@ -280,20 +345,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 5,
-          "date": "2026-06-20",
+          "linkedin_followers": 61,
+          "x_followers": null,
+          "meta_title": "22Miles Award-Winning Digital Signage & Wayfinding Solutions",
           "instagram_followers": null,
           "meta_description": "Explore 22Miles flexible and scalable digital signage, wayfinding, video wall, and AI solutions. Book a demo today!",
+          "sitemap_pages": 5,
           "tech_stack": "WordPress, Angular",
-          "meta_title": "22Miles Award-Winning Digital Signage & Wayfinding Solutions",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 61,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 61,
+          "x_followers": null,
+          "meta_title": "22Miles Award-Winning Digital Signage & Wayfinding Solutions",
+          "instagram_followers": null,
+          "meta_description": "Explore 22Miles flexible and scalable digital signage, wayfinding, video wall, and AI solutions. Book a demo today!",
+          "sitemap_pages": 5,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Angular",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 5,
           "meta_title": "22Miles Award-Winning Digital Signage & Wayfinding Solutions",
@@ -317,7 +395,7 @@
         "linkedin": ""
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 3,
         "meta_title": "Free digital signage software - AbleSign",
@@ -331,20 +409,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 3,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "A widely used, reliable digital signage platform to display videos and images on any screen. Free to use. No ‘per screen’ charges.",
-          "tech_stack": "WordPress",
+          "linkedin_followers": null,
           "meta_title": "Free digital signage software - AbleSign",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "A widely used, reliable digital signage platform to display videos and images on any screen. Free to use. No ‘per screen’ charges.",
+          "sitemap_pages": 3,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "WordPress",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "Free digital signage software - AbleSign",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "A widely used, reliable digital signage platform to display videos and images on any screen. Free to use. No ‘per screen’ charges.",
+          "sitemap_pages": 3,
+          "tech_stack": "WordPress",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 3,
           "meta_title": "Free digital signage software - AbleSign",
@@ -368,7 +459,7 @@
         "linkedin": "company/admooh"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 4,
         "meta_title": "adMooH | Tecnologia DOOH do planejamento ao impacto",
@@ -382,20 +473,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 4,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Pioneira no DOOH programático brasileiro, a adMooH é a tech stack para planejar, ativar, otimizar e escalar oportunidades de mídia DOOH.",
-          "tech_stack": "WordPress",
+          "linkedin_followers": 20,
           "meta_title": "adMooH | Tecnologia DOOH do planejamento ao impacto",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Pioneira no DOOH programático brasileiro, a adMooH é a tech stack para planejar, ativar, otimizar e escalar oportunidades de mídia DOOH.",
+          "sitemap_pages": 4,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "WordPress",
           "open_pagerank": null,
-          "linkedin_followers": 20,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 20,
+          "meta_title": "adMooH | Tecnologia DOOH do planejamento ao impacto",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Pioneira no DOOH programático brasileiro, a adMooH é a tech stack para planejar, ativar, otimizar e escalar oportunidades de mídia DOOH.",
+          "sitemap_pages": 4,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 4,
           "meta_title": "adMooH | Tecnologia DOOH do planejamento ao impacto",
@@ -419,9 +523,9 @@
         "linkedin": "company/aiscreen"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
-        "sitemap_pages": null,
+        "sitemap_pages": 11,
         "meta_title": "Just a moment...",
         "meta_description": null,
         "tech_stack": "Cloudflare",
@@ -433,22 +537,35 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 11,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": null,
-          "tech_stack": "Cloudflare",
+          "linkedin_followers": 10,
           "meta_title": "Just a moment...",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": 11,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "Cloudflare",
           "open_pagerank": null,
-          "linkedin_followers": 10,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 10,
+          "meta_title": "Just a moment...",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
+          "tech_stack": "Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
           "open_pagerank": null,
-          "sitemap_pages": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
+          "open_pagerank": null,
+          "sitemap_pages": 11,
           "meta_title": "Just a moment...",
           "meta_description": null,
           "tech_stack": "Cloudflare",
@@ -470,7 +587,7 @@
         "linkedin": "company/ameria"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "AMERIA AG | European Deep-Tech powered by AI",
@@ -484,20 +601,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "AMERIA is a leading European deep tech company based in Heidelberg. MAVERICK AI is smart software, a revolutionary AI assistant and a stylish form factor all in one.",
-          "tech_stack": "Cloudflare",
+          "linkedin_followers": null,
           "meta_title": "AMERIA AG | European Deep-Tech powered by AI",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "AMERIA is a leading European deep tech company based in Heidelberg. MAVERICK AI is smart software, a revolutionary AI assistant and a stylish form factor all in one.",
+          "sitemap_pages": null,
+          "tech_stack": "Cloudflare",
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "AMERIA AG | European Deep-Tech powered by AI",
+          "instagram_followers": null,
+          "meta_description": "AMERIA is a leading European deep tech company based in Heidelberg. MAVERICK AI is smart software, a revolutionary AI assistant and a stylish form factor all in one.",
+          "sitemap_pages": null,
+          "tech_stack": "Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "AMERIA AG | European Deep-Tech powered by AI",
@@ -521,7 +651,7 @@
         "linkedin": ""
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 3,
         "meta_title": "Digital Signage Solutions Singapore | Ascenstar",
@@ -535,20 +665,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 3,
-          "date": "2026-06-20",
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Digital Signage Solutions Singapore | Ascenstar",
           "instagram_followers": null,
           "meta_description": "Ascentar provides end-to-end digital signage solutions in Singapore. We also offer installation, creative and custom app development. Visit our website today!",
+          "sitemap_pages": 3,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "WordPress, Nginx",
-          "meta_title": "Digital Signage Solutions Singapore | Ascenstar",
-          "x_followers": null,
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Digital Signage Solutions Singapore | Ascenstar",
+          "instagram_followers": null,
+          "meta_description": "Ascentar provides end-to-end digital signage solutions in Singapore. We also offer installation, creative and custom app development. Visit our website today!",
+          "sitemap_pages": 3,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Nginx",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 3,
           "meta_title": "Digital Signage Solutions Singapore | Ascenstar",
@@ -572,7 +715,7 @@
         "linkedin": "company/aurora-signage"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "LED Displays & Digital Signage Australia — Aurora Signage",
@@ -586,20 +729,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
+          "linkedin_followers": 25,
+          "x_followers": null,
+          "meta_title": "LED Displays & Digital Signage Australia — Aurora Signage",
           "instagram_followers": null,
           "meta_description": "Australian LED display manufacturer supplying video walls, scoreboards, outdoor signage and digital displays. Engineered by Aurora Displays. RCM certified. Call 1300 841 542.",
+          "sitemap_pages": null,
           "tech_stack": null,
-          "meta_title": "LED Displays & Digital Signage Australia — Aurora Signage",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 25,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 25,
+          "meta_title": "LED Displays & Digital Signage Australia — Aurora Signage",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Australian LED display manufacturer supplying video walls, scoreboards, outdoor signage and digital displays. Engineered by Aurora Displays. RCM certified. Call 1300 841 542.",
+          "sitemap_pages": null,
+          "tech_stack": null,
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "LED Displays & Digital Signage Australia — Aurora Signage",
@@ -623,7 +779,7 @@
         "linkedin": "company/axiomtek"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 2027,
         "meta_title": "Axiomtek- Industry Leader in Industrial Embedded Computer Solutions",
@@ -637,20 +793,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 2027,
-          "date": "2026-06-20",
+          "linkedin_followers": 372,
+          "x_followers": null,
+          "meta_title": "Axiomtek- Industry Leader in Industrial Embedded Computer Solutions",
           "instagram_followers": null,
           "meta_description": "Axiomtek, an industrial PC field expert, designs and manufactures embedded computer, Box PC, industrial motherboard, single board computer, system on module, touch panel PC, Ethernet switch, network security appliance and digital signage.",
+          "sitemap_pages": 2027,
           "tech_stack": null,
-          "meta_title": "Axiomtek- Industry Leader in Industrial Embedded Computer Solutions",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 372,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 372,
+          "meta_title": "Axiomtek- Industry Leader in Industrial Embedded Computer Solutions",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Axiomtek, an industrial PC field expert, designs and manufactures embedded computer, Box PC, industrial motherboard, single board computer, system on module, touch panel PC, Ethernet switch, network security appliance and digital signage.",
+          "sitemap_pages": 2027,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": null,
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 2027,
           "meta_title": "Axiomtek- Industry Leader in Industrial Embedded Computer Solutions",
@@ -674,7 +843,7 @@
         "linkedin": "company/benq"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 60,
         "meta_title": "LCD Monitors, Projectors, Lighting, Arm, Displays & Signage | BenQ US",
@@ -683,25 +852,38 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 1789,
+        "linkedin_followers": 1790,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
+          "linkedin_followers": 1789,
+          "x_followers": null,
+          "meta_title": "LCD Monitors, Projectors, Lighting, Arm, Displays & Signage | BenQ US",
+          "instagram_followers": null,
+          "meta_description": "Explore BenQ’s world-renowned monitors, projectors, lighting, interactive displays & signage designed to bring enjoyment and quality to life!",
           "sitemap_pages": 60,
           "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Explore BenQ’s world-renowned monitors, projectors, lighting, interactive displays & signage designed to bring enjoyment and quality to life!",
+          "trends_score": null,
           "tech_stack": "HubSpot",
-          "meta_title": "LCD Monitors, Projectors, Lighting, Arm, Displays & Signage | BenQ US",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 1789,
-          "trends_score": null
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 1789,
+          "x_followers": null,
+          "meta_title": "LCD Monitors, Projectors, Lighting, Arm, Displays & Signage | BenQ US",
+          "instagram_followers": null,
+          "meta_description": "Explore BenQ’s world-renowned monitors, projectors, lighting, interactive displays & signage designed to bring enjoyment and quality to life!",
+          "sitemap_pages": 60,
+          "tech_stack": "HubSpot",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 60,
           "meta_title": "LCD Monitors, Projectors, Lighting, Arm, Displays & Signage | BenQ US",
@@ -710,7 +892,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 1789,
+          "linkedin_followers": 1790,
           "trends_score": null
         }
       ]
@@ -725,7 +907,7 @@
         "linkedin": ""
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 37,
         "meta_title": "BRICKS- Make your interactive signage meet business speed.",
@@ -739,20 +921,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 37,
-          "date": "2026-06-20",
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "BRICKS- Make your interactive signage meet business speed.",
           "instagram_followers": null,
           "meta_description": "BRICKS is a PaaS for building commercial interactive apps. Signage & kiosk builders which focus on supporting business with High Frequency of Changing.",
+          "sitemap_pages": 37,
           "tech_stack": null,
-          "meta_title": "BRICKS- Make your interactive signage meet business speed.",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "BRICKS- Make your interactive signage meet business speed.",
+          "instagram_followers": null,
+          "meta_description": "BRICKS is a PaaS for building commercial interactive apps. Signage & kiosk builders which focus on supporting business with High Frequency of Changing.",
+          "sitemap_pages": 37,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": null,
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 37,
           "meta_title": "BRICKS- Make your interactive signage meet business speed.",
@@ -776,7 +971,7 @@
         "linkedin": "company/brightsign"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 12,
         "meta_title": "BrightSign® Digital Signage Players",
@@ -790,20 +985,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 12,
-          "date": "2026-06-20",
+          "linkedin_followers": 130,
+          "x_followers": null,
+          "meta_title": "BrightSign® Digital Signage Players",
           "instagram_followers": null,
           "meta_description": "Transform your digital signage with BrightSign®, the leading provider of digital signage players. Explore our range of powerful, reliable and easy-to-use products designed to bring your content to life.",
+          "sitemap_pages": 12,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "WordPress, Cloudflare",
-          "meta_title": "BrightSign® Digital Signage Players",
-          "x_followers": null,
           "open_pagerank": null,
-          "linkedin_followers": 130,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 130,
+          "meta_title": "BrightSign® Digital Signage Players",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Transform your digital signage with BrightSign®, the leading provider of digital signage players. Explore our range of powerful, reliable and easy-to-use products designed to bring your content to life.",
+          "sitemap_pages": 12,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 12,
           "meta_title": "BrightSign® Digital Signage Players",
@@ -827,9 +1035,9 @@
         "linkedin": "company/broadsign"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
-        "sitemap_pages": 883,
+        "sitemap_pages": 886,
         "meta_title": "Broadsign, The Platform that Powers Out-of-Home",
         "meta_description": "The end-to-end solution for media owners and buyers to plan, manage and deliver out-of-home media.",
         "tech_stack": "WordPress, HubSpot",
@@ -841,22 +1049,35 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 883,
-          "date": "2026-06-20",
+          "linkedin_followers": 395,
+          "x_followers": null,
+          "meta_title": "Broadsign, The Platform that Powers Out-of-Home",
           "instagram_followers": null,
           "meta_description": "The end-to-end solution for media owners and buyers to plan, manage and deliver out-of-home media.",
+          "sitemap_pages": 883,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "WordPress, HubSpot",
-          "meta_title": "Broadsign, The Platform that Powers Out-of-Home",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 395,
-          "trends_score": null
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 395,
+          "x_followers": null,
+          "meta_title": "Broadsign, The Platform that Powers Out-of-Home",
+          "instagram_followers": null,
+          "meta_description": "The end-to-end solution for media owners and buyers to plan, manage and deliver out-of-home media.",
+          "sitemap_pages": 883,
+          "tech_stack": "WordPress, HubSpot",
+          "trends_score": null,
           "date": "2026-06-21",
           "open_pagerank": null,
-          "sitemap_pages": 883,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
+          "open_pagerank": null,
+          "sitemap_pages": 886,
           "meta_title": "Broadsign, The Platform that Powers Out-of-Home",
           "meta_description": "The end-to-end solution for media owners and buyers to plan, manage and deliver out-of-home media.",
           "tech_stack": "WordPress, HubSpot",
@@ -878,7 +1099,7 @@
         "linkedin": "company/comqi"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 3,
         "meta_title": "Digital Signage Solutions - ComQi",
@@ -892,20 +1113,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 3,
-          "date": "2026-06-20",
+          "linkedin_followers": 45,
+          "x_followers": null,
+          "meta_title": "Digital Signage Solutions - ComQi",
           "instagram_followers": null,
           "meta_description": "ComQi's digital signage solutions help multi-location enterprises and retail chains deliver immersive and memorable in-venue experiences.",
+          "sitemap_pages": 3,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "WordPress, Nginx",
-          "meta_title": "Digital Signage Solutions - ComQi",
-          "x_followers": null,
           "open_pagerank": null,
-          "linkedin_followers": 45,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 45,
+          "meta_title": "Digital Signage Solutions - ComQi",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "ComQi's digital signage solutions help multi-location enterprises and retail chains deliver immersive and memorable in-venue experiences.",
+          "sitemap_pages": 3,
+          "tech_stack": "WordPress, Nginx",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 3,
           "meta_title": "Digital Signage Solutions - ComQi",
@@ -929,7 +1163,7 @@
         "linkedin": "company/dotsignage"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 2,
         "meta_title": "Digital Signage Software - DotSignage",
@@ -943,20 +1177,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 2,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "DotSignage provides easy-to-use android based digital signage software solutions for restaurant's digital menu boards, retail, education sector etc. You get 700+ free in-built digital signage templates.",
-          "tech_stack": "WordPress, Cloudflare",
+          "linkedin_followers": 138,
           "meta_title": "Digital Signage Software - DotSignage",
           "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 138,
-          "trends_score": null
+          "instagram_followers": null,
+          "meta_description": "DotSignage provides easy-to-use android based digital signage software solutions for restaurant's digital menu boards, retail, education sector etc. You get 700+ free in-built digital signage templates.",
+          "sitemap_pages": 2,
+          "tech_stack": "WordPress, Cloudflare",
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 138,
+          "x_followers": null,
+          "meta_title": "Digital Signage Software - DotSignage",
+          "instagram_followers": null,
+          "meta_description": "DotSignage provides easy-to-use android based digital signage software solutions for restaurant's digital menu boards, retail, education sector etc. You get 700+ free in-built digital signage templates.",
+          "sitemap_pages": 2,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 2,
           "meta_title": "Digital Signage Software - DotSignage",
@@ -980,7 +1227,7 @@
         "linkedin": "company/dynascan-technology"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 20,
         "meta_title": "Home - DynaScan",
@@ -994,20 +1241,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 20,
-          "date": "2026-06-20",
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Home - DynaScan",
           "instagram_followers": null,
           "meta_description": null,
+          "sitemap_pages": 20,
           "tech_stack": "WordPress, Cloudflare",
-          "meta_title": "Home - DynaScan",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "Home - DynaScan",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": 20,
+          "tech_stack": "WordPress, Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 20,
           "meta_title": "Home - DynaScan",
@@ -1031,7 +1291,7 @@
         "linkedin": "company/edbak"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 5,
         "meta_title": "Homepage - EDBAK",
@@ -1045,20 +1305,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
+          "linkedin_followers": 40,
+          "x_followers": null,
+          "meta_title": "415 Unsupported Media Type",
           "instagram_followers": null,
           "meta_description": null,
+          "sitemap_pages": null,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "Cloudflare",
-          "meta_title": "415 Unsupported Media Type",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 40,
-          "trends_score": null
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 40,
+          "meta_title": "Homepage - EDBAK",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "We are a manufacturer of mounting systems for LED/LCD screens and projectors. We also offer video conferencing carts, stands, multi-screen video walls, wall and desk mounts, projector mounts, information kiosks and solutions for the retail industry.",
+          "sitemap_pages": 5,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 5,
           "meta_title": "Homepage - EDBAK",
@@ -1082,7 +1355,7 @@
         "linkedin": ""
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 5,
         "meta_title": "廣迅媒體數位科技 | 數位電子看板、拼接電視牆一站整合規劃團隊",
@@ -1096,20 +1369,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": null,
-          "tech_stack": "Nginx",
+          "linkedin_followers": null,
           "meta_title": "415 Unsupported Media Type",
           "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
+          "tech_stack": "Nginx",
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "廣迅媒體數位科技 | 數位電子看板、拼接電視牆一站整合規劃團隊",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "廣迅媒體（ETS Media）創立於 2009 年，長期深耕數位電子看板與顯示整合服務。我們專注於多媒體顯示應用與拼接電視牆規劃，透過設備整合銷售、系統規劃建置、專業解決方案與維運代管等服務，提供從前期規劃到後續維護的一條龍專業支援。",
+          "sitemap_pages": 5,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Nginx",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 5,
           "meta_title": "廣迅媒體數位科技 | 數位電子看板、拼接電視牆一站整合規劃團隊",
@@ -1133,7 +1419,7 @@
         "linkedin": ""
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "å»£åæ© é»å­çæ¿ ç¬¬ä¸åç PAPAGOéåFarBar",
@@ -1147,20 +1433,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "å»£åæ© é»å­çæ¿ ç¬¬ä¸åç PAPAGOéåFarBar",
           "instagram_followers": null,
           "meta_description": "æä¾ç´ç«å¼ãåæå¼ãå£æå¼ãç¹æ®æ©æ¬¾å»£åæ© é»å­çæ¿ æ¸ä½çæ¿ï¼ééBSMI/NCCèªè­ åè³ªå®å¨æä¿è­ï¼MITèªè¡ç ç¼SiangeCTé»å­çæ¿è»é«ï¼å°å å°ä¸­ å°åçæè¨­æé»ï¼å½æ§æä½ è³£æ· é·ç§ ç­ç§åè»é«å®¢è£½åæåã",
+          "sitemap_pages": null,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": null,
-          "meta_title": "å»£åæ© é»å­çæ¿ ç¬¬ä¸åç PAPAGOéåFarBar",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "å»£åæ© é»å­çæ¿ ç¬¬ä¸åç PAPAGOéåFarBar",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "æä¾ç´ç«å¼ãåæå¼ãå£æå¼ãç¹æ®æ©æ¬¾å»£åæ© é»å­çæ¿ æ¸ä½çæ¿ï¼ééBSMI/NCCèªè­ åè³ªå®å¨æä¿è­ï¼MITèªè¡ç ç¼SiangeCTé»å­çæ¿è»é«ï¼å°å å°ä¸­ å°åçæè¨­æé»ï¼å½æ§æä½ è³£æ· é·ç§ ç­ç§åè»é«å®¢è£½åæåã",
+          "sitemap_pages": null,
+          "tech_stack": null,
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "å»£åæ© é»å­çæ¿ ç¬¬ä¸åç PAPAGOéåFarBar",
@@ -1184,7 +1483,7 @@
         "linkedin": "company/friendlyway"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 6,
         "meta_title": "friendlyway: Visitor Management, Digital Signage & Self-Service",
@@ -1198,20 +1497,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 6,
-          "date": "2026-06-20",
+          "linkedin_followers": 22,
+          "x_followers": null,
+          "meta_title": "friendlyway: Visitor Management, Digital Signage & Self-Service",
           "instagram_followers": null,
           "meta_description": "Best practices of self-service and digital content management, furnished into one cloud platform, fully integrated with kiosks and hardware solutions.",
+          "sitemap_pages": 6,
           "tech_stack": "WordPress, HubSpot, Cloudflare",
-          "meta_title": "friendlyway: Visitor Management, Digital Signage & Self-Service",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 22,
-          "trends_score": null
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 22,
+          "meta_title": "friendlyway: Visitor Management, Digital Signage & Self-Service",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Best practices of self-service and digital content management, furnished into one cloud platform, fully integrated with kiosks and hardware solutions.",
+          "sitemap_pages": 6,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, HubSpot, Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 6,
           "meta_title": "friendlyway: Visitor Management, Digital Signage & Self-Service",
@@ -1235,7 +1547,7 @@
         "linkedin": "company/iadea"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 15,
         "meta_title": "IAdea | Award-winning room booking panel and digital signage solution",
@@ -1249,20 +1561,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 15,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "A leader in enterprise-grade digital signage systems with products ranging from room management panels, desk booking devices, signage players, to device management software.",
-          "tech_stack": "WordPress",
+          "linkedin_followers": 27,
           "meta_title": "IAdea | Award-winning room booking panel and digital signage solution",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "A leader in enterprise-grade digital signage systems with products ranging from room management panels, desk booking devices, signage players, to device management software.",
+          "sitemap_pages": 15,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "WordPress",
           "open_pagerank": null,
-          "linkedin_followers": 27,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 27,
+          "meta_title": "IAdea | Award-winning room booking panel and digital signage solution",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "A leader in enterprise-grade digital signage systems with products ranging from room management panels, desk booking devices, signage players, to device management software.",
+          "sitemap_pages": 15,
+          "tech_stack": "WordPress",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 15,
           "meta_title": "IAdea | Award-winning room booking panel and digital signage solution",
@@ -1286,7 +1611,7 @@
         "linkedin": "company/iiyama"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "Just a moment...",
@@ -1300,20 +1625,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": null,
-          "tech_stack": "Cloudflare",
+          "linkedin_followers": null,
           "meta_title": "Just a moment...",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
+          "tech_stack": "Cloudflare",
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "Just a moment...",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
+          "tech_stack": "Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "Just a moment...",
@@ -1337,7 +1675,7 @@
         "linkedin": "company/lg-electronics"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "Access Denied",
@@ -1346,25 +1684,38 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 65073,
+        "linkedin_followers": 65176,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
+          "linkedin_followers": 65033,
+          "x_followers": null,
+          "meta_title": "Access Denied",
           "instagram_followers": null,
           "meta_description": null,
+          "sitemap_pages": null,
           "tech_stack": null,
-          "meta_title": "Access Denied",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 65033,
-          "trends_score": null
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 65073,
+          "x_followers": null,
+          "meta_title": "Access Denied",
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": null,
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "Access Denied",
@@ -1373,7 +1724,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 65073,
+          "linkedin_followers": 65176,
           "trends_score": null
         }
       ]
@@ -1388,7 +1739,7 @@
         "linkedin": "company/kabob-digital-signage"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 1,
         "meta_title": "Kabob Retail Cloud | Smart Solutions for Retail & Restaurant Chains",
@@ -1402,20 +1753,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 1,
-          "date": "2026-06-20",
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Kabob Retail Cloud | Smart Solutions for Retail & Restaurant Chains",
           "instagram_followers": null,
           "meta_description": "Discover Kabob Retail Cloud: smart solutions for retail and restaurant chains. From POS and AI Drive-Thru to digital signage, background music, and retail media networks, we help brands boost efficiency and customer experience.",
+          "sitemap_pages": 1,
           "tech_stack": "Wix, React",
-          "meta_title": "Kabob Retail Cloud | Smart Solutions for Retail & Restaurant Chains",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Kabob Retail Cloud | Smart Solutions for Retail & Restaurant Chains",
+          "instagram_followers": null,
+          "meta_description": "Discover Kabob Retail Cloud: smart solutions for retail and restaurant chains. From POS and AI Drive-Thru to digital signage, background music, and retail media networks, we help brands boost efficiency and customer experience.",
+          "sitemap_pages": 1,
+          "tech_stack": "Wix, React",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 1,
           "meta_title": "Kabob Retail Cloud | Smart Solutions for Retail & Restaurant Chains",
@@ -1439,7 +1803,7 @@
         "linkedin": "company/mvix"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 948,
         "meta_title": "Enterprise Digital Signage since 2005",
@@ -1453,20 +1817,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 948,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Digital Signage players and cloud software at one-time cost, no subscriptions. Specializing in interactive, touch-display solutions for Offices, Airports, Court Houses, Hospitality, College Campuses and Healthcare facilities.",
-          "tech_stack": "Cloudflare",
+          "linkedin_followers": null,
           "meta_title": "Enterprise Digital Signage since 2005",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Digital Signage players and cloud software at one-time cost, no subscriptions. Specializing in interactive, touch-display solutions for Offices, Airports, Court Houses, Hospitality, College Campuses and Healthcare facilities.",
+          "sitemap_pages": 948,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "Cloudflare",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Enterprise Digital Signage since 2005",
+          "instagram_followers": null,
+          "meta_description": "Digital Signage players and cloud software at one-time cost, no subscriptions. Specializing in interactive, touch-display solutions for Offices, Airports, Court Houses, Hospitality, College Campuses and Healthcare facilities.",
+          "sitemap_pages": 948,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 948,
           "meta_title": "Enterprise Digital Signage since 2005",
@@ -1490,7 +1867,7 @@
         "linkedin": "company/navori-sa"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 9,
         "meta_title": "Interactive Digital Signage Software Solutions | Navori",
@@ -1504,20 +1881,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 9,
-          "date": "2026-06-20",
+          "linkedin_followers": 116,
+          "x_followers": null,
+          "meta_title": "Interactive Digital Signage Software Solutions | Navori",
           "instagram_followers": null,
           "meta_description": "Navori's digital signage software helps you deliver dynamic content, captivate viewers, and optimize audience engagement.",
+          "sitemap_pages": 9,
           "tech_stack": "WordPress, HubSpot",
-          "meta_title": "Interactive Digital Signage Software Solutions | Navori",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 116,
-          "trends_score": null
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 116,
+          "meta_title": "Interactive Digital Signage Software Solutions | Navori",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Navori's digital signage software helps you deliver dynamic content, captivate viewers, and optimize audience engagement.",
+          "sitemap_pages": 9,
+          "tech_stack": "WordPress, HubSpot",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 9,
           "meta_title": "Interactive Digital Signage Software Solutions | Navori",
@@ -1541,7 +1931,7 @@
         "linkedin": "company/nusoft-technology"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": null,
@@ -1555,20 +1945,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": null,
-          "tech_stack": null,
+          "linkedin_followers": null,
           "meta_title": null,
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
+          "tech_stack": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": null,
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
+          "tech_stack": null,
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": null,
@@ -1592,7 +1995,7 @@
         "linkedin": "company/novisign"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 8,
         "meta_title": "NoviSign Digital Signage",
@@ -1606,20 +2009,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 8,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "NoviSign is the leading digital signage company. See why top brands trust our award-winning digital signage CMS. Start your 30-day Free Trial!",
-          "tech_stack": "WordPress, Cloudflare",
+          "linkedin_followers": 2,
           "meta_title": "NoviSign Digital Signage",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "NoviSign is the leading digital signage company. See why top brands trust our award-winning digital signage CMS. Start your 30-day Free Trial!",
+          "sitemap_pages": 8,
+          "tech_stack": "WordPress, Cloudflare",
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 2,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 2,
+          "meta_title": "NoviSign Digital Signage",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "NoviSign is the leading digital signage company. See why top brands trust our award-winning digital signage CMS. Start your 30-day Free Trial!",
+          "sitemap_pages": 8,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress, Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 8,
           "meta_title": "NoviSign Digital Signage",
@@ -1643,7 +2059,7 @@
         "linkedin": "company/now-signage"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "NowSignage - Digital Signage Software",
@@ -1657,20 +2073,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Digital Signage Software for any screen anywhere. Powering screens across all industries including Retail Media Networks and Quick Service Restaurants.",
-          "tech_stack": "HubSpot",
+          "linkedin_followers": null,
           "meta_title": "NowSignage - Digital Signage Software",
           "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "instagram_followers": null,
+          "meta_description": "Digital Signage Software for any screen anywhere. Powering screens across all industries including Retail Media Networks and Quick Service Restaurants.",
+          "sitemap_pages": null,
+          "tech_stack": "HubSpot",
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "NowSignage - Digital Signage Software",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Digital Signage Software for any screen anywhere. Powering screens across all industries including Retail Media Networks and Quick Service Restaurants.",
+          "sitemap_pages": null,
+          "tech_stack": "HubSpot",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "NowSignage - Digital Signage Software",
@@ -1694,7 +2123,7 @@
         "linkedin": "company/omnivex"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 421,
         "meta_title": "Omnivex | Software that connects",
@@ -1708,20 +2137,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 421,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Omnivex's powerful digital communications platforms enable organizations to easily collect, process, and deliver targeted information across their entire business on any screen.",
-          "tech_stack": "Nginx",
+          "linkedin_followers": 1,
           "meta_title": "Omnivex | Software that connects",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Omnivex's powerful digital communications platforms enable organizations to easily collect, process, and deliver targeted information across their entire business on any screen.",
+          "sitemap_pages": 421,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "Nginx",
           "open_pagerank": null,
-          "linkedin_followers": 1,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 1,
+          "x_followers": null,
+          "meta_title": "Omnivex | Software that connects",
+          "instagram_followers": null,
+          "meta_description": "Omnivex's powerful digital communications platforms enable organizations to easily collect, process, and deliver targeted information across their entire business on any screen.",
+          "sitemap_pages": 421,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "Nginx",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 421,
           "meta_title": "Omnivex | Software that connects",
@@ -1745,7 +2187,7 @@
         "linkedin": "company/onsign-tv"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 3,
         "meta_title": "OnSign | Digital Signage",
@@ -1759,20 +2201,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 3,
-          "date": "2026-06-20",
+          "linkedin_followers": 38,
+          "x_followers": null,
+          "meta_title": "OnSign | Digital Signage",
           "instagram_followers": null,
           "meta_description": "Professional Digital Signage CMS. OnSign is One Platform, All Features.",
+          "sitemap_pages": 3,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "Wix, React",
-          "meta_title": "OnSign | Digital Signage",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 38,
-          "trends_score": null
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 38,
+          "meta_title": "OnSign | Digital Signage",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Professional Digital Signage CMS. OnSign is One Platform, All Features.",
+          "sitemap_pages": 3,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "Wix, React",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 3,
           "meta_title": "OnSign | Digital Signage",
@@ -1796,7 +2251,7 @@
         "linkedin": "company/optisigns"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 421,
         "meta_title": "OptiSigns Digital Signage Software - Elevate Your Business",
@@ -1805,25 +2260,38 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 88,
+        "linkedin_followers": 89,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 421,
-          "date": "2026-06-20",
+          "linkedin_followers": 88,
+          "x_followers": null,
+          "meta_title": "OptiSigns Digital Signage Software - Elevate Your Business",
           "instagram_followers": null,
           "meta_description": "Transform any screen into a powerful dynamic display with digital signage software. Engage audiences, boost sales and manage content easily.",
+          "sitemap_pages": 421,
           "tech_stack": "Cloudflare",
-          "meta_title": "OptiSigns Digital Signage Software - Elevate Your Business",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 88,
-          "trends_score": null
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 88,
+          "x_followers": null,
+          "meta_title": "OptiSigns Digital Signage Software - Elevate Your Business",
+          "instagram_followers": null,
+          "meta_description": "Transform any screen into a powerful dynamic display with digital signage software. Engage audiences, boost sales and manage content easily.",
+          "sitemap_pages": 421,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 421,
           "meta_title": "OptiSigns Digital Signage Software - Elevate Your Business",
@@ -1832,7 +2300,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 88,
+          "linkedin_followers": 89,
           "trends_score": null
         }
       ]
@@ -1847,43 +2315,56 @@
         "linkedin": "company/panasonic"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
-        "sitemap_pages": 2148,
+        "sitemap_pages": 2155,
         "meta_title": "Panasonic Connect | Panasonic North America - United States",
         "meta_description": "Innovative solutions from Panasonic Connect drive industry advancements, connecting businesses to tomorrow with rugged mobile tools, digital content systems, and intelligent manufacturing solutions.",
         "tech_stack": "HubSpot, Cloudflare",
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 30657,
+        "linkedin_followers": 30694,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
+          "linkedin_followers": 30630,
+          "meta_title": "Panasonic Connect | Panasonic North America - United States",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Innovative solutions from Panasonic Connect drive industry advancements, connecting businesses to tomorrow with rugged mobile tools, digital content systems, and intelligent manufacturing solutions.",
           "sitemap_pages": 2148,
           "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Innovative solutions from Panasonic Connect drive industry advancements, connecting businesses to tomorrow with rugged mobile tools, digital content systems, and intelligent manufacturing solutions.",
+          "trends_score": null,
           "tech_stack": "HubSpot, Cloudflare",
-          "meta_title": "Panasonic Connect | Panasonic North America - United States",
-          "x_followers": null,
           "open_pagerank": null,
-          "linkedin_followers": 30630,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
-          "date": "2026-06-21",
-          "open_pagerank": null,
+          "linkedin_followers": 30657,
+          "meta_title": "Panasonic Connect | Panasonic North America - United States",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Innovative solutions from Panasonic Connect drive industry advancements, connecting businesses to tomorrow with rugged mobile tools, digital content systems, and intelligent manufacturing solutions.",
           "sitemap_pages": 2148,
+          "tech_stack": "HubSpot, Cloudflare",
+          "trends_score": null,
+          "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
+          "open_pagerank": null,
+          "sitemap_pages": 2155,
           "meta_title": "Panasonic Connect | Panasonic North America - United States",
           "meta_description": "Innovative solutions from Panasonic Connect drive industry advancements, connecting businesses to tomorrow with rugged mobile tools, digital content systems, and intelligent manufacturing solutions.",
           "tech_stack": "HubSpot, Cloudflare",
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 30657,
+          "linkedin_followers": 30694,
           "trends_score": null
         }
       ]
@@ -1898,7 +2379,7 @@
         "linkedin": "company/peerless-av"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 598,
         "meta_title": "Peerless-AV® | Peerless-AV",
@@ -1907,25 +2388,38 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 203,
+        "linkedin_followers": 204,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 598,
-          "date": "2026-06-20",
+          "linkedin_followers": 203,
+          "x_followers": null,
+          "meta_title": "Peerless-AV® | Peerless-AV",
           "instagram_followers": null,
           "meta_description": "An industry leading designer & manufacturer of audio visual solutions.",
+          "sitemap_pages": 598,
           "tech_stack": "Next.js, AWS",
-          "meta_title": "Peerless-AV® | Peerless-AV",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 203,
-          "trends_score": null
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 203,
+          "x_followers": null,
+          "meta_title": "Peerless-AV® | Peerless-AV",
+          "instagram_followers": null,
+          "meta_description": "An industry leading designer & manufacturer of audio visual solutions.",
+          "sitemap_pages": 598,
+          "tech_stack": "Next.js, AWS",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 598,
           "meta_title": "Peerless-AV® | Peerless-AV",
@@ -1934,7 +2428,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 203,
+          "linkedin_followers": 204,
           "trends_score": null
         }
       ]
@@ -1949,7 +2443,7 @@
         "linkedin": "company/play-digital-signage"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 471,
         "meta_title": "Digital Signage Solutions | Play Digital Signage",
@@ -1963,20 +2457,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 471,
-          "date": "2026-06-20",
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Digital Signage Solutions | Play Digital Signage",
           "instagram_followers": null,
           "meta_description": "Play Digital Signage makes it easy to turn any screen into a digital sign in seconds. Get started for free today, and see what your screens can do",
+          "sitemap_pages": 471,
           "tech_stack": "Next.js, Cloudflare",
-          "meta_title": "Digital Signage Solutions | Play Digital Signage",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Digital Signage Solutions | Play Digital Signage",
+          "instagram_followers": null,
+          "meta_description": "Play Digital Signage makes it easy to turn any screen into a digital sign in seconds. Get started for free today, and see what your screens can do",
+          "sitemap_pages": 471,
+          "tech_stack": "Next.js, Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 471,
           "meta_title": "Digital Signage Solutions | Play Digital Signage",
@@ -2000,7 +2507,7 @@
         "linkedin": "company/playengo"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 17,
         "meta_title": "Playengo: Cloud based digital signage software",
@@ -2014,20 +2521,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 17,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "The simple digital signage solution that adapts to your needs. Display your content on any screen using tools you know and love like G Suite and Office 365.",
-          "tech_stack": null,
+          "linkedin_followers": null,
           "meta_title": "Playengo: Cloud based digital signage software",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "The simple digital signage solution that adapts to your needs. Display your content on any screen using tools you know and love like G Suite and Office 365.",
+          "sitemap_pages": 17,
+          "tech_stack": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "Playengo: Cloud based digital signage software",
+          "instagram_followers": null,
+          "meta_description": "The simple digital signage solution that adapts to your needs. Display your content on any screen using tools you know and love like G Suite and Office 365.",
+          "sitemap_pages": 17,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": null,
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 17,
           "meta_title": "Playengo: Cloud based digital signage software",
@@ -2051,7 +2571,7 @@
         "linkedin": "company/lakioo"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 5,
         "meta_title": "LAKIOO | User-Friendly Digital Signage Software",
@@ -2065,20 +2585,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 5,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Be more visible with our user-friendly digital signage software and turn any info into digital content for displays, touchscreens, and sensor-driven projects.",
-          "tech_stack": "WordPress",
+          "linkedin_followers": 3,
           "meta_title": "LAKIOO | User-Friendly Digital Signage Software",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Be more visible with our user-friendly digital signage software and turn any info into digital content for displays, touchscreens, and sensor-driven projects.",
+          "sitemap_pages": 5,
+          "tech_stack": "WordPress",
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 3,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 3,
+          "x_followers": null,
+          "meta_title": "LAKIOO | User-Friendly Digital Signage Software",
+          "instagram_followers": null,
+          "meta_description": "Be more visible with our user-friendly digital signage software and turn any info into digital content for displays, touchscreens, and sensor-driven projects.",
+          "sitemap_pages": 5,
+          "tech_stack": "WordPress",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 5,
           "meta_title": "LAKIOO | User-Friendly Digital Signage Software",
@@ -2102,9 +2635,9 @@
         "linkedin": "company/poppulo"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
-        "sitemap_pages": 1588,
+        "sitemap_pages": 1593,
         "meta_title": "Poppulo | Enterprise Customer and Employee Experiences",
         "meta_description": "Enhance your customer and employee experience with Poppulo's omni-channel solutions, including email, digital signage, mobile apps and more.",
         "tech_stack": "HubSpot, Next.js",
@@ -2116,22 +2649,35 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 1588,
-          "date": "2026-06-20",
+          "linkedin_followers": 543,
+          "x_followers": null,
+          "meta_title": "Poppulo | Enterprise Customer and Employee Experiences",
           "instagram_followers": null,
           "meta_description": "Enhance your customer and employee experience with Poppulo's omni-channel solutions, including email, digital signage, mobile apps and more.",
+          "sitemap_pages": 1588,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "HubSpot, Next.js",
-          "meta_title": "Poppulo | Enterprise Customer and Employee Experiences",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 543,
-          "trends_score": null
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
-          "date": "2026-06-21",
-          "open_pagerank": null,
+          "linkedin_followers": 543,
+          "meta_title": "Poppulo | Enterprise Customer and Employee Experiences",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Enhance your customer and employee experience with Poppulo's omni-channel solutions, including email, digital signage, mobile apps and more.",
           "sitemap_pages": 1588,
+          "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "HubSpot, Next.js",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
+          "open_pagerank": null,
+          "sitemap_pages": 1593,
           "meta_title": "Poppulo | Enterprise Customer and Employee Experiences",
           "meta_description": "Enhance your customer and employee experience with Poppulo's omni-channel solutions, including email, digital signage, mobile apps and more.",
           "tech_stack": "HubSpot, Next.js",
@@ -2153,9 +2699,9 @@
         "linkedin": "company/posterbooking"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
-        "sitemap_pages": 92,
+        "sitemap_pages": 96,
         "meta_title": "Amazon Signage Stick FREE Digital Signage Software | Digital Billboard Free Player | TV Display Signage",
         "meta_description": "FREE Digital Signage Software for Amazon Signage Stick, Download Posterbooking ▶️100% Ad Free ☑️10 FREE Screens, MORE than anyone else. FAST and EASY setup with Amazing Support. Free Display Signage for your TV in under 2 minutes.",
         "tech_stack": null,
@@ -2167,22 +2713,35 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 92,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "FREE Digital Signage Software for Amazon Signage Stick, Download Posterbooking ▶️100% Ad Free ☑️10 FREE Screens, MORE than anyone else. FAST and EASY setup with Amazing Support. Free Display Signage for your TV in under 2 minutes.",
-          "tech_stack": null,
+          "linkedin_followers": 6,
           "meta_title": "Amazon Signage Stick FREE Digital Signage Software | Digital Billboard Free Player | TV Display Signage",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "FREE Digital Signage Software for Amazon Signage Stick, Download Posterbooking ▶️100% Ad Free ☑️10 FREE Screens, MORE than anyone else. FAST and EASY setup with Amazing Support. Free Display Signage for your TV in under 2 minutes.",
+          "sitemap_pages": 92,
+          "tech_stack": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 6,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
-          "date": "2026-06-21",
-          "open_pagerank": null,
+          "linkedin_followers": 6,
+          "x_followers": null,
+          "meta_title": "Amazon Signage Stick FREE Digital Signage Software | Digital Billboard Free Player | TV Display Signage",
+          "instagram_followers": null,
+          "meta_description": "FREE Digital Signage Software for Amazon Signage Stick, Download Posterbooking ▶️100% Ad Free ☑️10 FREE Screens, MORE than anyone else. FAST and EASY setup with Amazing Support. Free Display Signage for your TV in under 2 minutes.",
           "sitemap_pages": 92,
+          "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": null,
+          "facebook_followers": null,
+          "open_pagerank": null
+        },
+        {
+          "date": "2026-06-26",
+          "open_pagerank": null,
+          "sitemap_pages": 96,
           "meta_title": "Amazon Signage Stick FREE Digital Signage Software | Digital Billboard Free Player | TV Display Signage",
           "meta_description": "FREE Digital Signage Software for Amazon Signage Stick, Download Posterbooking ▶️100% Ad Free ☑️10 FREE Screens, MORE than anyone else. FAST and EASY setup with Amazing Support. Free Display Signage for your TV in under 2 minutes.",
           "tech_stack": null,
@@ -2204,7 +2763,7 @@
         "linkedin": "company/postermywall"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "Easy marketing for busy people | PosterMyWall",
@@ -2218,20 +2777,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Win at marketing with PosterMyWall’s time-saving AI tools. Create free designs, share event pages, and publish to socials and email—all on one easy-to-use platform.",
-          "tech_stack": "WordPress",
+          "linkedin_followers": null,
           "meta_title": "Easy marketing for busy people | PosterMyWall",
           "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Win at marketing with PosterMyWall’s time-saving AI tools. Create free designs, share event pages, and publish to socials and email—all on one easy-to-use platform.",
+          "sitemap_pages": null,
+          "date": "2026-06-20",
+          "trends_score": null,
+          "tech_stack": "WordPress",
           "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "Easy marketing for busy people | PosterMyWall",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Win at marketing with PosterMyWall’s time-saving AI tools. Create free designs, share event pages, and publish to socials and email—all on one easy-to-use platform.",
+          "sitemap_pages": null,
+          "tech_stack": "WordPress",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "Easy marketing for busy people | PosterMyWall",
@@ -2255,7 +2827,7 @@
         "linkedin": "company/ppds"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 72,
         "meta_title": "Powering evolution | PPDS",
@@ -2269,20 +2841,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 72,
-          "date": "2026-06-20",
+          "linkedin_followers": 70,
+          "x_followers": null,
+          "meta_title": "Powering evolution | PPDS",
           "instagram_followers": null,
           "meta_description": "Push your vision beyond the limits. PPDS unlocks an infinite world of creativity, connectivity, and unrivaled results.",
+          "sitemap_pages": 72,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "Next.js, Cloudflare",
-          "meta_title": "Powering evolution | PPDS",
-          "x_followers": null,
           "open_pagerank": null,
-          "linkedin_followers": 70,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 70,
+          "meta_title": "Powering evolution | PPDS",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Push your vision beyond the limits. PPDS unlocks an infinite world of creativity, connectivity, and unrivaled results.",
+          "sitemap_pages": 72,
+          "tech_stack": "Next.js, Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 72,
           "meta_title": "Powering evolution | PPDS",
@@ -2306,7 +2891,7 @@
         "linkedin": ""
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "瑞迪國際|Digital Signage|電子看板|數位看板|多媒體看板|多媒體播放器|kiosk|Eposter|E_poster",
@@ -2320,20 +2905,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
+          "linkedin_followers": null,
+          "x_followers": null,
+          "meta_title": "瑞迪國際|Digital Signage|電子看板|數位看板|多媒體看板|多媒體播放器|kiosk|Eposter|E_poster",
           "instagram_followers": null,
           "meta_description": null,
+          "sitemap_pages": null,
           "tech_stack": "Cloudflare",
-          "meta_title": "瑞迪國際|Digital Signage|電子看板|數位看板|多媒體看板|多媒體播放器|kiosk|Eposter|E_poster",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "瑞迪國際|Digital Signage|電子看板|數位看板|多媒體看板|多媒體播放器|kiosk|Eposter|E_poster",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": null,
+          "sitemap_pages": null,
+          "tech_stack": "Cloudflare",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "瑞迪國際|Digital Signage|電子看板|數位看板|多媒體看板|多媒體播放器|kiosk|Eposter|E_poster",
@@ -2357,7 +2955,7 @@
         "linkedin": "company/rapid-signage"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 2,
         "meta_title": "RapidSignage Inc. | ePaper/Digital Signage/Video Wall Solution Provider",
@@ -2371,20 +2969,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 2,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "RapidSignage Inc. provides ePaper solutions that combine ePaper displays and signage players, which are energy-saving and sunlight-readable along with a paper-like visual experience, from black/white to vivid full color.\n\nWe also provide digital signage and video wall solutions for various kinds of applications.",
-          "tech_stack": "Wix, React",
+          "linkedin_followers": null,
           "meta_title": "RapidSignage Inc. | ePaper/Digital Signage/Video Wall Solution Provider",
           "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": null,
-          "trends_score": null
+          "instagram_followers": null,
+          "meta_description": "RapidSignage Inc. provides ePaper solutions that combine ePaper displays and signage players, which are energy-saving and sunlight-readable along with a paper-like visual experience, from black/white to vivid full color.\n\nWe also provide digital signage and video wall solutions for various kinds of applications.",
+          "sitemap_pages": 2,
+          "tech_stack": "Wix, React",
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": null,
+          "meta_title": "RapidSignage Inc. | ePaper/Digital Signage/Video Wall Solution Provider",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "RapidSignage Inc. provides ePaper solutions that combine ePaper displays and signage players, which are energy-saving and sunlight-readable along with a paper-like visual experience, from black/white to vivid full color.\n\nWe also provide digital signage and video wall solutions for various kinds of applications.",
+          "sitemap_pages": 2,
+          "tech_stack": "Wix, React",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 2,
           "meta_title": "RapidSignage Inc. | ePaper/Digital Signage/Video Wall Solution Provider",
@@ -2408,43 +3019,56 @@
         "linkedin": "company/rise-vision"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
-        "sitemap_pages": 839,
+        "sitemap_pages": 840,
         "meta_title": "Award Winning #1 Digital Signage Software | Rise Vision",
         "meta_description": "Rise Vision is an all-in-one platform for digital signage, screen sharing, and emergency alerts—keeping your organization informed, engaged, and safe.",
         "tech_stack": "HubSpot, Cloudflare",
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 53,
+        "linkedin_followers": 54,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 839,
-          "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "Rise Vision is an all-in-one platform for digital signage, screen sharing, and emergency alerts—keeping your organization informed, engaged, and safe.",
-          "tech_stack": "HubSpot, Cloudflare",
+          "linkedin_followers": 52,
           "meta_title": "Award Winning #1 Digital Signage Software | Rise Vision",
           "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 52,
-          "trends_score": null
+          "instagram_followers": null,
+          "meta_description": "Rise Vision is an all-in-one platform for digital signage, screen sharing, and emergency alerts—keeping your organization informed, engaged, and safe.",
+          "sitemap_pages": 839,
+          "tech_stack": "HubSpot, Cloudflare",
+          "trends_score": null,
+          "date": "2026-06-20",
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
-          "date": "2026-06-21",
-          "open_pagerank": null,
+          "linkedin_followers": 53,
+          "x_followers": null,
+          "meta_title": "Award Winning #1 Digital Signage Software | Rise Vision",
+          "instagram_followers": null,
+          "meta_description": "Rise Vision is an all-in-one platform for digital signage, screen sharing, and emergency alerts—keeping your organization informed, engaged, and safe.",
           "sitemap_pages": 839,
+          "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "HubSpot, Cloudflare",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
+          "open_pagerank": null,
+          "sitemap_pages": 840,
           "meta_title": "Award Winning #1 Digital Signage Software | Rise Vision",
           "meta_description": "Rise Vision is an all-in-one platform for digital signage, screen sharing, and emergency alerts—keeping your organization informed, engaged, and safe.",
           "tech_stack": "HubSpot, Cloudflare",
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 53,
+          "linkedin_followers": 54,
           "trends_score": null
         }
       ]
@@ -2459,7 +3083,7 @@
         "linkedin": "company/samsung-electronics"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": null,
         "meta_title": "Digital Signage Cloud Software | FREE Trial - Samsung VXT",
@@ -2468,25 +3092,38 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 185732,
+        "linkedin_followers": 186101,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": null,
-          "date": "2026-06-20",
+          "linkedin_followers": 185460,
+          "x_followers": null,
+          "meta_title": "Digital Signage Cloud Software | FREE Trial - Samsung VXT",
           "instagram_followers": null,
           "meta_description": "Discover the power of digital signage cloud software with Samsung VXT. Streamline your content management and engage your audience with ease. Try it for free.",
+          "sitemap_pages": null,
           "tech_stack": "Next.js",
-          "meta_title": "Digital Signage Cloud Software | FREE Trial - Samsung VXT",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 185460,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 185732,
+          "x_followers": null,
+          "meta_title": "Digital Signage Cloud Software | FREE Trial - Samsung VXT",
+          "instagram_followers": null,
+          "meta_description": "Discover the power of digital signage cloud software with Samsung VXT. Streamline your content management and engage your audience with ease. Try it for free.",
+          "sitemap_pages": null,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "Next.js",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": null,
           "meta_title": "Digital Signage Cloud Software | FREE Trial - Samsung VXT",
@@ -2495,7 +3132,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 185732,
+          "linkedin_followers": 186101,
           "trends_score": null
         }
       ]
@@ -2510,7 +3147,7 @@
         "linkedin": "company/scala"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 12,
         "meta_title": "Scala | Digital Signage | Full Solution Signage Provider",
@@ -2519,25 +3156,38 @@
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": 368,
+        "linkedin_followers": 367,
         "trends_score": null
       },
       "history": [
         {
-          "facebook_followers": null,
+          "linkedin_followers": 367,
+          "x_followers": null,
+          "meta_title": "Scala | Digital Signage | Full Solution Signage Provider",
+          "instagram_followers": null,
+          "meta_description": "At Scala—the global leader in digital signage, we create powerful, visually engaging customer experiences for businesses & retailers.",
           "sitemap_pages": 12,
           "date": "2026-06-20",
-          "instagram_followers": null,
-          "meta_description": "At Scala—the global leader in digital signage, we create powerful, visually engaging customer experiences for businesses & retailers.",
+          "trends_score": null,
           "tech_stack": "WordPress",
-          "meta_title": "Scala | Digital Signage | Full Solution Signage Provider",
-          "x_followers": null,
-          "open_pagerank": null,
-          "linkedin_followers": 367,
-          "trends_score": null
+          "facebook_followers": null,
+          "open_pagerank": null
         },
         {
+          "linkedin_followers": 368,
+          "x_followers": null,
+          "meta_title": "Scala | Digital Signage | Full Solution Signage Provider",
+          "instagram_followers": null,
+          "meta_description": "At Scala—the global leader in digital signage, we create powerful, visually engaging customer experiences for businesses & retailers.",
+          "sitemap_pages": 12,
           "date": "2026-06-21",
+          "trends_score": null,
+          "tech_stack": "WordPress",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 12,
           "meta_title": "Scala | Digital Signage | Full Solution Signage Provider",
@@ -2546,7 +3196,7 @@
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": 368,
+          "linkedin_followers": 367,
           "trends_score": null
         }
       ]
@@ -2561,7 +3211,7 @@
         "linkedin": "company/screencloud"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 1,
         "meta_title": "ScreenCloud – Digital Signage Software for Any Screen or TV",
@@ -2575,20 +3225,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 1,
-          "date": "2026-06-20",
+          "linkedin_followers": 143,
+          "x_followers": null,
+          "meta_title": "ScreenCloud – Digital Signage Software for Any Screen or TV",
           "instagram_followers": null,
           "meta_description": "Discover the smart, simple digital signage solution from ScreenCloud. Connect your choice of apps and integrations for dazzling dynamic displays.",
+          "sitemap_pages": 1,
+          "date": "2026-06-20",
+          "trends_score": null,
           "tech_stack": "HubSpot, Next.js",
-          "meta_title": "ScreenCloud – Digital Signage Software for Any Screen or TV",
-          "x_followers": null,
           "open_pagerank": null,
-          "linkedin_followers": 143,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 143,
+          "meta_title": "ScreenCloud – Digital Signage Software for Any Screen or TV",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Discover the smart, simple digital signage solution from ScreenCloud. Connect your choice of apps and integrations for dazzling dynamic displays.",
+          "sitemap_pages": 1,
+          "tech_stack": "HubSpot, Next.js",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 1,
           "meta_title": "ScreenCloud – Digital Signage Software for Any Screen or TV",
@@ -2612,7 +3275,7 @@
         "linkedin": "company/signagelive"
       },
       "latest": {
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "open_pagerank": null,
         "sitemap_pages": 10,
         "meta_title": "Signagelive Access Hub - Navori Labs",
@@ -2626,20 +3289,33 @@
       },
       "history": [
         {
-          "facebook_followers": null,
-          "sitemap_pages": 10,
-          "date": "2026-06-20",
+          "linkedin_followers": 18,
+          "x_followers": null,
+          "meta_title": "Signagelive Access Hub - Navori Labs",
           "instagram_followers": null,
           "meta_description": "Access your Signagelive account. Signagelive is now part of Navori Labs—your login and service remain unchanged. Continue to the Signagelive portal.",
+          "sitemap_pages": 10,
           "tech_stack": "WordPress, HubSpot",
-          "meta_title": "Signagelive Access Hub - Navori Labs",
-          "x_followers": null,
+          "trends_score": null,
+          "date": "2026-06-20",
           "open_pagerank": null,
-          "linkedin_followers": 18,
-          "trends_score": null
+          "facebook_followers": null
         },
         {
+          "linkedin_followers": 18,
+          "meta_title": "Signagelive Access Hub - Navori Labs",
+          "x_followers": null,
+          "instagram_followers": null,
+          "meta_description": "Access your Signagelive account. Signagelive is now part of Navori Labs—your login and service remain unchanged. Continue to the Signagelive portal.",
+          "sitemap_pages": 10,
+          "tech_stack": "WordPress, HubSpot",
+          "trends_score": null,
           "date": "2026-06-21",
+          "open_pagerank": null,
+          "facebook_followers": null
+        },
+        {
+          "date": "2026-06-26",
           "open_pagerank": null,
           "sitemap_pages": 10,
           "meta_title": "Signagelive Access Hub - Navori Labs",
