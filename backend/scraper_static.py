@@ -20,6 +20,11 @@ TRACKED_KEYWORDS = [
     "cloud-based digital signage",
 ]
 
+OWN_SITES = [
+    {"name": "CAYIN Technology", "url": "https://www.cayintech.com"},
+    {"name": "GO CAYIN", "url": "https://www.gocayin.com"},
+]
+
 DATA_PATH = os.path.join(os.path.dirname(__file__), "../docs/data.json")
 
 HEADERS = {
@@ -283,10 +288,13 @@ def scrape_keyword_rankings(competitors):
         print("  Keyword rankings skipped: SERPAPI_KEY not set")
         return []
 
-    competitor_domains = {}
+    domain_map = {}
     for c in competitors:
         domain = urlparse(c["url"]).netloc.lstrip("www.")
-        competitor_domains[domain] = c["name"]
+        domain_map[domain] = {"name": c["name"], "is_own": False}
+    for s in OWN_SITES:
+        domain = urlparse(s["url"]).netloc.lstrip("www.")
+        domain_map[domain] = {"name": s["name"], "is_own": True}
 
     results = []
     for kw in TRACKED_KEYWORDS:
@@ -307,20 +315,22 @@ def scrape_keyword_rankings(competitors):
             for item in organic:
                 item_url = item.get("link", "")
                 item_domain = urlparse(item_url).netloc.lstrip("www.")
-                matched_name = None
-                for domain, name in competitor_domains.items():
+                matched = None
+                for domain, info in domain_map.items():
                     if domain in item_domain or item_domain in domain:
-                        matched_name = name
+                        matched = info
                         break
-                if matched_name:
+                if matched:
                     results.append({
                         "keyword": kw,
                         "rank": item.get("position"),
-                        "competitor": matched_name,
+                        "competitor": matched["name"],
+                        "is_own": matched["is_own"],
                         "url": item_url,
                         "title": item.get("title", ""),
                     })
-                    print(f"    #{item.get('position')} {matched_name} — {item_url}")
+                    tag = "★ 自己" if matched["is_own"] else ""
+                    print(f"    #{item.get('position')} {matched['name']} {tag} — {item_url}")
             time.sleep(1)
         except Exception as e:
             print(f"  Keyword ranking error for '{kw}': {e}")

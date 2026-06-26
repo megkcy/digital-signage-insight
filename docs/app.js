@@ -311,9 +311,12 @@ function renderKwTable(kw) {
     return;
   }
   tbody.innerHTML = rows.map(r => `
-    <tr>
+    <tr class="${r.is_own ? "own-site-row" : ""}">
       <td><span class="rank-badge${r.rank <= 3 ? " top3" : ""}">${r.rank}</span></td>
-      <td><span class="comp-name">${r.competitor}</span></td>
+      <td>
+        <span class="comp-name">${r.competitor}</span>
+        ${r.is_own ? '<span class="own-badge">自己</span>' : ""}
+      </td>
       <td><span class="kw-title">${r.title || "—"}</span></td>
       <td><a class="kw-url" href="${r.url}" target="_blank" title="${r.url}">${r.url}</a></td>
     </tr>

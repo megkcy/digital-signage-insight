@@ -431,6 +431,19 @@ td {
 }
 .kw-url:hover { text-decoration: underline; }
 .kw-title { font-size: 13px; color: var(--text); max-width: 300px; overflow: hidden; text-overflow: ellipsis; }
+.own-site-row { background: rgba(79,110,247,.05); }
+.own-site-row:hover { background: rgba(79,110,247,.1) !important; }
+.own-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  vertical-align: middle;
+}
 
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
