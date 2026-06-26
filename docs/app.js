@@ -65,6 +65,8 @@ function applyData(json) {
     `${json.competitors.length} 個對手 · 最後更新: ${json.last_updated || "—"}`;
   const fbCount = json.competitors.filter(c => c.latest?.facebook_followers != null).length;
   document.getElementById("cardSocial").textContent = fbCount;
+  const liCount = json.competitors.filter(c => c.latest?.linkedin_followers != null).length;
+  document.getElementById("cardLinkedin").textContent = liCount;
   allData = json.competitors;
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
@@ -365,6 +367,64 @@ function selectGscTab(site) {
   renderGscTables(site);
 }
 
+const COUNTRY_NAMES = {
+  afg:"阿富汗 Afghanistan", alb:"阿爾巴尼亞 Albania", dza:"阿爾及利亞 Algeria",
+  and:"安道爾 Andorra", ago:"安哥拉 Angola", arg:"阿根廷 Argentina",
+  arm:"亞美尼亞 Armenia", aus:"澳大利亞 Australia", aut:"奧地利 Austria",
+  aze:"亞塞拜然 Azerbaijan", bhs:"巴哈馬 Bahamas", bhr:"巴林 Bahrain",
+  bgd:"孟加拉 Bangladesh", blr:"白俄羅斯 Belarus", bel:"比利時 Belgium",
+  biz:"伯利茲 Belize", ben:"貝南 Benin", btn:"不丹 Bhutan",
+  bol:"玻利維亞 Bolivia", bih:"波士尼亞赫塞哥維納 Bosnia and Herzegovina",
+  bwa:"波札那 Botswana", bra:"巴西 Brazil", brn:"汶萊 Brunei",
+  bgr:"保加利亞 Bulgaria", bfa:"布吉納法索 Burkina Faso", bdi:"蒲隆地 Burundi",
+  cpv:"維德角 Cape Verde", khm:"柬埔寨 Cambodia", cmr:"喀麥隆 Cameroon",
+  can:"加拿大 Canada", caf:"中非共和國 Central African Republic",
+  tcd:"查德 Chad", chl:"智利 Chile", chn:"中國 China",
+  col:"哥倫比亞 Colombia", cog:"剛果共和國 Congo", cod:"剛果民主共和國 DR Congo",
+  cri:"哥斯大黎加 Costa Rica", hrv:"克羅埃西亞 Croatia", cub:"古巴 Cuba",
+  cyp:"賽普勒斯 Cyprus", cze:"捷克 Czech Republic", dnk:"丹麥 Denmark",
+  dom:"多明尼加 Dominican Republic", ecu:"厄瓜多 Ecuador", egy:"埃及 Egypt",
+  slv:"薩爾瓦多 El Salvador", est:"愛沙尼亞 Estonia", eth:"衣索比亞 Ethiopia",
+  fin:"芬蘭 Finland", fra:"法國 France", geo:"喬治亞 Georgia",
+  deu:"德國 Germany", gha:"迦納 Ghana", grc:"希臘 Greece",
+  gtm:"瓜地馬拉 Guatemala", hnd:"宏都拉斯 Honduras", hkg:"香港 Hong Kong",
+  hun:"匈牙利 Hungary", isl:"冰島 Iceland", ind:"印度 India",
+  idn:"印尼 Indonesia", irn:"伊朗 Iran", irq:"伊拉克 Iraq",
+  irl:"愛爾蘭 Ireland", isr:"以色列 Israel", ita:"義大利 Italy",
+  jam:"牙買加 Jamaica", jpn:"日本 Japan", jor:"約旦 Jordan",
+  kaz:"哈薩克 Kazakhstan", ken:"肯亞 Kenya", kwt:"科威特 Kuwait",
+  kgz:"吉爾吉斯 Kyrgyzstan", lao:"寮國 Laos", lva:"拉脫維亞 Latvia",
+  lbn:"黎巴嫩 Lebanon", lby:"利比亞 Libya", ltu:"立陶宛 Lithuania",
+  lux:"盧森堡 Luxembourg", mys:"馬來西亞 Malaysia", mdv:"馬爾地夫 Maldives",
+  mlt:"馬爾他 Malta", mex:"墨西哥 Mexico", mda:"摩爾多瓦 Moldova",
+  mng:"蒙古 Mongolia", mar:"摩洛哥 Morocco", moz:"莫三比克 Mozambique",
+  mmr:"緬甸 Myanmar", nam:"納米比亞 Namibia", npl:"尼泊爾 Nepal",
+  nld:"荷蘭 Netherlands", nzl:"紐西蘭 New Zealand", nic:"尼加拉瓜 Nicaragua",
+  nga:"奈及利亞 Nigeria", nor:"挪威 Norway", omn:"阿曼 Oman",
+  pak:"巴基斯坦 Pakistan", pan:"巴拿馬 Panama", pry:"巴拉圭 Paraguay",
+  per:"秘魯 Peru", phl:"菲律賓 Philippines", pol:"波蘭 Poland",
+  prt:"葡萄牙 Portugal", qat:"卡達 Qatar", rou:"羅馬尼亞 Romania",
+  rus:"俄羅斯 Russia", sau:"沙烏地阿拉伯 Saudi Arabia", sen:"塞內加爾 Senegal",
+  srb:"塞爾維亞 Serbia", sgp:"新加坡 Singapore", svk:"斯洛伐克 Slovakia",
+  svn:"斯洛維尼亞 Slovenia", som:"索馬利亞 Somalia", zaf:"南非 South Africa",
+  kor:"南韓 South Korea", esp:"西班牙 Spain", lka:"斯里蘭卡 Sri Lanka",
+  sdn:"蘇丹 Sudan", swe:"瑞典 Sweden", che:"瑞士 Switzerland",
+  syr:"敘利亞 Syria", twn:"台灣 Taiwan", tjk:"塔吉克 Tajikistan",
+  tza:"坦尚尼亞 Tanzania", tha:"泰國 Thailand", tun:"突尼西亞 Tunisia",
+  tur:"土耳其 Turkey", tkm:"土庫曼 Turkmenistan", uga:"烏干達 Uganda",
+  ukr:"烏克蘭 Ukraine", are:"阿聯酋 United Arab Emirates",
+  gbr:"英國 United Kingdom", usa:"美國 United States",
+  ury:"烏拉圭 Uruguay", uzb:"烏茲別克 Uzbekistan", ven:"委內瑞拉 Venezuela",
+  vnm:"越南 Vietnam", yem:"葉門 Yemen", zmb:"尚比亞 Zambia",
+  zwe:"辛巴威 Zimbabwe",
+};
+
+function formatCountry(code) {
+  if (!code) return code;
+  const key = code.toLowerCase();
+  return COUNTRY_NAMES[key] || code;
+}
+
 function renderGscTables(site) {
   const entry = gscData.results.find(r => r.site === site);
   if (!entry) return;
@@ -391,7 +451,7 @@ function renderGscTables(site) {
   cBody.innerHTML = entry.countries?.length
     ? entry.countries.map(r => `
         <tr>
-          <td><span class="comp-name">${r.country}</span></td>
+          <td><span class="comp-name">${formatCountry(r.country)}</span></td>
           <td><span class="num">${r.clicks.toLocaleString()}</span></td>
           <td><span class="num">${r.impressions.toLocaleString()}</span></td>
           <td><span class="pill pill-blue">${r.ctr}%</span></td>
