@@ -36,7 +36,7 @@ async function loadData() {
   }
   // fallback to local data.json
   try {
-    const r = await fetch("data.json?t=" + Date.now());
+    const r = await fetch("/static/data.json?t=" + Date.now());
     applyData(await r.json());
   } catch {
     document.getElementById("tableBody").innerHTML =
