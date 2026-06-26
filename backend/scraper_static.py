@@ -360,7 +360,7 @@ def scrape_keyword_rankings(competitors):
                 item_domain = urlparse(item_url).netloc.lstrip("www.")
                 matched = None
                 for domain, info in domain_map.items():
-                    if domain in item_domain or item_domain in domain:
+                    if item_domain == domain or item_domain.endswith("." + domain):
                         matched = info
                         break
                 if matched:
