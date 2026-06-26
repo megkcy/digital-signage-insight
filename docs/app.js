@@ -63,8 +63,8 @@ function applyData(json) {
   document.getElementById("cardLastScrape").textContent = json.last_updated || "未爬取";
   document.getElementById("statusBadge").textContent =
     `${json.competitors.length} 個對手 · 最後更新: ${json.last_updated || "—"}`;
-  const socialCount = json.competitors.filter(c => c.latest?.linkedin_followers != null).length;
-  document.getElementById("cardSocial").textContent = socialCount;
+  const fbCount = json.competitors.filter(c => c.latest?.facebook_followers != null).length;
+  document.getElementById("cardSocial").textContent = fbCount;
   allData = json.competitors;
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
@@ -176,7 +176,7 @@ function renderCharts(history) {
   Object.values(charts).forEach(c => c.destroy()); charts = {};
   const labels = history.map(r => r.date);
   const opts = { responsive:true, plugins:{ legend:{ labels:{ color:"#6b7280", font:{size:11} } } }, scales:{ x:{ticks:{color:"#6b7280",font:{size:10}},grid:{color:"#f0f2f5"}}, y:{ticks:{color:"#6b7280",font:{size:10}},grid:{color:"#f0f2f5"}} } };
-  charts.trends = new Chart(document.getElementById("chartTrends"), { type:"line", options:opts, data:{ labels, datasets:[{ label:"Google Trends", data:history.map(r=>r.trends_score), borderColor:"#f59e0b", backgroundColor:"rgba(245,158,11,.1)", tension:.4, fill:true, pointRadius:4 }] } });
+  charts.facebook = new Chart(document.getElementById("chartTrends"), { type:"line", options:opts, data:{ labels, datasets:[{ label:"Facebook", data:history.map(r=>r.facebook_followers), borderColor:"#1877f2", backgroundColor:"rgba(24,119,242,.1)", tension:.4, fill:true, pointRadius:4 }] } });
   charts.pages = new Chart(document.getElementById("chartPages"), { type:"line", options:opts, data:{ labels, datasets:[{ label:"頁數", data:history.map(r=>r.sitemap_pages), borderColor:"#16a34a", backgroundColor:"rgba(22,163,74,.1)", tension:.4, fill:true, pointRadius:4 }] } });
   charts.social = new Chart(document.getElementById("chartSocial"), { type:"line", options:opts, data:{ labels, datasets:[
     { label:"LinkedIn", data:history.map(r=>r.linkedin_followers), borderColor:"#0a66c2", backgroundColor:"rgba(10,102,194,.1)", tension:.4, fill:true, pointRadius:4 },
