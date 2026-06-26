@@ -26,99 +26,135 @@
   </header>
 
   <main>
-    <section class="cards">
-      <div class="card">
-        <div class="card-label">競爭對手數</div>
-        <div class="card-value" id="cardTotal">—</div>
-      </div>
-      <div class="card">
-        <div class="card-label">上次更新</div>
-        <div class="card-value" id="cardLastScrape">—</div>
-      </div>
-      <div class="card">
-        <div class="card-label">已有社群數據</div>
-        <div class="card-value" id="cardSocial">—</div>
-      </div>
-    </section>
+    <!-- Page nav tabs -->
+    <nav class="page-tabs">
+      <button class="page-tab active" onclick="showPage('competitors')">競爭對手</button>
+      <button class="page-tab" onclick="showPage('gsc')">Google Search Console</button>
+    </nav>
 
-    <section class="toolbar">
-      <input id="search" type="text" placeholder="搜尋競爭對手…" oninput="filterTable()" />
-      <select id="sortBy" onchange="filterTable()">
-        <option value="name">名稱排序</option>
-        <option value="sitemap_pages">網站頁數排序</option>
-        <option value="linkedin_followers">LinkedIn 追蹤排序</option>
-        <option value="trends_score">Google Trends 排序</option>
-      </select>
-      <select id="sortDir" onchange="filterTable()">
-        <option value="desc">由高到低</option>
-        <option value="asc">由低到高</option>
-      </select>
-    </section>
+    <!-- ── Competitors page ── -->
+    <div id="pageCompetitors">
+      <section class="cards">
+        <div class="card">
+          <div class="card-label">競爭對手數</div>
+          <div class="card-value" id="cardTotal">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">上次更新</div>
+          <div class="card-value" id="cardLastScrape">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">已有社群數據</div>
+          <div class="card-value" id="cardSocial">—</div>
+        </div>
+      </section>
 
-    <section class="table-wrap">
-      <table id="mainTable">
-        <thead>
-          <tr>
-            <th>競爭對手</th>
-            <th>Tech Stack</th>
-            <th>網站頁數</th>
-            <th>LinkedIn</th>
-            <th>Google Trends</th>
-            <th>更新日期</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          <tr><td colspan="10" class="loading">載入數據中…</td></tr>
-        </tbody>
-      </table>
-    </section>
+      <!-- Keyword Rankings -->
+      <section class="content-section" id="kwSection" style="display:none">
+        <div class="section-header">
+          <h2 class="section-title">關鍵字排名</h2>
+          <span class="kw-updated" id="kwUpdated"></span>
+        </div>
+        <div class="kw-tabs" id="kwTabs"></div>
+        <div class="table-wrap">
+          <table class="kw-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>競爭對手</th>
+                <th>頁面標題</th>
+                <th>排名網頁</th>
+              </tr>
+            </thead>
+            <tbody id="kwTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="toolbar">
+        <input id="search" type="text" placeholder="搜尋競爭對手…" oninput="filterTable()" />
+        <select id="sortBy" onchange="filterTable()">
+          <option value="name">名稱排序</option>
+          <option value="sitemap_pages">網站頁數排序</option>
+          <option value="linkedin_followers">LinkedIn 追蹤排序</option>
+          <option value="facebook_followers">Facebook 追蹤排序</option>
+        </select>
+        <select id="sortDir" onchange="filterTable()">
+          <option value="desc">由高到低</option>
+          <option value="asc">由低到高</option>
+        </select>
+      </section>
+
+      <section class="table-wrap">
+        <table id="mainTable">
+          <thead>
+            <tr>
+              <th>競爭對手</th>
+              <th>Tech Stack</th>
+              <th>網站頁數</th>
+              <th>Facebook</th>
+              <th>LinkedIn</th>
+              <th>更新日期</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr><td colspan="10" class="loading">載入數據中…</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- ── GSC page ── -->
+    <div id="pageGsc" style="display:none">
+      <section class="content-section" id="gscSection">
+        <div class="section-header">
+          <h2 class="section-title">Google Search Console</h2>
+          <span class="kw-updated" id="gscUpdated"></span>
+        </div>
+        <div class="kw-tabs" id="gscTabs"></div>
+        <div class="gsc-grid">
+          <!-- Queries table -->
+          <div>
+            <h3 class="gsc-sub-title">熱門關鍵字</h3>
+            <div class="table-wrap">
+              <table class="kw-table">
+                <thead>
+                  <tr>
+                    <th>關鍵字</th>
+                    <th>點擊</th>
+                    <th>曝光</th>
+                    <th>CTR</th>
+                    <th>平均排名</th>
+                  </tr>
+                </thead>
+                <tbody id="gscQueryBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Countries table -->
+          <div>
+            <h3 class="gsc-sub-title">流量來源國家</h3>
+            <div class="table-wrap">
+              <table class="kw-table">
+                <thead>
+                  <tr>
+                    <th>國家</th>
+                    <th>點擊</th>
+                    <th>曝光</th>
+                    <th>CTR</th>
+                    <th>平均排名</th>
+                  </tr>
+                </thead>
+                <tbody id="gscCountryBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <!-- Keyword Rankings -->
-  <section class="kw-section" id="kwSection" style="display:none">
-    <div class="section-header">
-      <h2 class="section-title">關鍵字排名</h2>
-      <span class="kw-updated" id="kwUpdated"></span>
-    </div>
-    <div class="kw-tabs" id="kwTabs"></div>
-    <div class="kw-table-wrap">
-      <table class="kw-table" id="kwTable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>競爭對手</th>
-            <th>頁面標題</th>
-            <th>排名網頁</th>
-          </tr>
-        </thead>
-        <tbody id="kwTableBody"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- GSC Section -->
-  <section class="kw-section" id="gscSection" style="display:none">
-    <div class="section-header">
-      <h2 class="section-title">Google Search Console</h2>
-      <span class="kw-updated" id="gscUpdated"></span>
-    </div>
-    <div class="kw-tabs" id="gscTabs"></div>
-    <div class="kw-table-wrap">
-      <table class="kw-table" id="gscTable">
-        <thead>
-          <tr>
-            <th>關鍵字</th>
-            <th>點擊</th>
-            <th>曝光</th>
-            <th>CTR</th>
-            <th>平均排名</th>
-          </tr>
-        </thead>
-        <tbody id="gscTableBody"></tbody>
-      </table>
-    </div>
-  </section>
 
   <!-- Detail / chart modal -->
   <div id="modal" class="modal-overlay" onclick="closeModal(event)">

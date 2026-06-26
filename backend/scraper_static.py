@@ -176,6 +176,25 @@ def detect_tech_stack(url):
 def scrape_facebook(handle):
     if not handle:
         return None
+    api_key = os.environ.get("SERPAPI_KEY")
+    if api_key:
+        try:
+            resp = requests.get(
+                "https://serpapi.com/search",
+                params={"engine": "facebook_page", "page_id": handle, "api_key": api_key},
+                timeout=15,
+            )
+            data = resp.json()
+            followers = (
+                data.get("page_info", {}).get("followers")
+                or data.get("followers")
+                or data.get("page", {}).get("followers")
+            )
+            if followers:
+                return _parse_number(str(followers))
+        except Exception as e:
+            print(f"  SerpApi Facebook error for {handle}: {e}")
+    # fallback: direct scrape
     try:
         resp = requests.get(f"https://www.facebook.com/{handle}", headers=HEADERS, timeout=15)
         for pat in [r'"follower_count":(\d+)', r'([\d,]+)\s+(?:people follow|followers)']:
@@ -362,6 +381,7 @@ def fetch_gsc_data():
             site_url = site["url"].rstrip("/") + "/"
             print(f"  GSC: {site['name']} ({site_url})")
             try:
+                # Top queries
                 body = {
                     "startDate": (datetime.utcnow().replace(day=1)).strftime("%Y-%m-%d"),
                     "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
@@ -370,18 +390,42 @@ def fetch_gsc_data():
                     "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
                 }
                 resp = service.searchanalytics().query(siteUrl=site_url, body=body).execute()
-                rows = resp.get("rows", [])
-                for row in rows:
-                    results.append({
-                        "site": site["name"],
-                        "site_url": site["url"],
+                queries = []
+                for row in resp.get("rows", []):
+                    queries.append({
                         "query": row["keys"][0],
-                        "clicks": row.get("clicks", 0),
-                        "impressions": row.get("impressions", 0),
+                        "clicks": int(row.get("clicks", 0)),
+                        "impressions": int(row.get("impressions", 0)),
                         "ctr": round(row.get("ctr", 0) * 100, 1),
                         "position": round(row.get("position", 0), 1),
                     })
-                print(f"    {len(rows)} queries fetched")
+
+                # Top countries
+                body_country = {
+                    "startDate": (datetime.utcnow().replace(day=1)).strftime("%Y-%m-%d"),
+                    "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
+                    "dimensions": ["country"],
+                    "rowLimit": 10,
+                    "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
+                }
+                resp_c = service.searchanalytics().query(siteUrl=site_url, body=body_country).execute()
+                countries = []
+                for row in resp_c.get("rows", []):
+                    countries.append({
+                        "country": row["keys"][0].upper(),
+                        "clicks": int(row.get("clicks", 0)),
+                        "impressions": int(row.get("impressions", 0)),
+                        "ctr": round(row.get("ctr", 0) * 100, 1),
+                        "position": round(row.get("position", 0), 1),
+                    })
+
+                results.append({
+                    "site": site["name"],
+                    "site_url": site["url"],
+                    "queries": queries,
+                    "countries": countries,
+                })
+                print(f"    {len(queries)} queries, {len(countries)} countries fetched")
             except Exception as e:
                 print(f"  GSC error for {site['name']}: {e}")
         return results

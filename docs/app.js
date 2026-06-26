@@ -69,6 +69,7 @@ function applyData(json) {
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
   if (json.gsc) renderGsc(json.gsc);
+  if (json.gsc) document.getElementById("gscSection").style.display = "";
 }
 
 // ── Scrape trigger ────────────────────────────────────────────────────────────
@@ -138,8 +139,8 @@ function renderTable(data) {
       </td>
       <td>${fmtTech(l.tech_stack)}</td>
       <td>${l.sitemap_pages!=null?`<span class="num">${l.sitemap_pages.toLocaleString()}</span>`:'<span class="na">N/A</span>'}</td>
+      <td>${fmt(l.facebook_followers)}</td>
       <td>${fmt(l.linkedin_followers)}</td>
-      <td>${l.trends_score!=null?`<span class="pill pill-blue">${l.trends_score}</span>`:'<span class="na">N/A</span>'}</td>
       <td>${l.date||'<span class="na">—</span>'}</td>
       <td style="display:flex;gap:4px;flex-wrap:wrap">
         <button class="btn-detail" onclick="openModal(${idx})">圖表</button>
@@ -327,6 +328,16 @@ function renderKwTable(kw) {
 
 window.selectKwTab = selectKwTab;
 
+// ── Page switching ────────────────────────────────────────────────────────────
+function showPage(page) {
+  document.getElementById("pageCompetitors").style.display = page === "competitors" ? "" : "none";
+  document.getElementById("pageGsc").style.display = page === "gsc" ? "" : "none";
+  document.querySelectorAll(".page-tab").forEach(t =>
+    t.classList.toggle("active", t.textContent.includes(page === "gsc" ? "Google" : "競爭對手"))
+  );
+}
+window.showPage = showPage;
+
 // ── GSC ───────────────────────────────────────────────────────────────────────
 let gscData = null;
 let activeGscSite = null;
@@ -334,17 +345,16 @@ let activeGscSite = null;
 function renderGsc(gsc) {
   if (!gsc || !gsc.results || !gsc.results.length) return;
   gscData = gsc;
-  document.getElementById("gscSection").style.display = "";
   document.getElementById("gscUpdated").textContent = `更新：${gsc.last_updated || "—"}`;
 
-  const sites = [...new Set(gsc.results.map(r => r.site))];
+  const sites = gsc.results.map(r => r.site);
   const tabs = document.getElementById("gscTabs");
   tabs.innerHTML = sites.map((s, i) =>
     `<button class="kw-tab${i === 0 ? " active" : ""}" onclick="selectGscTab('${s}')">${s}</button>`
   ).join("");
 
   activeGscSite = sites[0];
-  renderGscTable(activeGscSite);
+  renderGscTables(activeGscSite);
 }
 
 function selectGscTab(site) {
@@ -352,25 +362,42 @@ function selectGscTab(site) {
   document.querySelectorAll("#gscTabs .kw-tab").forEach(t =>
     t.classList.toggle("active", t.textContent === site)
   );
-  renderGscTable(site);
+  renderGscTables(site);
 }
 
-function renderGscTable(site) {
-  const rows = gscData.results.filter(r => r.site === site);
-  const tbody = document.getElementById("gscTableBody");
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="5" class="loading">無資料</td></tr>';
-    return;
-  }
-  tbody.innerHTML = rows.map(r => `
-    <tr>
-      <td><span class="comp-name">${r.query}</span></td>
-      <td><span class="num">${r.clicks.toLocaleString()}</span></td>
-      <td><span class="num">${r.impressions.toLocaleString()}</span></td>
-      <td><span class="pill pill-blue">${r.ctr}%</span></td>
-      <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
-    </tr>
-  `).join("");
+function renderGscTables(site) {
+  const entry = gscData.results.find(r => r.site === site);
+  if (!entry) return;
+
+  const fmtRow = (cols, isNA) => isNA
+    ? `<tr><td colspan="${cols}" class="loading">無資料</td></tr>`
+    : "";
+
+  // Queries
+  const qBody = document.getElementById("gscQueryBody");
+  qBody.innerHTML = entry.queries?.length
+    ? entry.queries.map(r => `
+        <tr>
+          <td><span class="comp-name">${r.query}</span></td>
+          <td><span class="num">${r.clicks.toLocaleString()}</span></td>
+          <td><span class="num">${r.impressions.toLocaleString()}</span></td>
+          <td><span class="pill pill-blue">${r.ctr}%</span></td>
+          <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
+        </tr>`).join("")
+    : fmtRow(5, true);
+
+  // Countries
+  const cBody = document.getElementById("gscCountryBody");
+  cBody.innerHTML = entry.countries?.length
+    ? entry.countries.map(r => `
+        <tr>
+          <td><span class="comp-name">${r.country}</span></td>
+          <td><span class="num">${r.clicks.toLocaleString()}</span></td>
+          <td><span class="num">${r.impressions.toLocaleString()}</span></td>
+          <td><span class="pill pill-blue">${r.ctr}%</span></td>
+          <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
+        </tr>`).join("")
+    : fmtRow(5, true);
 }
 
 window.selectGscTab = selectGscTab;

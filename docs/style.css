@@ -354,6 +354,50 @@ td {
   to   { transform: translateY(0);    opacity: 1; }
 }
 
+/* ── Page tabs ── */
+.page-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 20px;
+}
+.page-tab {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all .15s;
+}
+.page-tab:hover { color: var(--text); }
+.page-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* ── Content section (shared wrapper) ── */
+.content-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ── GSC grid ── */
+.gsc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 16px;
+}
+.gsc-sub-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
 /* ── Keyword Rankings ── */
 .section-header {
   display: flex;
@@ -392,12 +436,7 @@ td {
   border-color: var(--accent);
 }
 .kw-tab:hover:not(.active) { background: var(--surface2); }
-.kw-table-wrap {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow-x: auto;
-}
+.kw-table-wrap { overflow-x: auto; }
 .kw-table {
   width: 100%;
   border-collapse: collapse;
@@ -463,4 +502,5 @@ td {
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-grid { grid-template-columns: 1fr; }
+  .gsc-grid { grid-template-columns: 1fr; }
 }
