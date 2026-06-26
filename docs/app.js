@@ -84,8 +84,8 @@ async function triggerScrape() {
       showToast("✓ 爬取已啟動！約需 5–15 分鐘，完成後數據自動更新");
       setTimeout(() => { btn.disabled = false; btn.textContent = "▶ 立即爬取"; }, 15000);
     } else {
-      const msg = r.status === 401 ? "Token 無效或已過期" : `HTTP ${r.status}，請確認 Token 有 workflow 權限`;
-      throw new Error(msg);
+      const body = await r.text().catch(() => "");
+      throw new Error(`HTTP ${r.status}: ${body || "(no body)"}`);
     }
   } catch (e) {
     showToast("❌ 觸發失敗：" + e.message);
