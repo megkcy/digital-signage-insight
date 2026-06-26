@@ -517,14 +517,35 @@ def scrape_all(delay=2.0):
 
     existing_map = {c["name"]: c for c in existing.get("competitors", [])}
 
+    # Build effective competitor list:
+    # - Use Firestore data (UI edits) as source of truth for handles/url
+    # - Fall back to hardcoded COMPETITORS for any not yet in Firestore
+    hardcoded_map = {c["name"]: c for c in COMPETITORS}
+    effective_competitors = []
+    seen = set()
+    for c in existing.get("competitors", []):
+        handles = c.get("handles", {})
+        effective_competitors.append({
+            "name": c["name"],
+            "url": c.get("url", ""),
+            "facebook": handles.get("facebook", ""),
+            "instagram": handles.get("instagram", ""),
+            "x": handles.get("x", ""),
+            "linkedin": handles.get("linkedin", ""),
+        })
+        seen.add(c["name"])
+    for c in COMPETITORS:
+        if c["name"] not in seen:
+            effective_competitors.append(c)
+
     result_competitors = []
-    total = len(COMPETITORS)
+    total = len(effective_competitors)
 
     # Fetch all LinkedIn followers in one bulk request upfront
     print("Fetching LinkedIn followers via Bright Data…")
-    linkedin_map = scrape_linkedin_bulk(COMPETITORS)
+    linkedin_map = scrape_linkedin_bulk(effective_competitors)
 
-    for i, comp in enumerate(COMPETITORS, 1):
+    for i, comp in enumerate(effective_competitors, 1):
         print(f"[{i}/{total}] {comp['name']}")
         domain = urlparse(comp["url"]).netloc.lstrip("www.")
 
