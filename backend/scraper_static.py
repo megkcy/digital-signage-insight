@@ -15,9 +15,9 @@ from bs4 import BeautifulSoup
 REFERENCE_KEYWORD = "digital signage"
 
 TRACKED_KEYWORDS = [
-    "digital signage software",
-    "cloud-based digital signage",
     "digital signage",
+    "menu board",
+    "cloud-based digital signage",
 ]
 
 DATA_PATH = os.path.join(os.path.dirname(__file__), "../docs/data.json")
