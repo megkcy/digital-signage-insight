@@ -50,7 +50,7 @@ def history(competitor_id: int):
 def trigger_scrape(background_tasks: BackgroundTasks):
     """Manually trigger a scrape run."""
     def run():
-        from scraper import scrape_all
+        from scraper_static import scrape_all
         scrape_all()
 
     background_tasks.add_task(run)

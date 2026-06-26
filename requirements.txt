@@ -4,3 +4,5 @@ requests==2.31.0
 beautifulsoup4==4.12.3
 apscheduler==3.10.4
 lxml==5.2.1
+firebase-admin==6.5.0
+pytrends==4.9.2
