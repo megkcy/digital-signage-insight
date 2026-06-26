@@ -229,33 +229,69 @@ def scrape_x(handle):
     return None
 
 
-def scrape_linkedin(handle):
-    if not handle:
-        return None
-    # handle format: "company/yodeck"
-    slug = handle.replace("company/", "").strip("/")
-    url = f"https://www.linkedin.com/company/{slug}/"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    }
+def scrape_linkedin_bulk(competitors):
+    """Fetch LinkedIn follower counts for all competitors via Bright Data dataset API."""
+    api_key = os.environ.get("BRIGHTDATA_KEY")
+    if not api_key:
+        print("  LinkedIn skipped: BRIGHTDATA_KEY not set")
+        return {}
+
+    # Build URL list for companies that have a linkedin handle
+    targets = []
+    handle_map = {}  # url -> competitor name
+    for c in competitors:
+        handle = c.get("linkedin", "")
+        if not handle:
+            continue
+        slug = handle.replace("company/", "").strip("/")
+        url = f"https://www.linkedin.com/company/{slug}/"
+        targets.append({"url": url})
+        handle_map[url] = c["name"]
+
+    if not targets:
+        return {}
+
     try:
-        resp = requests.get(url, headers=headers, timeout=15)
-        text = resp.text
-        # Try JSON-LD structured data first
-        for pat in [
-            r'"numberOfEmployees"\s*:\s*\{[^}]*"value"\s*:\s*(\d+)',
-            r'"followerCount"\s*:\s*(\d+)',
-            r'([\d,]+)\s*followers',
-            r'([\d,]+)\s*(?:人追蹤|追蹤者)',
-        ]:
-            m = re.search(pat, text, re.IGNORECASE)
-            if m:
-                return _parse_number(m.group(1))
-    except Exception:
-        pass
-    return None
+        # Trigger snapshot
+        trigger_resp = requests.post(
+            "https://api.brightdata.com/datasets/v3/trigger",
+            params={"dataset_id": "gd_l1vikfnt1wgvvqz95w", "format": "json"},
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json=targets,
+            timeout=30,
+        )
+        snapshot_id = trigger_resp.json().get("snapshot_id")
+        if not snapshot_id:
+            print(f"  LinkedIn trigger failed: {trigger_resp.text}")
+            return {}
+        print(f"  LinkedIn snapshot triggered: {snapshot_id}")
+
+        # Poll for results (max 10 minutes)
+        for attempt in range(20):
+            time.sleep(30)
+            status_resp = requests.get(
+                f"https://api.brightdata.com/datasets/v3/snapshot/{snapshot_id}",
+                params={"format": "json"},
+                headers={"Authorization": f"Bearer {api_key}"},
+                timeout=30,
+            )
+            if status_resp.status_code == 200:
+                rows = status_resp.json()
+                result = {}
+                for row in rows:
+                    row_url = row.get("url", "").rstrip("/") + "/"
+                    name = handle_map.get(row_url)
+                    if name and row.get("followers"):
+                        result[name] = _parse_number(str(row["followers"]))
+                print(f"  LinkedIn: got {len(result)} results")
+                return result
+            print(f"  LinkedIn polling attempt {attempt+1}/20...")
+
+        print("  LinkedIn: timed out waiting for results")
+        return {}
+    except Exception as e:
+        print(f"  LinkedIn error: {e}")
+        return {}
 
 
 def get_google_trends(name):
@@ -484,6 +520,10 @@ def scrape_all(delay=2.0):
     result_competitors = []
     total = len(COMPETITORS)
 
+    # Fetch all LinkedIn followers in one bulk request upfront
+    print("Fetching LinkedIn followers via Bright Data…")
+    linkedin_map = scrape_linkedin_bulk(COMPETITORS)
+
     for i, comp in enumerate(COMPETITORS, 1):
         print(f"[{i}/{total}] {comp['name']}")
         domain = urlparse(comp["url"]).netloc.lstrip("www.")
@@ -502,7 +542,7 @@ def scrape_all(delay=2.0):
         fb = scrape_facebook(comp["facebook"])
         ig = scrape_instagram(comp["instagram"])
         x = scrape_x(comp["x"])
-        li = scrape_linkedin(comp["linkedin"])
+        li = linkedin_map.get(comp["name"])
         trends = get_google_trends(comp["name"])
         time.sleep(delay)
 
