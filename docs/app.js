@@ -71,19 +71,18 @@ function applyData(json) {
 
 // ── Scrape trigger ────────────────────────────────────────────────────────────
 async function triggerScrape() {
-  if (!getToken()) { openSettings(); showToast("請先設定 GitHub Token 以觸發爬蟲"); return; }
   const btn = document.querySelector(".btn-scrape");
   btn.disabled = true; btn.textContent = "⏳ 執行中…";
-  const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches`, {
-    method: "POST",
-    headers: { Authorization: `token ${getToken()}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ ref: "main" })
-  });
-  if (r.status === 204) {
-    showToast("✓ 爬取已啟動！約需 5-15 分鐘，完成後數據自動更新");
-    setTimeout(() => { btn.disabled = false; btn.textContent = "▶ 立即爬取"; }, 10000);
-  } else {
-    showToast("❌ 觸發失敗，請確認 Token 有 workflow 權限");
+  try {
+    const r = await fetch("/api/scrape", { method: "POST" });
+    if (r.ok) {
+      showToast("✓ 爬取已在背景啟動，完成後數據自動更新");
+      setTimeout(() => { btn.disabled = false; btn.textContent = "▶ 立即爬取"; }, 10000);
+    } else {
+      throw new Error(r.statusText);
+    }
+  } catch (e) {
+    showToast("❌ 觸發失敗：" + e.message);
     btn.disabled = false; btn.textContent = "▶ 立即爬取";
   }
 }

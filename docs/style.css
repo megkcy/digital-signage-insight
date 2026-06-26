@@ -276,9 +276,10 @@ td {
   border-radius: 14px;
   padding: 30px;
   width: 100%;
-  max-width: 880px;
+  max-width: 820px;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
 }
 .modal-close {
@@ -307,8 +308,11 @@ td {
 .meta-item .value { font-size: 15px; font-weight: 600; }
 .charts-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+.charts-grid .chart-box:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
 }
 .chart-box {
   background: var(--surface2);
