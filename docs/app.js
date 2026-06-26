@@ -141,9 +141,10 @@ function renderTable(data) {
       <td>${fmt(l.linkedin_followers)}</td>
       <td>${l.trends_score!=null?`<span class="pill pill-blue">${l.trends_score}</span>`:'<span class="na">N/A</span>'}</td>
       <td>${l.date||'<span class="na">—</span>'}</td>
-      <td style="display:flex;gap:4px">
+      <td style="display:flex;gap:4px;flex-wrap:wrap">
         <button class="btn-detail" onclick="openModal(${idx})">圖表</button>
         <button class="btn-edit" onclick="openEditModal(${idx})">編輯</button>
+        <a class="btn-semrush" href="https://zh.semrush.com/analytics/overview/?q=${new URL(d.url).hostname}&db=us&searchType=domain" target="_blank">Semrush</a>
       </td>
     </tr>`;
   }).join("");
