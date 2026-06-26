@@ -241,17 +241,31 @@ def scrape_linkedin(handle):
 
 
 def get_google_trends(name):
+    api_key = os.environ.get("SERPAPI_KEY")
+    if not api_key:
+        print(f"  Trends skipped for {name}: SERPAPI_KEY not set")
+        return None
     try:
-        from pytrends.request import TrendReq
-        pt = TrendReq(hl='en-US', tz=0)
-        # Compare against reference to normalize across batches
-        kw = [name, REFERENCE_KEYWORD]
-        pt.build_payload(kw, timeframe='today 12-w', geo='')
-        df = pt.interest_over_time()
-        if df.empty or name not in df.columns:
+        resp = requests.get(
+            "https://serpapi.com/search",
+            params={
+                "engine": "google_trends",
+                "q": name,
+                "date": "today 12-w",
+                "api_key": api_key,
+            },
+            timeout=15,
+        )
+        data = resp.json()
+        timeline = data.get("interest_over_time", {}).get("timeline_data", [])
+        if not timeline:
             return None
-        avg = int(df[name].mean())
-        return avg if avg > 0 else None
+        values = [v["value"] for entry in timeline for v in entry.get("values", []) if v.get("query") == name]
+        if not values:
+            # fallback: take first value series
+            values = [v["value"] for entry in timeline for v in entry.get("values", [])]
+        avg = int(sum(values) / len(values)) if values else None
+        return avg if avg and avg > 0 else None
     except Exception as e:
         print(f"  Trends error for {name}: {e}")
         return None
