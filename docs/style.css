@@ -339,6 +339,99 @@ td {
   to   { transform: translateY(0);    opacity: 1; }
 }
 
+/* ── Keyword Rankings ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.kw-updated {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.kw-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.kw-tab {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+}
+.kw-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.kw-tab:hover:not(.active) { background: var(--surface2); }
+.kw-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+.kw-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+.kw-table thead th {
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.kw-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .1s;
+}
+.kw-table tbody tr:last-child { border-bottom: none; }
+.kw-table tbody tr:hover { background: var(--surface2); }
+.kw-table td { padding: 10px 16px; vertical-align: middle; }
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--surface2);
+  color: var(--text-muted);
+}
+.rank-badge.top3 { background: #fef3c7; color: #d97706; }
+.kw-url {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  max-width: 360px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.kw-url:hover { text-decoration: underline; }
+.kw-title { font-size: 13px; color: var(--text); max-width: 300px; overflow: hidden; text-overflow: ellipsis; }
+
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
   .charts-grid { grid-template-columns: 1fr; }

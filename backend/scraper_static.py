@@ -14,6 +14,12 @@ from bs4 import BeautifulSoup
 
 REFERENCE_KEYWORD = "digital signage"
 
+TRACKED_KEYWORDS = [
+    "digital signage software",
+    "cloud-based digital signage",
+    "digital signage",
+]
+
 DATA_PATH = os.path.join(os.path.dirname(__file__), "../docs/data.json")
 
 HEADERS = {
@@ -271,6 +277,56 @@ def get_google_trends(name):
         return None
 
 
+def scrape_keyword_rankings(competitors):
+    api_key = os.environ.get("SERPAPI_KEY")
+    if not api_key:
+        print("  Keyword rankings skipped: SERPAPI_KEY not set")
+        return []
+
+    competitor_domains = {}
+    for c in competitors:
+        domain = urlparse(c["url"]).netloc.lstrip("www.")
+        competitor_domains[domain] = c["name"]
+
+    results = []
+    for kw in TRACKED_KEYWORDS:
+        print(f"  Keyword: '{kw}'")
+        try:
+            resp = requests.get(
+                "https://serpapi.com/search",
+                params={
+                    "engine": "google",
+                    "q": kw,
+                    "num": 20,
+                    "api_key": api_key,
+                },
+                timeout=15,
+            )
+            data = resp.json()
+            organic = data.get("organic_results", [])
+            for item in organic:
+                item_url = item.get("link", "")
+                item_domain = urlparse(item_url).netloc.lstrip("www.")
+                matched_name = None
+                for domain, name in competitor_domains.items():
+                    if domain in item_domain or item_domain in domain:
+                        matched_name = name
+                        break
+                if matched_name:
+                    results.append({
+                        "keyword": kw,
+                        "rank": item.get("position"),
+                        "competitor": matched_name,
+                        "url": item_url,
+                        "title": item.get("title", ""),
+                    })
+                    print(f"    #{item.get('position')} {matched_name} — {item_url}")
+            time.sleep(1)
+        except Exception as e:
+            print(f"  Keyword ranking error for '{kw}': {e}")
+    return results
+
+
 def _get_firestore():
     try:
         import firebase_admin
@@ -389,7 +445,18 @@ def scrape_all(delay=2.0):
 
         print(f"  PR:{pagerank} Pages:{pages} LI:{li} Trends:{trends}")
 
-    data = {"last_updated": today, "competitors": result_competitors}
+    print("\nScraping keyword rankings…")
+    keyword_rankings = scrape_keyword_rankings(COMPETITORS)
+
+    data = {
+        "last_updated": today,
+        "competitors": result_competitors,
+        "keyword_rankings": {
+            "last_updated": today,
+            "keywords": TRACKED_KEYWORDS,
+            "results": keyword_rankings,
+        },
+    }
     save_data(data)
     print(f"\nSaved to {DATA_PATH}")
 

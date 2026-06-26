@@ -67,6 +67,7 @@ function applyData(json) {
   document.getElementById("cardSocial").textContent = socialCount;
   allData = json.competitors;
   filterTable();
+  if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
 }
 
 // ── Scrape trigger ────────────────────────────────────────────────────────────
@@ -271,6 +272,55 @@ window.triggerScrape = triggerScrape;
 window.openSettings = openSettings;
 window.closeSettings = closeSettings;
 window.saveToken = saveToken;
+
+// ── Keyword Rankings ─────────────────────────────────────────────────────────
+let kwData = null;
+let activeKw = null;
+
+function renderKeywordRankings(rankings) {
+  if (!rankings || !rankings.results || !rankings.results.length) return;
+  kwData = rankings;
+  document.getElementById("kwSection").style.display = "";
+  document.getElementById("kwUpdated").textContent = `更新：${rankings.last_updated || "—"}`;
+
+  const tabs = document.getElementById("kwTabs");
+  tabs.innerHTML = rankings.keywords.map((kw, i) =>
+    `<button class="kw-tab${i === 0 ? " active" : ""}" onclick="selectKwTab('${kw}')">${kw}</button>`
+  ).join("");
+
+  activeKw = rankings.keywords[0];
+  renderKwTable(activeKw);
+}
+
+function selectKwTab(kw) {
+  activeKw = kw;
+  document.querySelectorAll(".kw-tab").forEach(t =>
+    t.classList.toggle("active", t.textContent === kw)
+  );
+  renderKwTable(kw);
+}
+
+function renderKwTable(kw) {
+  const rows = kwData.results
+    .filter(r => r.keyword === kw)
+    .sort((a, b) => a.rank - b.rank);
+
+  const tbody = document.getElementById("kwTableBody");
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="loading">此關鍵字無競爭對手出現在前 20 名</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td><span class="rank-badge${r.rank <= 3 ? " top3" : ""}">${r.rank}</span></td>
+      <td><span class="comp-name">${r.competitor}</span></td>
+      <td><span class="kw-title">${r.title || "—"}</span></td>
+      <td><a class="kw-url" href="${r.url}" target="_blank" title="${r.url}">${r.url}</a></td>
+    </tr>
+  `).join("");
+}
+
+window.selectKwTab = selectKwTab;
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 loadData();
