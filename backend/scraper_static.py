@@ -177,32 +177,20 @@ def scrape_facebook(handle):
     if not handle:
         return None
     api_key = os.environ.get("SERPAPI_KEY")
-    if api_key:
-        try:
-            resp = requests.get(
-                "https://serpapi.com/search",
-                params={"engine": "facebook_page", "page_id": handle, "api_key": api_key},
-                timeout=15,
-            )
-            data = resp.json()
-            followers = (
-                data.get("page_info", {}).get("followers")
-                or data.get("followers")
-                or data.get("page", {}).get("followers")
-            )
-            if followers:
-                return _parse_number(str(followers))
-        except Exception as e:
-            print(f"  SerpApi Facebook error for {handle}: {e}")
-    # fallback: direct scrape
+    if not api_key:
+        return None
     try:
-        resp = requests.get(f"https://www.facebook.com/{handle}", headers=HEADERS, timeout=15)
-        for pat in [r'"follower_count":(\d+)', r'([\d,]+)\s+(?:people follow|followers)']:
-            m = re.search(pat, resp.text, re.IGNORECASE)
-            if m:
-                return _parse_number(m.group(1))
-    except Exception:
-        pass
+        resp = requests.get(
+            "https://serpapi.com/search",
+            params={"engine": "facebook_profile", "profile_id": handle, "api_key": api_key},
+            timeout=15,
+        )
+        data = resp.json()
+        followers = data.get("profile_results", {}).get("followers")
+        if followers:
+            return _parse_number(str(followers))
+    except Exception as e:
+        print(f"  SerpApi Facebook error for {handle}: {e}")
     return None
 
 
