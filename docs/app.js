@@ -68,6 +68,7 @@ function applyData(json) {
   allData = json.competitors;
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
+  if (json.gsc) renderGsc(json.gsc);
 }
 
 // ── Scrape trigger ────────────────────────────────────────────────────────────
@@ -324,6 +325,54 @@ function renderKwTable(kw) {
 }
 
 window.selectKwTab = selectKwTab;
+
+// ── GSC ───────────────────────────────────────────────────────────────────────
+let gscData = null;
+let activeGscSite = null;
+
+function renderGsc(gsc) {
+  if (!gsc || !gsc.results || !gsc.results.length) return;
+  gscData = gsc;
+  document.getElementById("gscSection").style.display = "";
+  document.getElementById("gscUpdated").textContent = `更新：${gsc.last_updated || "—"}`;
+
+  const sites = [...new Set(gsc.results.map(r => r.site))];
+  const tabs = document.getElementById("gscTabs");
+  tabs.innerHTML = sites.map((s, i) =>
+    `<button class="kw-tab${i === 0 ? " active" : ""}" onclick="selectGscTab('${s}')">${s}</button>`
+  ).join("");
+
+  activeGscSite = sites[0];
+  renderGscTable(activeGscSite);
+}
+
+function selectGscTab(site) {
+  activeGscSite = site;
+  document.querySelectorAll("#gscTabs .kw-tab").forEach(t =>
+    t.classList.toggle("active", t.textContent === site)
+  );
+  renderGscTable(site);
+}
+
+function renderGscTable(site) {
+  const rows = gscData.results.filter(r => r.site === site);
+  const tbody = document.getElementById("gscTableBody");
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="loading">無資料</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td><span class="comp-name">${r.query}</span></td>
+      <td><span class="num">${r.clicks.toLocaleString()}</span></td>
+      <td><span class="num">${r.impressions.toLocaleString()}</span></td>
+      <td><span class="pill pill-blue">${r.ctr}%</span></td>
+      <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
+    </tr>
+  `).join("");
+}
+
+window.selectGscTab = selectGscTab;
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 loadData();

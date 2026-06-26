@@ -19,12 +19,13 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4 lxml firebase-admin
+        run: pip install requests beautifulsoup4 lxml firebase-admin google-api-python-client google-auth
 
       - name: Run scraper
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
         run: python backend/scraper_static.py
 
       - name: Commit & push data.json

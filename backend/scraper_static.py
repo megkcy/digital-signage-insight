@@ -337,6 +337,59 @@ def scrape_keyword_rankings(competitors):
     return results
 
 
+def fetch_gsc_data():
+    sa_json = os.environ.get("GSC_SERVICE_ACCOUNT")
+    if not sa_json:
+        print("GSC skipped: GSC_SERVICE_ACCOUNT not set")
+        return []
+    try:
+        import tempfile
+        from google.oauth2 import service_account
+        from googleapiclient.discovery import build
+
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            f.write(sa_json)
+            sa_path = f.name
+
+        creds = service_account.Credentials.from_service_account_file(
+            sa_path,
+            scopes=["https://www.googleapis.com/auth/webmasters.readonly"],
+        )
+        service = build("searchconsole", "v1", credentials=creds)
+
+        results = []
+        for site in OWN_SITES:
+            site_url = site["url"].rstrip("/") + "/"
+            print(f"  GSC: {site['name']} ({site_url})")
+            try:
+                body = {
+                    "startDate": (datetime.utcnow().replace(day=1)).strftime("%Y-%m-%d"),
+                    "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
+                    "dimensions": ["query"],
+                    "rowLimit": 20,
+                    "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
+                }
+                resp = service.searchanalytics().query(siteUrl=site_url, body=body).execute()
+                rows = resp.get("rows", [])
+                for row in rows:
+                    results.append({
+                        "site": site["name"],
+                        "site_url": site["url"],
+                        "query": row["keys"][0],
+                        "clicks": row.get("clicks", 0),
+                        "impressions": row.get("impressions", 0),
+                        "ctr": round(row.get("ctr", 0) * 100, 1),
+                        "position": round(row.get("position", 0), 1),
+                    })
+                print(f"    {len(rows)} queries fetched")
+            except Exception as e:
+                print(f"  GSC error for {site['name']}: {e}")
+        return results
+    except Exception as e:
+        print(f"GSC unavailable: {e}")
+        return []
+
+
 def _get_firestore():
     try:
         import firebase_admin
@@ -458,6 +511,9 @@ def scrape_all(delay=2.0):
     print("\nScraping keyword rankings…")
     keyword_rankings = scrape_keyword_rankings(COMPETITORS)
 
+    print("\nFetching GSC data…")
+    gsc_data = fetch_gsc_data()
+
     data = {
         "last_updated": today,
         "competitors": result_competitors,
@@ -465,6 +521,10 @@ def scrape_all(delay=2.0):
             "last_updated": today,
             "keywords": TRACKED_KEYWORDS,
             "results": keyword_rankings,
+        },
+        "gsc": {
+            "last_updated": today,
+            "results": gsc_data,
         },
     }
     save_data(data)
