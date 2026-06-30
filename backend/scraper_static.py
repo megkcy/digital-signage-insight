@@ -718,9 +718,9 @@ def scrape_all(delay=2.0):
         tag = "(cached)" if skip_monthly else ""
         print(f"  PR:{pagerank} Pages:{pages} GIdx:{google_idx} LI:{li} Trends:{trends} {tag}")
 
-    # Keyword rankings + content strategy — every 2 weeks
+    # Keyword rankings + content strategy — once per month
     kw_last = existing.get("keyword_rankings", {}).get("last_updated", "")
-    skip_biweekly = _within_days(kw_last, today, 14)
+    skip_biweekly = _same_month(kw_last, today)
 
     print("\nScraping keyword rankings…")
     if skip_biweekly:
