@@ -45,9 +45,16 @@ async function loadData() {
 }
 
 async function saveData(updatedCompetitors, _message) {
+  // Read existing Firestore doc first so we don't wipe keyword_rankings / gsc / content_strategy
+  let existing = {};
+  try {
+    const snap = await getDoc(doc(db, "insight", "data"));
+    if (snap.exists()) existing = snap.data();
+  } catch { /* ignore, will overwrite safely */ }
   const json = {
-    last_updated: updatedCompetitors.find(c => c.latest?.date)?.latest?.date || null,
-    competitors: updatedCompetitors
+    ...existing,
+    last_updated: updatedCompetitors.find(c => c.latest?.date)?.latest?.date || existing.last_updated || null,
+    competitors: updatedCompetitors,
   };
   try {
     await setDoc(doc(db, "insight", "data"), json);
@@ -136,15 +143,20 @@ function fmtIndexed(n) {
   return `<span class="num">${n.toLocaleString()}</span>`;
 }
 
+function safeHostname(url) {
+  try { return new URL(url).hostname; } catch { return ""; }
+}
+
 function renderTable(data) {
   const tbody = document.getElementById("tableBody");
   if (!data.length) { tbody.innerHTML = '<tr><td colspan="8" class="loading">沒有符合的結果</td></tr>'; return; }
   tbody.innerHTML = data.map(d => {
     const l = d.latest || {};
     const idx = allData.indexOf(d);
+    const host = safeHostname(d.url);
     return `<tr>
       <td>
-        <div class="comp-name"><a href="${d.url}" target="_blank">${d.name}</a></div>
+        <div class="comp-name">${d.url ? `<a href="${d.url}" target="_blank">${d.name}</a>` : d.name}</div>
         <div class="comp-url">${d.url||""}</div>
       </td>
       <td>${fmtTech(l.tech_stack)}</td>
@@ -156,8 +168,8 @@ function renderTable(data) {
       <td style="display:flex;gap:4px;flex-wrap:wrap">
         <button class="btn-detail" onclick="openModal(${idx})">圖表</button>
         <button class="btn-edit" onclick="openEditModal(${idx})">編輯</button>
-        <a class="btn-semrush" href="https://zh.semrush.com/analytics/overview/?q=${new URL(d.url).hostname}&db=us&searchType=domain" target="_blank">Semrush</a>
-        <a class="btn-site" href="https://www.google.com/search?q=site:${new URL(d.url).hostname}" target="_blank">site:</a>
+        ${host ? `<a class="btn-semrush" href="https://zh.semrush.com/analytics/overview/?q=${host}&db=us&searchType=domain" target="_blank">Semrush</a>` : ""}
+        ${host ? `<a class="btn-site" href="https://www.google.com/search?q=site:${host}" target="_blank">site:</a>` : ""}
       </td>
     </tr>`;
   }).join("");
