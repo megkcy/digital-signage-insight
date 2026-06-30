@@ -40,7 +40,7 @@ async function loadData() {
     applyData(await r.json());
   } catch {
     document.getElementById("tableBody").innerHTML =
-      '<tr><td colspan="7" class="loading">⚠ 無法載入數據</td></tr>';
+      '<tr><td colspan="8" class="loading">⚠ 無法載入數據</td></tr>';
   }
 }
 
@@ -68,6 +68,7 @@ function applyData(json) {
   const liCount = json.competitors.filter(c => c.latest?.linkedin_followers != null).length;
   document.getElementById("cardLinkedin").textContent = liCount;
   allData = json.competitors;
+  if (json.content_strategy) csData = json.content_strategy;
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
   if (json.gsc) renderGsc(json.gsc);
@@ -128,9 +129,16 @@ function filterTable() {
   renderTable(data);
 }
 
+function fmtIndexed(n) {
+  if (n == null) return '<span class="na">N/A</span>';
+  if (n >= 1_000_000) return `<span class="num">${(n/1_000_000).toFixed(1)}M</span>`;
+  if (n >= 1_000) return `<span class="num">${(n/1_000).toFixed(0)}K</span>`;
+  return `<span class="num">${n.toLocaleString()}</span>`;
+}
+
 function renderTable(data) {
   const tbody = document.getElementById("tableBody");
-  if (!data.length) { tbody.innerHTML = '<tr><td colspan="7" class="loading">沒有符合的結果</td></tr>'; return; }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="8" class="loading">沒有符合的結果</td></tr>'; return; }
   tbody.innerHTML = data.map(d => {
     const l = d.latest || {};
     const idx = allData.indexOf(d);
@@ -141,6 +149,7 @@ function renderTable(data) {
       </td>
       <td>${fmtTech(l.tech_stack)}</td>
       <td>${l.sitemap_pages!=null?`<span class="num">${l.sitemap_pages.toLocaleString()}</span>`:'<span class="na">N/A</span>'}</td>
+      <td>${fmtIndexed(l.google_indexed)}</td>
       <td>${fmt(l.facebook_followers)}</td>
       <td>${fmt(l.linkedin_followers)}</td>
       <td>${l.date||'<span class="na">—</span>'}</td>
@@ -149,7 +158,6 @@ function renderTable(data) {
         <button class="btn-edit" onclick="openEditModal(${idx})">編輯</button>
         <a class="btn-semrush" href="https://zh.semrush.com/analytics/overview/?q=${new URL(d.url).hostname}&db=us&searchType=domain" target="_blank">Semrush</a>
         <a class="btn-site" href="https://www.google.com/search?q=site:${new URL(d.url).hostname}" target="_blank">site:</a>
-        <a class="btn-site btn-content" href="https://www.google.com/search?q=site:${new URL(d.url).hostname}+digital+signage" target="_blank">內容策略</a>
       </td>
     </tr>`;
   }).join("");
@@ -283,6 +291,7 @@ window.saveToken = saveToken;
 // ── Keyword Rankings ─────────────────────────────────────────────────────────
 let kwData = null;
 let activeKw = null;
+let csData = null;
 
 function renderKeywordRankings(rankings) {
   if (!rankings || !rankings.results || !rankings.results.length) return;
@@ -297,6 +306,7 @@ function renderKeywordRankings(rankings) {
 
   activeKw = rankings.keywords[0];
   renderKwTable(activeKw);
+  renderContentStrategy(activeKw);
 }
 
 function selectKwTab(kw) {
@@ -305,6 +315,7 @@ function selectKwTab(kw) {
     t.classList.toggle("active", t.textContent === kw)
   );
   renderKwTable(kw);
+  renderContentStrategy(kw);
 }
 
 function renderKwTable(kw) {
@@ -364,6 +375,38 @@ function renderKwTable(kw) {
       </tr>
     `;
   }).join("");
+}
+
+function renderContentStrategy(kw) {
+  const section = document.getElementById("csSection");
+  if (!section) return;
+  if (!csData || !csData.results || !csData.results.length) { section.innerHTML = ""; return; }
+  const entries = csData.results.filter(r => r.keyword === kw);
+  if (!entries.length) { section.innerHTML = ""; return; }
+  section.innerHTML = `
+    <h3 class="cs-title">競爭對手內容策略：「${kw}」</h3>
+    <div class="cs-grid">
+      ${entries.map(e => `
+        <div class="cs-card">
+          <div class="cs-card-header">
+            <span class="cs-comp-name">${e.competitor}</span>
+            <span class="cs-domain">${e.domain}</span>
+          </div>
+          <div class="cs-pages">
+            ${e.pages.map((p, i) => `
+              <div class="cs-page">
+                <span class="cs-page-num">${i + 1}</span>
+                <div class="cs-page-info">
+                  <a class="cs-page-title" href="${p.url}" target="_blank">${p.title || p.url}</a>
+                  ${p.snippet ? `<div class="cs-snippet">${p.snippet}</div>` : ""}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
 }
 
 window.selectKwTab = selectKwTab;
