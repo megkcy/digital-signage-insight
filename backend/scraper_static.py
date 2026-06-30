@@ -590,6 +590,11 @@ def save_data(data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
+def _same_month(date_str: str, today: str) -> bool:
+    """True if date_str falls in the same calendar month as today (YYYY-MM-DD)."""
+    return bool(date_str) and date_str[:7] == today[:7]
+
+
 def scrape_all(delay=2.0):
     today = datetime.utcnow().strftime("%Y-%m-%d")
     existing = load_existing()
@@ -620,31 +625,49 @@ def scrape_all(delay=2.0):
     result_competitors = []
     total = len(effective_competitors)
 
-    # Fetch all LinkedIn followers in one bulk request upfront
-    print("Fetching LinkedIn followers via Bright Data…")
-    linkedin_map = scrape_linkedin_bulk(effective_competitors)
+    # LinkedIn bulk fetch — only for competitors that need a monthly refresh
+    needs_monthly = [
+        c for c in effective_competitors
+        if not _same_month(existing_map.get(c["name"], {}).get("latest", {}).get("date", ""), today)
+    ]
+    print(f"Fetching LinkedIn followers via Bright Data… ({len(needs_monthly)}/{total} need refresh)")
+    linkedin_map = scrape_linkedin_bulk(needs_monthly)
 
     for i, comp in enumerate(effective_competitors, 1):
         print(f"[{i}/{total}] {comp['name']}")
         domain = urlparse(comp["url"]).netloc.lstrip("www.")
 
         prev = existing_map.get(comp["name"], {})
+        prev_latest = prev.get("latest", {})
         history = prev.get("history", [])
+        skip_monthly = _same_month(prev_latest.get("date", ""), today)
 
-        # SEO
+        # SEO — always weekly (no SerpAPI cost)
         pagerank = get_open_pagerank(domain)
         meta = get_meta_info(comp["url"])
         pages = get_sitemap_pages(comp["url"])
         tech = detect_tech_stack(comp["url"])
-        google_idx = scrape_google_indexed_count(domain)
+
+        # Google indexed — monthly only
+        if skip_monthly:
+            google_idx = prev_latest.get("google_indexed")
+        else:
+            google_idx = scrape_google_indexed_count(domain)
         time.sleep(delay)
 
-        # Social
-        fb = scrape_facebook(comp["facebook"])
-        ig = scrape_instagram(comp["instagram"])
-        x = scrape_x(comp["x"])
-        li = linkedin_map.get(comp["name"])
-        trends = get_google_trends(comp["name"])
+        # Social — monthly only
+        if skip_monthly:
+            fb = prev_latest.get("facebook_followers")
+            ig = prev_latest.get("instagram_followers")
+            x = prev_latest.get("x_followers")
+            li = prev_latest.get("linkedin_followers")
+            trends = prev_latest.get("trends_score")
+        else:
+            fb = scrape_facebook(comp["facebook"])
+            ig = scrape_instagram(comp["instagram"])
+            x = scrape_x(comp["x"])
+            li = linkedin_map.get(comp["name"])
+            trends = get_google_trends(comp["name"])
         time.sleep(delay)
 
         snapshot = {
@@ -680,7 +703,8 @@ def scrape_all(delay=2.0):
             "history": history,
         })
 
-        print(f"  PR:{pagerank} Pages:{pages} LI:{li} Trends:{trends}")
+        tag = "(cached)" if skip_monthly else ""
+        print(f"  PR:{pagerank} Pages:{pages} GIdx:{google_idx} LI:{li} Trends:{trends} {tag}")
 
     print("\nScraping keyword rankings…")
     keyword_rankings = scrape_keyword_rankings(COMPETITORS)
