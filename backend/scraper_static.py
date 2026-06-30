@@ -595,6 +595,18 @@ def _same_month(date_str: str, today: str) -> bool:
     return bool(date_str) and date_str[:7] == today[:7]
 
 
+def _within_days(date_str: str, today: str, days: int) -> bool:
+    """True if date_str is within the last `days` days from today."""
+    if not date_str:
+        return False
+    try:
+        d = datetime.strptime(date_str, "%Y-%m-%d")
+        t = datetime.strptime(today, "%Y-%m-%d")
+        return (t - d).days < days
+    except Exception:
+        return False
+
+
 def scrape_all(delay=2.0):
     today = datetime.utcnow().strftime("%Y-%m-%d")
     existing = load_existing()
@@ -706,24 +718,41 @@ def scrape_all(delay=2.0):
         tag = "(cached)" if skip_monthly else ""
         print(f"  PR:{pagerank} Pages:{pages} GIdx:{google_idx} LI:{li} Trends:{trends} {tag}")
 
+    # Keyword rankings + content strategy — every 2 weeks
+    kw_last = existing.get("keyword_rankings", {}).get("last_updated", "")
+    skip_biweekly = _within_days(kw_last, today, 14)
+
     print("\nScraping keyword rankings…")
-    keyword_rankings = scrape_keyword_rankings(COMPETITORS)
+    if skip_biweekly:
+        print(f"  Skipped (last run: {kw_last}, within 14 days)")
+        keyword_rankings = existing.get("keyword_rankings", {}).get("results", [])
+    else:
+        keyword_rankings = scrape_keyword_rankings(COMPETITORS)
 
     print("\nScraping content strategy…")
-    content_strategy_results = scrape_all_content_pages(keyword_rankings)
+    if skip_biweekly:
+        print("  Skipped (within 14 days)")
+        content_strategy_results = existing.get("content_strategy", {}).get("results", [])
+    else:
+        content_strategy_results = scrape_all_content_pages(keyword_rankings)
 
     print("\nFetching GSC data…")
     gsc_data = fetch_gsc_data()
 
+    # Preserve existing keyword_rankings/content_strategy objects when skipping
+    # so their last_updated dates are not bumped to today
+    existing_kw = existing.get("keyword_rankings", {})
+    existing_cs = existing.get("content_strategy", {})
+
     data = {
         "last_updated": today,
         "competitors": result_competitors,
-        "keyword_rankings": {
+        "keyword_rankings": existing_kw if skip_biweekly else {
             "last_updated": today,
             "keywords": TRACKED_KEYWORDS,
             "results": keyword_rankings,
         },
-        "content_strategy": {
+        "content_strategy": existing_cs if skip_biweekly else {
             "last_updated": today,
             "results": content_strategy_results,
         },
