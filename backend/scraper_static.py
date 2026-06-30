@@ -34,6 +34,7 @@ HEADERS = {
 COMPETITORS = [
     {"name": "Yodeck", "url": "https://yodeck.com", "facebook": "yodeckdigitalsignage", "instagram": "yodeck.digitalsignage", "x": "yodeck", "linkedin": "company/flipnode-llc"},
     {"name": "Qwaiting", "url": "https://qwaiting.com", "facebook": "qwaiting", "instagram": "", "x": "qwaiting", "linkedin": "company/qwaiting"},
+    {"name": "Digital Signage", "url": "https://www.digitalsignage.com", "facebook": "", "instagram": "", "x": "", "linkedin": ""},
     {"name": "Look Digital Signage", "url": "https://www.lookdigitalsignage.com", "facebook": "lookdigitalsignage", "instagram": "lookdigitalsignage", "x": "lookdigitalsig", "linkedin": "company/look-digital-signage"},
     {"name": "Nento", "url": "https://nento.com", "facebook": "", "instagram": "", "x": "", "linkedin": "company/nento"},
     {"name": "Hexnode", "url": "https://www.hexnode.com", "facebook": "hexnode", "instagram": "hexnode", "x": "hexnode", "linkedin": "company/hexnode"},
@@ -360,7 +361,7 @@ def scrape_keyword_rankings(competitors):
                 item_domain = urlparse(item_url).netloc.lstrip("www.")
                 matched = None
                 for domain, info in domain_map.items():
-                    if domain in item_domain or item_domain in domain:
+                    if item_domain == domain or item_domain.endswith("." + domain):
                         matched = info
                         break
                 if matched:
