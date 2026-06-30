@@ -148,6 +148,8 @@ function renderTable(data) {
         <button class="btn-detail" onclick="openModal(${idx})">圖表</button>
         <button class="btn-edit" onclick="openEditModal(${idx})">編輯</button>
         <a class="btn-semrush" href="https://zh.semrush.com/analytics/overview/?q=${new URL(d.url).hostname}&db=us&searchType=domain" target="_blank">Semrush</a>
+        <a class="btn-site" href="https://www.google.com/search?q=site:${new URL(d.url).hostname}" target="_blank">site:</a>
+        <a class="btn-site btn-content" href="https://www.google.com/search?q=site:${new URL(d.url).hostname}+digital+signage" target="_blank">內容策略</a>
       </td>
     </tr>`;
   }).join("");
@@ -310,22 +312,58 @@ function renderKwTable(kw) {
     .filter(r => r.keyword === kw)
     .sort((a, b) => a.rank - b.rank);
 
+  // Ranking gap
+  const ownRows = rows.filter(r => r.is_own);
+  const compRows = rows.filter(r => !r.is_own);
+  const ownRank = ownRows.length ? ownRows[0].rank : null;
+  const topCompRank = compRows.length ? compRows[0].rank : null;
+  let gapHtml = "";
+  if (rows.length) {
+    const ownLabel = ownRank != null
+      ? `<span class="gap-own">自己最高：第 ${ownRank} 名</span>`
+      : `<span class="gap-none">自己未進前 20</span>`;
+    const compLabel = topCompRank != null
+      ? `<span class="gap-comp">競爭對手最高：第 ${topCompRank} 名</span>`
+      : "";
+    let diffLabel = "";
+    if (ownRank != null && topCompRank != null) {
+      const diff = ownRank - topCompRank;
+      const cls = diff > 0 ? "gap-behind" : diff < 0 ? "gap-ahead" : "gap-even";
+      diffLabel = `<span class="gap-diff ${cls}">差距：${diff > 0 ? "+" : ""}${diff}</span>`;
+    }
+    const parts = [ownLabel, compLabel, diffLabel].filter(Boolean);
+    gapHtml = `<div class="kw-gap">${parts.join('<span class="gap-sep">｜</span>')}</div>`;
+  }
+  document.getElementById("kwGap").innerHTML = gapHtml;
+
   const tbody = document.getElementById("kwTableBody");
   if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="4" class="loading">此關鍵字無競爭對手出現在前 20 名</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="loading">此關鍵字無競爭對手出現在前 20 名</td></tr>';
     return;
   }
-  tbody.innerHTML = rows.map(r => `
-    <tr class="${r.is_own ? "own-site-row" : ""}">
-      <td><span class="rank-badge${r.rank <= 3 ? " top3" : ""}">${r.rank}</span></td>
-      <td>
-        <span class="comp-name">${r.competitor}</span>
-        ${r.is_own ? '<span class="own-badge">自己</span>' : ""}
-      </td>
-      <td><span class="kw-title">${r.title || "—"}</span></td>
-      <td><a class="kw-url" href="${r.url}" target="_blank" title="${r.url}">${r.url}</a></td>
-    </tr>
-  `).join("");
+  tbody.innerHTML = rows.map(r => {
+    let domain = "";
+    try { domain = new URL(r.url).hostname; } catch { domain = r.url; }
+    const encUrl = encodeURIComponent(r.url);
+    const encKw = encodeURIComponent(kw);
+    return `
+      <tr class="${r.is_own ? "own-site-row" : ""}">
+        <td><span class="rank-badge${r.rank <= 3 ? " top3" : ""}">${r.rank}</span></td>
+        <td>
+          <span class="comp-name">${r.competitor}</span>
+          ${r.is_own ? '<span class="own-badge">自己</span>' : ""}
+        </td>
+        <td><span class="kw-title">${r.title || "—"}</span></td>
+        <td><a class="kw-url" href="${r.url}" target="_blank" title="${r.url}">${r.url}</a></td>
+        <td class="kw-actions">
+          <a href="https://ahrefs.com/backlink-checker/?target=${encUrl}" target="_blank" class="btn-kw-action btn-ahrefs">Ahrefs</a>
+          <a href="https://moz.com/link-explorer/analysis?target=${encUrl}" target="_blank" class="btn-kw-action btn-moz">Moz</a>
+          <a href="https://www.google.com/search?q=site:${domain}" target="_blank" class="btn-kw-action">site:</a>
+          <a href="https://www.google.com/search?q=site:${domain}+${encKw}" target="_blank" class="btn-kw-action">內容策略</a>
+        </td>
+      </tr>
+    `;
+  }).join("");
 }
 
 window.selectKwTab = selectKwTab;
