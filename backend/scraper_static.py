@@ -459,6 +459,84 @@ def fetch_gsc_data():
         return []
 
 
+def scrape_google_indexed_count(domain):
+    api_key = os.environ.get("SERPAPI_KEY")
+    if not api_key:
+        return None
+    try:
+        resp = requests.get(
+            "https://serpapi.com/search",
+            params={"engine": "google", "q": f"site:{domain}", "num": 1, "api_key": api_key},
+            timeout=15,
+        )
+        data = resp.json()
+        raw = data.get("search_information", {}).get("total_results")
+        if raw is not None:
+            return int(str(raw).replace(",", "").replace(".", ""))
+        return None
+    except Exception as e:
+        print(f"  Google indexed error for {domain}: {e}")
+        return None
+
+
+def scrape_content_pages(domain, keyword, n=5):
+    api_key = os.environ.get("SERPAPI_KEY")
+    if not api_key:
+        return []
+    try:
+        resp = requests.get(
+            "https://serpapi.com/search",
+            params={"engine": "google", "q": f"site:{domain} {keyword}", "num": n, "api_key": api_key},
+            timeout=15,
+        )
+        data = resp.json()
+        return [
+            {
+                "url": item.get("link", ""),
+                "title": item.get("title", ""),
+                "snippet": item.get("snippet", ""),
+            }
+            for item in data.get("organic_results", [])[:n]
+        ]
+    except Exception as e:
+        print(f"  Content pages error for {domain}/{keyword}: {e}")
+        return []
+
+
+def scrape_all_content_pages(keyword_rankings):
+    api_key = os.environ.get("SERPAPI_KEY")
+    if not api_key:
+        print("  Content strategy skipped: SERPAPI_KEY not set")
+        return []
+    seen = set()
+    pairs = []
+    for r in keyword_rankings:
+        if r.get("is_own"):
+            continue
+        key = (r["competitor"], r["keyword"])
+        if key in seen:
+            continue
+        seen.add(key)
+        try:
+            domain = urlparse(r["url"]).netloc.lstrip("www.")
+        except Exception:
+            continue
+        pairs.append((r["competitor"], domain, r["keyword"]))
+    results = []
+    for competitor, domain, keyword in pairs:
+        print(f"  Content strategy: {competitor} × '{keyword}'")
+        pages = scrape_content_pages(domain, keyword)
+        if pages:
+            results.append({
+                "keyword": keyword,
+                "competitor": competitor,
+                "domain": domain,
+                "pages": pages,
+            })
+        time.sleep(1)
+    return results
+
+
 def _get_firestore():
     try:
         import firebase_admin
@@ -558,6 +636,7 @@ def scrape_all(delay=2.0):
         meta = get_meta_info(comp["url"])
         pages = get_sitemap_pages(comp["url"])
         tech = detect_tech_stack(comp["url"])
+        google_idx = scrape_google_indexed_count(domain)
         time.sleep(delay)
 
         # Social
@@ -575,6 +654,7 @@ def scrape_all(delay=2.0):
             "meta_title": meta.get("meta_title"),
             "meta_description": meta.get("meta_description"),
             "tech_stack": tech,
+            "google_indexed": google_idx,
             "facebook_followers": fb,
             "instagram_followers": ig,
             "x_followers": x,
@@ -605,6 +685,9 @@ def scrape_all(delay=2.0):
     print("\nScraping keyword rankings…")
     keyword_rankings = scrape_keyword_rankings(COMPETITORS)
 
+    print("\nScraping content strategy…")
+    content_strategy_results = scrape_all_content_pages(keyword_rankings)
+
     print("\nFetching GSC data…")
     gsc_data = fetch_gsc_data()
 
@@ -615,6 +698,10 @@ def scrape_all(delay=2.0):
             "last_updated": today,
             "keywords": TRACKED_KEYWORDS,
             "results": keyword_rankings,
+        },
+        "content_strategy": {
+            "last_updated": today,
+            "results": content_strategy_results,
         },
         "gsc": {
             "last_updated": today,
