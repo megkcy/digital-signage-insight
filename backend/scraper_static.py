@@ -6,7 +6,7 @@ import json
 import os
 import re
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from urllib.parse import urlparse, urljoin
 
 import requests
@@ -406,9 +406,10 @@ def fetch_gsc_data():
             site_url = site["url"].rstrip("/") + "/"
             print(f"  GSC: {site['name']} ({site_url})")
             try:
-                # Top queries
+                # Top queries — rolling 30-day window (GSC data lags ~2-3 days,
+                # so month-to-date returns nothing at the start of a month)
                 body = {
-                    "startDate": (datetime.utcnow().replace(day=1)).strftime("%Y-%m-%d"),
+                    "startDate": (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d"),
                     "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
                     "dimensions": ["query"],
                     "rowLimit": 20,
@@ -427,7 +428,7 @@ def fetch_gsc_data():
 
                 # Top countries
                 body_country = {
-                    "startDate": (datetime.utcnow().replace(day=1)).strftime("%Y-%m-%d"),
+                    "startDate": (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d"),
                     "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
                     "dimensions": ["country"],
                     "rowLimit": 10,
@@ -637,11 +638,16 @@ def scrape_all(delay=2.0):
     result_competitors = []
     total = len(effective_competitors)
 
+    def _monthly_done(name):
+        """A competitor's monthly refresh only counts if the SerpAPI scrape
+        actually succeeded (serp_refreshed stamped in this month). A quota-
+        exhausted run leaves the stamp untouched so the next weekly run
+        retries instead of caching the failure for a month."""
+        pl = existing_map.get(name, {}).get("latest", {})
+        return _same_month(pl.get("serp_refreshed", ""), today)
+
     # LinkedIn bulk fetch — only for competitors that need a monthly refresh
-    needs_monthly = [
-        c for c in effective_competitors
-        if not _same_month(existing_map.get(c["name"], {}).get("latest", {}).get("date", ""), today)
-    ]
+    needs_monthly = [c for c in effective_competitors if not _monthly_done(c["name"])]
     print(f"Fetching LinkedIn followers via Bright Data… ({len(needs_monthly)}/{total} need refresh)")
     linkedin_map = scrape_linkedin_bulk(needs_monthly)
 
@@ -652,7 +658,7 @@ def scrape_all(delay=2.0):
         prev = existing_map.get(comp["name"], {})
         prev_latest = prev.get("latest", {})
         history = prev.get("history", [])
-        skip_monthly = _same_month(prev_latest.get("date", ""), today)
+        skip_monthly = _monthly_done(comp["name"])
 
         # SEO — always weekly (no SerpAPI cost)
         pagerank = get_open_pagerank(domain)
@@ -682,8 +688,32 @@ def scrape_all(delay=2.0):
             trends = get_google_trends(comp["name"])
         time.sleep(delay)
 
+        # Stamp serp_refreshed only when the refresh actually returned data,
+        # so a quota-exhausted run gets retried on the next weekly scrape
+        if skip_monthly:
+            serp_refreshed = prev_latest.get("serp_refreshed", "")
+        elif google_idx is not None or fb is not None or trends is not None:
+            serp_refreshed = today
+        else:
+            serp_refreshed = prev_latest.get("serp_refreshed", "")
+
+        # Never overwrite a good value with null (failed/blocked scrape):
+        # carry the previous value forward so data survives quota outages
+        def _keep(new, field):
+            return new if new is not None else prev_latest.get(field)
+        google_idx = _keep(google_idx, "google_indexed")
+        fb = _keep(fb, "facebook_followers")
+        ig = _keep(ig, "instagram_followers")
+        x = _keep(x, "x_followers")
+        li = _keep(li, "linkedin_followers")
+        trends = _keep(trends, "trends_score")
+        pagerank = _keep(pagerank, "open_pagerank")
+        pages = _keep(pages, "sitemap_pages")
+        tech = _keep(tech, "tech_stack")
+
         snapshot = {
             "date": today,
+            "serp_refreshed": serp_refreshed,
             "open_pagerank": pagerank,
             "sitemap_pages": pages,
             "meta_title": meta.get("meta_title"),
@@ -718,48 +748,51 @@ def scrape_all(delay=2.0):
         tag = "(cached)" if skip_monthly else ""
         print(f"  PR:{pagerank} Pages:{pages} GIdx:{google_idx} LI:{li} Trends:{trends} {tag}")
 
-    # Keyword rankings + content strategy — once per month
-    kw_last = existing.get("keyword_rankings", {}).get("last_updated", "")
-    skip_biweekly = _same_month(kw_last, today)
+    # Keyword rankings + content strategy — once per month.
+    # An empty result set never counts as a successful run (quota exhaustion
+    # returns nothing) — keep the old data and retry on the next weekly scrape.
+    existing_kw = existing.get("keyword_rankings", {})
+    existing_cs = existing.get("content_strategy", {})
+    skip_kw = _same_month(existing_kw.get("last_updated", ""), today) and bool(existing_kw.get("results"))
 
     print("\nScraping keyword rankings…")
-    if skip_biweekly:
-        print(f"  Skipped (last run: {kw_last}, within 14 days)")
-        keyword_rankings = existing.get("keyword_rankings", {}).get("results", [])
+    if skip_kw:
+        print(f"  Skipped (refreshed {existing_kw.get('last_updated')} this month)")
+        kw_obj = existing_kw
     else:
-        keyword_rankings = scrape_keyword_rankings(COMPETITORS)
+        results = scrape_keyword_rankings(COMPETITORS)
+        if results:
+            kw_obj = {"last_updated": today, "keywords": TRACKED_KEYWORDS, "results": results}
+        else:
+            print("  No results (quota exhausted?) — keeping previous data")
+            kw_obj = existing_kw
 
     print("\nScraping content strategy…")
-    if skip_biweekly:
-        print("  Skipped (within 14 days)")
-        content_strategy_results = existing.get("content_strategy", {}).get("results", [])
+    if skip_kw and existing_cs.get("results"):
+        print("  Skipped (refreshed this month)")
+        cs_obj = existing_cs
     else:
-        content_strategy_results = scrape_all_content_pages(keyword_rankings)
+        cs_results = scrape_all_content_pages(kw_obj.get("results", []))
+        if cs_results:
+            cs_obj = {"last_updated": today, "results": cs_results}
+        else:
+            print("  No results — keeping previous data")
+            cs_obj = existing_cs
 
     print("\nFetching GSC data…")
     gsc_data = fetch_gsc_data()
-
-    # Preserve existing keyword_rankings/content_strategy objects when skipping
-    # so their last_updated dates are not bumped to today
-    existing_kw = existing.get("keyword_rankings", {})
-    existing_cs = existing.get("content_strategy", {})
+    if any(r.get("queries") for r in gsc_data):
+        gsc_obj = {"last_updated": today, "results": gsc_data}
+    else:
+        print("  GSC returned no rows — keeping previous data")
+        gsc_obj = existing.get("gsc", {})
 
     data = {
         "last_updated": today,
         "competitors": result_competitors,
-        "keyword_rankings": existing_kw if skip_biweekly else {
-            "last_updated": today,
-            "keywords": TRACKED_KEYWORDS,
-            "results": keyword_rankings,
-        },
-        "content_strategy": existing_cs if skip_biweekly else {
-            "last_updated": today,
-            "results": content_strategy_results,
-        },
-        "gsc": {
-            "last_updated": today,
-            "results": gsc_data,
-        },
+        "keyword_rankings": kw_obj,
+        "content_strategy": cs_obj,
+        "gsc": gsc_obj,
     }
     save_data(data)
     print(f"\nSaved to {DATA_PATH}")

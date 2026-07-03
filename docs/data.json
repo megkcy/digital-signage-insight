@@ -256,7 +256,7 @@
         "meta_description": "Pioneira no DOOH programático brasileiro, a adMooH é a tech stack para planejar, ativar, otimizar e escalar oportunidades de mídia DOOH.",
         "tech_stack": "WordPress",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 6200,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 2828,
@@ -350,7 +350,7 @@
           "meta_description": "Pioneira no DOOH programático brasileiro, a adMooH é a tech stack para planejar, ativar, otimizar e escalar oportunidades de mídia DOOH.",
           "tech_stack": "WordPress",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 6200,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 2828,
@@ -851,7 +851,7 @@
         "meta_description": "Axiomtek, an industrial PC field expert, designs and manufactures embedded computer, Box PC, industrial motherboard, single board computer, system on module, touch panel PC, Ethernet switch, network security appliance and digital signage.",
         "tech_stack": null,
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 1100,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 10422,
@@ -945,7 +945,7 @@
           "meta_description": "Axiomtek, an industrial PC field expert, designs and manufactures embedded computer, Box PC, industrial motherboard, single board computer, system on module, touch panel PC, Ethernet switch, network security appliance and digital signage.",
           "tech_stack": null,
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 1100,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 10422,
@@ -1089,7 +1089,7 @@
         "meta_description": "BRICKS is a PaaS for building commercial interactive apps. Signage & kiosk builders which focus on supporting business with High Frequency of Changing.",
         "tech_stack": null,
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 504,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 260,
@@ -1183,7 +1183,7 @@
           "meta_description": "BRICKS is a PaaS for building commercial interactive apps. Signage & kiosk builders which focus on supporting business with High Frequency of Changing.",
           "tech_stack": null,
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 504,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 260,
@@ -1208,7 +1208,7 @@
         "meta_description": "Transform your digital signage with BrightSign®, the leading provider of digital signage players. Explore our range of powerful, reliable and easy-to-use products designed to bring your content to life.",
         "tech_stack": "WordPress, Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 2400,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 15099,
@@ -1302,7 +1302,7 @@
           "meta_description": "Transform your digital signage with BrightSign®, the leading provider of digital signage players. Explore our range of powerful, reliable and easy-to-use products designed to bring your content to life.",
           "tech_stack": "WordPress, Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 2400,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 15099,
@@ -1327,7 +1327,7 @@
         "meta_description": "The end-to-end solution for media owners and buyers to plan, manage and deliver out-of-home media.",
         "tech_stack": "WordPress, HubSpot",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 3300,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 67485,
@@ -1421,7 +1421,7 @@
           "meta_description": "The end-to-end solution for media owners and buyers to plan, manage and deliver out-of-home media.",
           "tech_stack": "WordPress, HubSpot",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 3300,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 67485,
@@ -1632,10 +1632,10 @@
         "meta_description": "DotSignage provides easy-to-use android based digital signage software solutions for restaurant's digital menu boards, retail, education sector etc. You get 700+ free in-built digital signage templates.",
         "tech_stack": "WordPress, Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 134,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": null,
+        "linkedin_followers": 138,
         "trends_score": null
       },
       "history": [
@@ -1726,10 +1726,10 @@
           "meta_description": "DotSignage provides easy-to-use android based digital signage software solutions for restaurant's digital menu boards, retail, education sector etc. You get 700+ free in-built digital signage templates.",
           "tech_stack": "WordPress, Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 134,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": null,
+          "linkedin_followers": 138,
           "trends_score": null
         }
       ]
@@ -2227,7 +2227,7 @@
         "meta_description": "Best practices of self-service and digital content management, furnished into one cloud platform, fully integrated with kiosks and hardware solutions.",
         "tech_stack": "WordPress, HubSpot, Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 300,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 618,
@@ -2321,7 +2321,7 @@
           "meta_description": "Best practices of self-service and digital content management, furnished into one cloud platform, fully integrated with kiosks and hardware solutions.",
           "tech_stack": "WordPress, HubSpot, Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 300,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 618,
@@ -2346,7 +2346,7 @@
         "meta_description": "The complete platform for UEM and XDR. Securely manage mobiles, desktops, and IoT devices while defending against advanced cyber threats. Try Hexnode free.",
         "tech_stack": "WordPress, Next.js, Nginx",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 15000,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 176251,
@@ -2440,7 +2440,7 @@
           "meta_description": "The complete platform for UEM and XDR. Securely manage mobiles, desktops, and IoT devices while defending against advanced cyber threats. Try Hexnode free.",
           "tech_stack": "WordPress, Next.js, Nginx",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 15000,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 176251,
@@ -2465,7 +2465,7 @@
         "meta_description": "A leader in enterprise-grade digital signage systems with products ranging from room management panels, desk booking devices, signage players, to device management software.",
         "tech_stack": "WordPress",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 513,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 2612,
@@ -2559,7 +2559,7 @@
           "meta_description": "A leader in enterprise-grade digital signage systems with products ranging from room management panels, desk booking devices, signage players, to device management software.",
           "tech_stack": "WordPress",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 513,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 2612,
@@ -2902,7 +2902,7 @@
         "meta_description": "Сloud-based and on-premise digital signage software for remotely managing any screen or TV. Use ready-made templates, create AI-powered content, and display live data from 50+ built-in apps.",
         "tech_stack": "Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 1900,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": null,
@@ -2996,7 +2996,7 @@
           "meta_description": "Сloud-based and on-premise digital signage software for remotely managing any screen or TV. Use ready-made templates, create AI-powered content, and display live data from 50+ built-in apps.",
           "tech_stack": "Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 1900,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": null,
@@ -3140,7 +3140,7 @@
         "meta_description": "Digital Signage players and cloud software at one-time cost, no subscriptions. Specializing in interactive, touch-display solutions for Offices, Airports, Court Houses, Hospitality, College Campuses and Healthcare facilities.",
         "tech_stack": "Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 1500,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": null,
@@ -3234,7 +3234,7 @@
           "meta_description": "Digital Signage players and cloud software at one-time cost, no subscriptions. Specializing in interactive, touch-display solutions for Offices, Airports, Court Houses, Hospitality, College Campuses and Healthcare facilities.",
           "tech_stack": "Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 1500,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": null,
@@ -3259,10 +3259,10 @@
         "meta_description": "Navori's digital signage software helps you deliver dynamic content, captivate viewers, and optimize audience engagement.",
         "tech_stack": "WordPress, HubSpot",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 3300,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": null,
+        "linkedin_followers": 116,
         "trends_score": null
       },
       "history": [
@@ -3353,10 +3353,10 @@
           "meta_description": "Navori's digital signage software helps you deliver dynamic content, captivate viewers, and optimize audience engagement.",
           "tech_stack": "WordPress, HubSpot",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 3300,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": null,
+          "linkedin_followers": 116,
           "trends_score": null
         }
       ]
@@ -3497,10 +3497,10 @@
         "meta_description": "NoviSign is the leading digital signage company. See why top brands trust our award-winning digital signage CMS. Start your 30-day Free Trial!",
         "tech_stack": "WordPress, Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 1600,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": null,
+        "linkedin_followers": 2,
         "trends_score": null
       },
       "history": [
@@ -3591,10 +3591,10 @@
           "meta_description": "NoviSign is the leading digital signage company. See why top brands trust our award-winning digital signage CMS. Start your 30-day Free Trial!",
           "tech_stack": "WordPress, Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 1600,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": null,
+          "linkedin_followers": 2,
           "trends_score": null
         }
       ]
@@ -3616,7 +3616,7 @@
         "meta_description": "Digital Signage Software for any screen anywhere. Powering screens across all industries including Retail Media Networks and Quick Service Restaurants.",
         "tech_stack": "HubSpot",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 88,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": null,
@@ -3710,7 +3710,7 @@
           "meta_description": "Digital Signage Software for any screen anywhere. Powering screens across all industries including Retail Media Networks and Quick Service Restaurants.",
           "tech_stack": "HubSpot",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 88,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": null,
@@ -3735,7 +3735,7 @@
         "meta_description": "Omnivex's powerful digital communications platforms enable organizations to easily collect, process, and deliver targeted information across their entire business on any screen.",
         "tech_stack": "Nginx",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 310,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 4,
@@ -3829,7 +3829,7 @@
           "meta_description": "Omnivex's powerful digital communications platforms enable organizations to easily collect, process, and deliver targeted information across their entire business on any screen.",
           "tech_stack": "Nginx",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 310,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 4,
@@ -3854,10 +3854,10 @@
         "meta_description": "Professional Digital Signage CMS. OnSign is One Platform, All Features.",
         "tech_stack": "Wix, React",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 310,
         "instagram_followers": null,
         "x_followers": null,
-        "linkedin_followers": null,
+        "linkedin_followers": 38,
         "trends_score": null
       },
       "history": [
@@ -3948,10 +3948,10 @@
           "meta_description": "Professional Digital Signage CMS. OnSign is One Platform, All Features.",
           "tech_stack": "Wix, React",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 310,
           "instagram_followers": null,
           "x_followers": null,
-          "linkedin_followers": null,
+          "linkedin_followers": 38,
           "trends_score": null
         }
       ]
@@ -4211,7 +4211,7 @@
         "meta_description": "An industry leading designer & manufacturer of audio visual solutions.",
         "tech_stack": "Next.js, AWS",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 4000,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 15848,
@@ -4305,7 +4305,7 @@
           "meta_description": "An industry leading designer & manufacturer of audio visual solutions.",
           "tech_stack": "Next.js, AWS",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 4000,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 15848,
@@ -4330,7 +4330,7 @@
         "meta_description": "Play Digital Signage makes it easy to turn any screen into a digital sign in seconds. Get started for free today, and see what your screens can do",
         "tech_stack": "Next.js, Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 392,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": null,
@@ -4424,7 +4424,7 @@
           "meta_description": "Play Digital Signage makes it easy to turn any screen into a digital sign in seconds. Get started for free today, and see what your screens can do",
           "tech_stack": "Next.js, Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 392,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": null,
@@ -4661,7 +4661,7 @@
         "meta_description": "Free Digital Signage Software for Amazon Signage Stick, Download Posterbooking, 100% Ad Free, 10 FREE Screens, MORE than anyone else. FAST and EASY setup with Amazing Support. Free Display Signage for your TV in under 2 minutes.",
         "tech_stack": null,
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 984,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 602,
@@ -4755,7 +4755,7 @@
           "meta_description": "Free Digital Signage Software for Amazon Signage Stick, Download Posterbooking, 100% Ad Free, 10 FREE Screens, MORE than anyone else. FAST and EASY setup with Amazing Support. Free Display Signage for your TV in under 2 minutes.",
           "tech_stack": null,
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 984,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 602,
@@ -4780,7 +4780,7 @@
         "meta_description": "Win at marketing with PosterMyWall’s time-saving AI tools. Create free designs, share event pages, and publish to socials and email—all on one easy-to-use platform.",
         "tech_stack": "WordPress",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 651000,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": null,
@@ -4874,7 +4874,7 @@
           "meta_description": "Win at marketing with PosterMyWall’s time-saving AI tools. Create free designs, share event pages, and publish to socials and email—all on one easy-to-use platform.",
           "tech_stack": "WordPress",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 651000,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": null,
@@ -5018,7 +5018,7 @@
         "meta_description": "Reduce wait times by 35% with Qwaiting's queue management software. Manage walk-ins, appointments & multi-branch operations. Trusted by 65,000+ businesses. Try free.",
         "tech_stack": "WordPress",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 833,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 1569,
@@ -5112,7 +5112,7 @@
           "meta_description": "Reduce wait times by 35% with Qwaiting's queue management software. Manage walk-ins, appointments & multi-branch operations. Trusted by 65,000+ businesses. Try free.",
           "tech_stack": "WordPress",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 833,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 1569,
@@ -5256,7 +5256,7 @@
         "meta_description": "RapidSignage Inc. provides ePaper solutions that combine ePaper displays and signage players, which are energy-saving and sunlight-readable along with a paper-like visual experience, from black/white to vivid full color.\n\nWe also provide digital signage and video wall solutions for various kinds of applications.",
         "tech_stack": "Wix, React",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 457,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": null,
@@ -5350,7 +5350,7 @@
           "meta_description": "RapidSignage Inc. provides ePaper solutions that combine ePaper displays and signage players, which are energy-saving and sunlight-readable along with a paper-like visual experience, from black/white to vivid full color.\n\nWe also provide digital signage and video wall solutions for various kinds of applications.",
           "tech_stack": "Wix, React",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 457,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": null,
@@ -5375,7 +5375,7 @@
         "meta_description": "Rise Vision is an all-in-one platform for digital signage, screen sharing, and emergency alerts—keeping your organization informed, engaged, and safe.",
         "tech_stack": "HubSpot, Cloudflare",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 1600,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 3520,
@@ -5469,7 +5469,7 @@
           "meta_description": "Rise Vision is an all-in-one platform for digital signage, screen sharing, and emergency alerts—keeping your organization informed, engaged, and safe.",
           "tech_stack": "HubSpot, Cloudflare",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 1600,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 3520,
@@ -5613,7 +5613,7 @@
         "meta_description": "At Scala—the global leader in digital signage, we create powerful, visually engaging customer experiences for businesses & retailers.",
         "tech_stack": "WordPress",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 31000,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 25018,
@@ -5707,7 +5707,7 @@
           "meta_description": "At Scala—the global leader in digital signage, we create powerful, visually engaging customer experiences for businesses & retailers.",
           "tech_stack": "WordPress",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 31000,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 25018,
@@ -5732,7 +5732,7 @@
         "meta_description": "Discover the smart, simple digital signage solution from ScreenCloud. Connect your choice of apps and integrations for dazzling dynamic displays.",
         "tech_stack": "HubSpot, Next.js",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 2400,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 8374,
@@ -5826,7 +5826,7 @@
           "meta_description": "Discover the smart, simple digital signage solution from ScreenCloud. Connect your choice of apps and integrations for dazzling dynamic displays.",
           "tech_stack": "HubSpot, Next.js",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 2400,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 8374,
@@ -5851,7 +5851,7 @@
         "meta_description": "Access your Signagelive account. Signagelive is now part of Navori Labs—your login and service remain unchanged. Continue to the Signagelive portal.",
         "tech_stack": "WordPress, HubSpot",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 1300,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 11495,
@@ -5945,7 +5945,7 @@
           "meta_description": "Access your Signagelive account. Signagelive is now part of Navori Labs—your login and service remain unchanged. Continue to the Signagelive portal.",
           "tech_stack": "WordPress, HubSpot",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 1300,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 11495,
@@ -5970,7 +5970,7 @@
         "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck is proven smart and easy digital signage software. Create dynamic displays in minutes. Start free today.",
         "tech_stack": "WordPress, HubSpot, Nginx",
         "google_indexed": null,
-        "facebook_followers": null,
+        "facebook_followers": 5900,
         "instagram_followers": null,
         "x_followers": null,
         "linkedin_followers": 20880,
@@ -6064,7 +6064,7 @@
           "meta_description": "Rated 4.8 on Capterra and 4.7 on G2, Yodeck is proven smart and easy digital signage software. Create dynamic displays in minutes. Start free today.",
           "tech_stack": "WordPress, HubSpot, Nginx",
           "google_indexed": null,
-          "facebook_followers": null,
+          "facebook_followers": 5900,
           "instagram_followers": null,
           "x_followers": null,
           "linkedin_followers": 20880,
@@ -6142,7 +6142,7 @@
         "meta_title": null,
         "meta_description": null,
         "tech_stack": null,
-        "google_indexed": null,
+        "google_indexed": 1530,
         "facebook_followers": null,
         "instagram_followers": null,
         "x_followers": null,
@@ -6171,7 +6171,7 @@
           "meta_title": null,
           "meta_description": null,
           "tech_stack": null,
-          "google_indexed": null,
+          "google_indexed": 1530,
           "facebook_followers": null,
           "instagram_followers": null,
           "x_followers": null,
@@ -6182,32 +6182,527 @@
     }
   ],
   "keyword_rankings": {
-    "last_updated": "2026-07-02",
+    "last_updated": "2026-06-29",
     "keywords": [
       "digital signage",
       "menu board",
       "cloud-based digital signage"
     ],
-    "results": []
-  },
-  "content_strategy": {
-    "last_updated": "2026-07-02",
-    "results": []
+    "results": [
+      {
+        "keyword": "digital signage",
+        "rank": 1,
+        "competitor": "Digital Signage",
+        "is_own": false,
+        "url": "https://digitalsignage.com/",
+        "title": "FREE Digital Signage for everyone"
+      },
+      {
+        "keyword": "digital signage",
+        "rank": 2,
+        "competitor": "OptiSigns",
+        "is_own": false,
+        "url": "https://www.optisigns.com/",
+        "title": "OptiSigns Digital Signage Software - Elevate Your Business"
+      },
+      {
+        "keyword": "digital signage",
+        "rank": 6,
+        "competitor": "Yodeck",
+        "is_own": false,
+        "url": "https://www.yodeck.com/",
+        "title": "Yodeck: The Best Digital Signage Software in 2026"
+      },
+      {
+        "keyword": "menu board",
+        "rank": 9,
+        "competitor": "Yodeck",
+        "is_own": false,
+        "url": "https://www.yodeck.com/solutions/digital-menu-boards/",
+        "title": "Digital Menu Boards Made Easy | Customize & Start Free"
+      },
+      {
+        "keyword": "cloud-based digital signage",
+        "rank": 1,
+        "competitor": "Yodeck",
+        "is_own": false,
+        "url": "https://www.yodeck.com/",
+        "title": "Yodeck: The Best Digital Signage Software in 2026"
+      },
+      {
+        "keyword": "cloud-based digital signage",
+        "rank": 3,
+        "competitor": "ScreenCloud",
+        "is_own": false,
+        "url": "https://screencloud.com/",
+        "title": "ScreenCloud – Digital Signage Software for Any Screen or TV"
+      },
+      {
+        "keyword": "cloud-based digital signage",
+        "rank": 4,
+        "competitor": "Digital Signage",
+        "is_own": false,
+        "url": "https://digitalsignage.com/",
+        "title": "FREE Digital Signage for everyone"
+      },
+      {
+        "keyword": "cloud-based digital signage",
+        "rank": 6,
+        "competitor": "Poppulo",
+        "is_own": false,
+        "url": "https://www.poppulo.com/digital-signage/blog/cloud-based-digital-signage",
+        "title": "Cloud-Based Digital Signage: Benefits, Features & Use ..."
+      },
+      {
+        "keyword": "cloud-based digital signage",
+        "rank": 7,
+        "competitor": "NoviSign",
+        "is_own": false,
+        "url": "https://www.novisign.com/software/screen-cloud-signage/",
+        "title": "Cloud Based Digital Signage - Easy and Secure"
+      },
+      {
+        "keyword": "cloud-based digital signage",
+        "rank": 8,
+        "competitor": "Able Sign",
+        "is_own": false,
+        "url": "https://www.ablesign.tv/",
+        "title": "AbleSign: Free digital signage software"
+      },
+      {
+        "keyword": "cloud-based digital signage",
+        "rank": 9,
+        "competitor": "Samsung VXT",
+        "is_own": false,
+        "url": "https://vxt.samsung.com/",
+        "title": "Samsung VXT: Digital Signage Cloud Software | FREE Trial"
+      }
+    ]
   },
   "gsc": {
-    "last_updated": "2026-07-02",
+    "last_updated": "2026-06-30",
     "results": [
       {
         "site": "CAYIN Technology",
         "site_url": "https://www.cayintech.com",
-        "queries": [],
-        "countries": []
+        "queries": [
+          {
+            "query": "cayin",
+            "clicks": 60,
+            "impressions": 1178,
+            "ctr": 5.1,
+            "position": 6.3
+          },
+          {
+            "query": "鎧應科技",
+            "clicks": 26,
+            "impressions": 68,
+            "ctr": 38.2,
+            "position": 1.1
+          },
+          {
+            "query": "rtb live streaming",
+            "clicks": 13,
+            "impressions": 172,
+            "ctr": 7.6,
+            "position": 6.2
+          },
+          {
+            "query": "smp-2200",
+            "clicks": 13,
+            "impressions": 25,
+            "ctr": 52.0,
+            "position": 1
+          },
+          {
+            "query": "cayin media viewer",
+            "clicks": 12,
+            "impressions": 131,
+            "ctr": 9.2,
+            "position": 2.1
+          },
+          {
+            "query": "cayin technology",
+            "clicks": 12,
+            "impressions": 63,
+            "ctr": 19.0,
+            "position": 1.4
+          },
+          {
+            "query": "鎧應",
+            "clicks": 9,
+            "impressions": 17,
+            "ctr": 52.9,
+            "position": 1.1
+          },
+          {
+            "query": "鎧應科技股份有限公司",
+            "clicks": 9,
+            "impressions": 35,
+            "ctr": 25.7,
+            "position": 1.4
+          },
+          {
+            "query": "cayin mediasign player",
+            "clicks": 8,
+            "impressions": 54,
+            "ctr": 14.8,
+            "position": 2.0
+          },
+          {
+            "query": "凱應",
+            "clicks": 7,
+            "impressions": 26,
+            "ctr": 26.9,
+            "position": 1.1
+          },
+          {
+            "query": "cayin smp-2200",
+            "clicks": 6,
+            "impressions": 7,
+            "ctr": 85.7,
+            "position": 1
+          },
+          {
+            "query": "cayin player",
+            "clicks": 5,
+            "impressions": 16,
+            "ctr": 31.2,
+            "position": 1.6
+          },
+          {
+            "query": "cayin 台灣",
+            "clicks": 4,
+            "impressions": 28,
+            "ctr": 14.3,
+            "position": 1.4
+          },
+          {
+            "query": "qts 6.0",
+            "clicks": 4,
+            "impressions": 90,
+            "ctr": 4.4,
+            "position": 6.0
+          },
+          {
+            "query": "cms activation",
+            "clicks": 3,
+            "impressions": 27,
+            "ctr": 11.1,
+            "position": 2
+          },
+          {
+            "query": "e paper",
+            "clicks": 3,
+            "impressions": 61,
+            "ctr": 4.9,
+            "position": 5.7
+          },
+          {
+            "query": "epaper",
+            "clicks": 3,
+            "impressions": 35,
+            "ctr": 8.6,
+            "position": 9.4
+          },
+          {
+            "query": "cayin app",
+            "clicks": 2,
+            "impressions": 12,
+            "ctr": 16.7,
+            "position": 6.2
+          },
+          {
+            "query": "cayin digital signage player",
+            "clicks": 2,
+            "impressions": 19,
+            "ctr": 10.5,
+            "position": 1
+          },
+          {
+            "query": "cayin media player",
+            "clicks": 2,
+            "impressions": 11,
+            "ctr": 18.2,
+            "position": 2.2
+          }
+        ],
+        "countries": [
+          {
+            "country": "TWN",
+            "clicks": 364,
+            "impressions": 10480,
+            "ctr": 3.5,
+            "position": 6.8
+          },
+          {
+            "country": "THA",
+            "clicks": 106,
+            "impressions": 8334,
+            "ctr": 1.3,
+            "position": 13.3
+          },
+          {
+            "country": "JPN",
+            "clicks": 69,
+            "impressions": 5000,
+            "ctr": 1.4,
+            "position": 10.5
+          },
+          {
+            "country": "HKG",
+            "clicks": 49,
+            "impressions": 2179,
+            "ctr": 2.2,
+            "position": 13.8
+          },
+          {
+            "country": "PHL",
+            "clicks": 38,
+            "impressions": 11796,
+            "ctr": 0.3,
+            "position": 21.6
+          },
+          {
+            "country": "USA",
+            "clicks": 37,
+            "impressions": 18652,
+            "ctr": 0.2,
+            "position": 10.4
+          },
+          {
+            "country": "IND",
+            "clicks": 25,
+            "impressions": 3856,
+            "ctr": 0.6,
+            "position": 16.5
+          },
+          {
+            "country": "FRA",
+            "clicks": 23,
+            "impressions": 989,
+            "ctr": 2.3,
+            "position": 10.7
+          },
+          {
+            "country": "MEX",
+            "clicks": 23,
+            "impressions": 5360,
+            "ctr": 0.4,
+            "position": 20.7
+          },
+          {
+            "country": "IDN",
+            "clicks": 22,
+            "impressions": 10079,
+            "ctr": 0.2,
+            "position": 22.3
+          }
+        ]
       },
       {
         "site": "GO CAYIN",
         "site_url": "https://www.gocayin.com",
-        "queries": [],
-        "countries": []
+        "queries": [
+          {
+            "query": "gocayin",
+            "clicks": 9,
+            "impressions": 23,
+            "ctr": 39.1,
+            "position": 1
+          },
+          {
+            "query": "go cayin",
+            "clicks": 5,
+            "impressions": 21,
+            "ctr": 23.8,
+            "position": 1.4
+          },
+          {
+            "query": "caoin",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 63
+          },
+          {
+            "query": "cayin",
+            "clicks": 0,
+            "impressions": 8,
+            "ctr": 0,
+            "position": 16.9
+          },
+          {
+            "query": "cayin app",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 8
+          },
+          {
+            "query": "cayin tech",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 27
+          },
+          {
+            "query": "cayin 台灣",
+            "clicks": 0,
+            "impressions": 2,
+            "ctr": 0,
+            "position": 12.5
+          },
+          {
+            "query": "cayin 官網",
+            "clicks": 0,
+            "impressions": 4,
+            "ctr": 0,
+            "position": 9.2
+          },
+          {
+            "query": "gcin",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 36
+          },
+          {
+            "query": "gochatin",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 37
+          },
+          {
+            "query": "how to create a poster for free",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 1
+          },
+          {
+            "query": "nubefacil.com",
+            "clicks": 0,
+            "impressions": 2,
+            "ctr": 0,
+            "position": 27.5
+          },
+          {
+            "query": "nubefacil.es",
+            "clicks": 0,
+            "impressions": 2,
+            "ctr": 0,
+            "position": 31.5
+          },
+          {
+            "query": "poster digital",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 28
+          },
+          {
+            "query": "poster making software",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 1
+          },
+          {
+            "query": "免費電子看板軟體",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 1
+          },
+          {
+            "query": "数字看板",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 6
+          },
+          {
+            "query": "數位海報",
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 1
+          }
+        ],
+        "countries": [
+          {
+            "country": "TWN",
+            "clicks": 8,
+            "impressions": 71,
+            "ctr": 11.3,
+            "position": 7.2
+          },
+          {
+            "country": "GTM",
+            "clicks": 2,
+            "impressions": 4,
+            "ctr": 50.0,
+            "position": 1
+          },
+          {
+            "country": "USA",
+            "clicks": 2,
+            "impressions": 48,
+            "ctr": 4.2,
+            "position": 4.3
+          },
+          {
+            "country": "BES",
+            "clicks": 1,
+            "impressions": 1,
+            "ctr": 100,
+            "position": 1
+          },
+          {
+            "country": "IND",
+            "clicks": 1,
+            "impressions": 6,
+            "ctr": 16.7,
+            "position": 1.5
+          },
+          {
+            "country": "MYS",
+            "clicks": 1,
+            "impressions": 2,
+            "ctr": 50.0,
+            "position": 3.5
+          },
+          {
+            "country": "NAM",
+            "clicks": 1,
+            "impressions": 1,
+            "ctr": 100,
+            "position": 1
+          },
+          {
+            "country": "PAK",
+            "clicks": 1,
+            "impressions": 1,
+            "ctr": 100,
+            "position": 1
+          },
+          {
+            "country": "PHL",
+            "clicks": 1,
+            "impressions": 10,
+            "ctr": 10.0,
+            "position": 5.3
+          },
+          {
+            "country": "TUR",
+            "clicks": 1,
+            "impressions": 1,
+            "ctr": 100,
+            "position": 1
+          }
+        ]
       }
     ]
   }
