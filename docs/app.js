@@ -188,8 +188,39 @@ function openModal(idx) {
     <div class="meta-item" style="grid-column:1/-1"><div class="label">Tech Stack</div><div class="value" style="font-size:13px">${l.tech_stack||"N/A"}</div></div>
     ${l.meta_title?`<div class="meta-item" style="grid-column:1/-1"><div class="label">Page Title</div><div class="value" style="font-size:12px;font-weight:400">${l.meta_title}</div></div>`:""}
   `;
+  renderModalKeywords(comp.name);
   document.getElementById("modal").classList.add("open");
   renderCharts(comp.history||[]);
+}
+
+function renderModalKeywords(name) {
+  const el = document.getElementById("modalKw");
+  if (!el) return;
+  const rows = (kwData?.results || [])
+    .filter(r => r.competitor === name)
+    .sort((a, b) => a.rank - b.rank);
+  const csEntries = (csData?.results || []).filter(r => r.competitor === name);
+  if (!rows.length && !csEntries.length) {
+    el.innerHTML = `
+      <h3 class="modal-kw-title">關鍵字排名</h3>
+      <div class="modal-kw-empty">未進入追蹤關鍵字（${(kwData?.keywords || []).join("、") || "—"}）前 20 名</div>`;
+    return;
+  }
+  const kwHtml = rows.map(r => `
+    <div class="modal-kw-row">
+      <span class="rank-badge${r.rank <= 3 ? " top3" : ""}">${r.rank}</span>
+      <span class="modal-kw-keyword">${r.keyword}</span>
+      <a class="modal-kw-page" href="${r.url}" target="_blank" title="${r.title || r.url}">${r.title || r.url}</a>
+    </div>`).join("");
+  const csHtml = csEntries.map(e => `
+    <div class="modal-cs-block">
+      <div class="modal-cs-kw">「${e.keyword}」熱門內容</div>
+      ${e.pages.slice(0, 3).map(p => `<a class="modal-kw-page" href="${p.url}" target="_blank">${p.title || p.url}</a>`).join("")}
+    </div>`).join("");
+  el.innerHTML = `
+    <h3 class="modal-kw-title">關鍵字排名</h3>
+    ${kwHtml || '<div class="modal-kw-empty">未進入前 20 名</div>'}
+    ${csHtml}`;
 }
 function closeModal(e) {
   if (e && e.target !== document.getElementById("modal")) return;
