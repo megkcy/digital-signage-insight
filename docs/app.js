@@ -76,10 +76,16 @@ function applyData(json) {
   document.getElementById("cardLinkedin").textContent = liCount;
   allData = json.competitors;
   if (json.content_strategy) csData = json.content_strategy;
+  if (json.seo_health) seoHealthData = json.seo_health;
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
   if (json.gsc) renderGsc(json.gsc);
   if (json.gsc) document.getElementById("gscSection").style.display = "";
+  if (!json.gsc && json.seo_health) {
+    // no GSC data but health audit exists — still show the section
+    document.getElementById("gscSection").style.display = "";
+    renderSeoHealth(json.seo_health.sites?.[0]?.site);
+  }
 }
 
 // ── Scrape trigger ────────────────────────────────────────────────────────────
@@ -188,9 +194,45 @@ function openModal(idx) {
     <div class="meta-item" style="grid-column:1/-1"><div class="label">Tech Stack</div><div class="value" style="font-size:13px">${l.tech_stack||"N/A"}</div></div>
     ${l.meta_title?`<div class="meta-item" style="grid-column:1/-1"><div class="label">Page Title</div><div class="value" style="font-size:12px;font-weight:400">${l.meta_title}</div></div>`:""}
   `;
+  renderModalAudit(l.seo_audit);
   renderModalKeywords(comp.name);
   document.getElementById("modal").classList.add("open");
   renderCharts(comp.history||[]);
+}
+
+function scoreClass(v) { return v >= 90 ? "score-good" : v >= 50 ? "score-mid" : "score-bad"; }
+function scoreRing(label, v) {
+  if (v == null) return "";
+  const cls = scoreClass(v);
+  return `<div class="score-ring ${cls}" style="--pct:${v}"><span class="score-num">${v}</span><span class="score-label">${label}</span></div>`;
+}
+
+function renderModalAudit(audit) {
+  const el = document.getElementById("modalAudit");
+  if (!el) return;
+  if (!audit) {
+    el.innerHTML = `<h3 class="modal-kw-title">SEO 體檢</h3><div class="modal-kw-empty">尚無體檢數據，下次月度爬取後顯示</div>`;
+    return;
+  }
+  const psi = audit.psi || {};
+  const rings = [
+    scoreRing("SEO", audit.seo_score),
+    scoreRing("AEO", audit.aeo_score),
+    scoreRing("GEO", audit.geo_score),
+    scoreRing("效能", psi.performance),
+    scoreRing("無障礙", psi.accessibility),
+    scoreRing("最佳實踐", psi.best_practices),
+  ].filter(Boolean).join("");
+  const checks = Object.entries(audit.checks || {}).map(([label, ok]) =>
+    `<span class="audit-chip ${ok ? "chip-pass" : "chip-fail"}">${ok ? "✓" : "✗"} ${label}</span>`
+  ).join("");
+  const schema = (audit.schema_types || []).map(t => `<span class="pill pill-purple">${t}</span>`).join(" ");
+  el.innerHTML = `
+    <h3 class="modal-kw-title">SEO 體檢</h3>
+    <div class="audit-rings">${rings}</div>
+    <div class="audit-chips">${checks}</div>
+    ${schema ? `<div class="audit-schema"><span class="audit-schema-label">結構化資料：</span>${schema}</div>` : ""}
+  `;
 }
 
 function renderModalKeywords(name) {
@@ -467,6 +509,55 @@ window.showPage = showPage;
 // ── GSC ───────────────────────────────────────────────────────────────────────
 let gscData = null;
 let activeGscSite = null;
+let seoHealthData = null;
+
+function renderSeoHealth(site) {
+  const el = document.getElementById("seoHealth");
+  if (!el) return;
+  const entry = (seoHealthData?.sites || []).find(s => s.site === site);
+  if (!entry) { el.innerHTML = ""; return; }
+
+  const psi = entry.psi || {};
+  const rings = [
+    scoreRing("SEO", entry.seo?.score),
+    scoreRing("AEO", entry.aeo?.score),
+    scoreRing("GEO", entry.geo?.score),
+    scoreRing("效能", psi.performance),
+    scoreRing("無障礙", psi.accessibility),
+    scoreRing("最佳實踐", psi.best_practices),
+  ].filter(Boolean).join("");
+
+  const DESC = {
+    seo: ["SEO 搜尋引擎優化", "傳統 Google 搜尋排名的技術基礎"],
+    aeo: ["AEO 答案引擎優化", "精選摘要與問答框（People Also Ask）曝光"],
+    geo: ["GEO 生成式引擎優化", "讓 ChatGPT / Claude / Perplexity 等 AI 搜尋引用你的內容"],
+  };
+  const cols = ["seo", "aeo", "geo"].map(k => {
+    const sec = entry[k];
+    if (!sec) return "";
+    const fails = sec.items.filter(i => !i.pass);
+    const passes = sec.items.filter(i => i.pass);
+    return `
+      <div class="health-card">
+        <div class="health-card-head">
+          <span class="health-title">${DESC[k][0]}</span>
+          <span class="health-score ${scoreClass(sec.score)}">${sec.score}</span>
+        </div>
+        <div class="health-sub">${DESC[k][1]}</div>
+        ${fails.map(i => `
+          <div class="health-item item-fail">
+            <div class="health-item-label">✗ ${i.label}</div>
+            <div class="health-advice">${i.advice || ""}</div>
+          </div>`).join("")}
+        ${passes.map(i => `<div class="health-item item-pass">✓ ${i.label}</div>`).join("")}
+      </div>`;
+  }).join("");
+
+  el.innerHTML = `
+    <div class="health-rings">${rings}</div>
+    <div class="health-grid">${cols}</div>
+  `;
+}
 
 function renderGsc(gsc) {
   if (!gsc || !gsc.results || !gsc.results.length) return;
@@ -550,6 +641,7 @@ function formatCountry(code) {
 }
 
 function renderGscTables(site) {
+  renderSeoHealth(site);
   const entry = gscData.results.find(r => r.site === site);
   if (!entry) return;
 
