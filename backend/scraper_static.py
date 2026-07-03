@@ -673,6 +673,19 @@ def scrape_all(delay=2.0):
             google_idx = scrape_google_indexed_count(domain)
         time.sleep(delay)
 
+        # SEO/AEO/GEO audit + Lighthouse — monthly only (slow but free)
+        if skip_monthly:
+            seo_audit = prev_latest.get("seo_audit")
+        else:
+            try:
+                from seo_audit import audit_competitor
+                seo_audit = audit_competitor(comp["url"])
+            except Exception as e:
+                print(f"  SEO audit error: {e}")
+                seo_audit = None
+        if seo_audit is None:
+            seo_audit = prev_latest.get("seo_audit")
+
         # Social — monthly only
         if skip_monthly:
             fb = prev_latest.get("facebook_followers")
@@ -714,6 +727,7 @@ def scrape_all(delay=2.0):
         snapshot = {
             "date": today,
             "serp_refreshed": serp_refreshed,
+            "seo_audit": seo_audit,
             "open_pagerank": pagerank,
             "sitemap_pages": pages,
             "meta_title": meta.get("meta_title"),
@@ -727,9 +741,10 @@ def scrape_all(delay=2.0):
             "trends_score": trends,
         }
 
-        # Keep last 52 weeks of history
+        # Keep last 52 weeks of history (seo_audit stays in latest only,
+        # to keep the Firestore document under its 1 MB limit)
         history = [h for h in history if h.get("date") != today]
-        history.append(snapshot)
+        history.append({k: v for k, v in snapshot.items() if k != "seo_audit"})
         history = history[-52:]
 
         result_competitors.append({
@@ -787,12 +802,38 @@ def scrape_all(delay=2.0):
         print("  GSC returned no rows — keeping previous data")
         gsc_obj = existing.get("gsc", {})
 
+    # Own-site SEO / AEO / GEO health — weekly (2 sites, free APIs only)
+    print("\nAuditing own sites (SEO/AEO/GEO)…")
+    existing_health = {
+        s.get("site"): s for s in existing.get("seo_health", {}).get("sites", [])
+    }
+    health_sites = []
+    for site in OWN_SITES:
+        print(f"  {site['name']}")
+        try:
+            from seo_audit import audit_site
+            audit = audit_site(site["url"])
+        except Exception as e:
+            print(f"  audit error: {e}")
+            audit = None
+        if audit is None:
+            prev_site = existing_health.get(site["name"])
+            if prev_site:
+                health_sites.append(prev_site)
+            continue
+        health_sites.append({"site": site["name"], "url": site["url"], **audit})
+    seo_health_obj = (
+        {"last_updated": today, "sites": health_sites}
+        if health_sites else existing.get("seo_health", {})
+    )
+
     data = {
         "last_updated": today,
         "competitors": result_competitors,
         "keyword_rankings": kw_obj,
         "content_strategy": cs_obj,
         "gsc": gsc_obj,
+        "seo_health": seo_health_obj,
     }
     save_data(data)
     print(f"\nSaved to {DATA_PATH}")

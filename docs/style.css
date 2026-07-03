@@ -687,6 +687,77 @@ td {
 }
 #modalKw { margin-bottom: 18px; }
 
+/* ── SEO audit score rings ── */
+.audit-rings, .health-rings {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.score-ring {
+  --pct: 0;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  background:
+    radial-gradient(closest-side, var(--surface) 78%, transparent 79% 100%),
+    conic-gradient(var(--ring-color) calc(var(--pct) * 1%), var(--surface2) 0);
+}
+.score-ring.score-good { --ring-color: #16a34a; }
+.score-ring.score-mid { --ring-color: #d97706; }
+.score-ring.score-bad { --ring-color: #dc2626; }
+.score-num { font-size: 18px; font-weight: 800; color: var(--ring-color); line-height: 1; }
+.score-label { font-size: 10px; color: var(--text-muted); }
+
+.audit-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.audit-chip {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+.chip-pass { background: rgba(22,163,74,.1); color: var(--green); }
+.chip-fail { background: rgba(220,38,38,.1); color: var(--red); }
+.audit-schema { font-size: 12px; margin-bottom: 6px; }
+.audit-schema-label { color: var(--text-muted); }
+#modalAudit { margin-bottom: 18px; }
+
+/* ── SEO health (own sites) ── */
+#seoHealth { margin-bottom: 16px; }
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.health-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.health-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.health-title { font-size: 13px; font-weight: 700; }
+.health-score { font-size: 22px; font-weight: 800; }
+.health-score.score-good { color: #16a34a; }
+.health-score.score-mid { color: #d97706; }
+.health-score.score-bad { color: #dc2626; }
+.health-sub { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+.health-item { font-size: 12px; padding: 6px 8px; border-radius: 6px; margin-bottom: 4px; }
+.health-item.item-pass { color: var(--text-muted); background: var(--surface); }
+.health-item.item-fail { background: rgba(220,38,38,.06); }
+.health-item-label { color: var(--red); font-weight: 600; }
+.health-advice { color: var(--text); font-size: 11px; margin-top: 3px; line-height: 1.5; }
+
 /* ── RWD ── */
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -737,4 +808,9 @@ td {
 
   .cs-card-header { flex-wrap: wrap; }
   .cs-snippet { white-space: normal; }
+
+  .health-grid { grid-template-columns: 1fr; }
+  .audit-rings, .health-rings { gap: 8px; }
+  .score-ring { width: 62px; height: 62px; }
+  .score-num { font-size: 15px; }
 }
