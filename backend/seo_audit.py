@@ -66,6 +66,8 @@ def collect_signals(url):
     s["canonical"] = bool(soup.find("link", rel="canonical"))
     s["viewport"] = bool(soup.find("meta", attrs={"name": "viewport"}))
     s["og_tags"] = len(soup.find_all("meta", property=re.compile(r"^og:")))
+    social_pat = re.compile(r"facebook\.com|linkedin\.com|instagram\.com|youtube\.com|twitter\.com|x\.com", re.I)
+    s["social_links"] = len({a["href"] for a in soup.find_all("a", href=social_pat)})
     s["hreflang_count"] = len(soup.find_all("link", rel="alternate", hreflang=True))
     s["list_table_count"] = len(soup.find_all(["ul", "ol", "table"]))
     s["semantic_tags"] = len(soup.find_all(["article", "section", "nav", "main", "header", "footer"]))
@@ -136,7 +138,8 @@ def get_pagespeed(url, strategy="mobile"):
             params=params,
             timeout=90,
         )
-        cats = resp.json().get("lighthouseResult", {}).get("categories", {})
+        lh = resp.json().get("lighthouseResult", {})
+        cats = lh.get("categories", {})
 
         def pct(cid):
             score = cats.get(cid, {}).get("score")
@@ -148,6 +151,17 @@ def get_pagespeed(url, strategy="mobile"):
             "accessibility": pct("accessibility"),
             "best_practices": pct("best-practices"),
         }
+
+        # Page speed sub-score from the core speed metric audits
+        audits = lh.get("audits", {})
+        metric_scores = [
+            audits.get(a, {}).get("score")
+            for a in ["first-contentful-paint", "largest-contentful-paint",
+                      "total-blocking-time", "cumulative-layout-shift", "speed-index"]
+        ]
+        metric_scores = [m for m in metric_scores if m is not None]
+        result["speed"] = round(sum(metric_scores) / len(metric_scores) * 100) if metric_scores else None
+
         return result if any(v is not None for v in result.values()) else None
     except Exception as e:
         print(f"  PageSpeed error for {url}: {e}")
@@ -234,6 +248,60 @@ def score_geo(s):
     return {"score": round(got / total * 100), "items": [it for _, it in items]}
 
 
+def compute_subscores(s, psi):
+    """Detailed sub-metric scores (0-100) per category, for side-by-side
+    comparison tables. All heuristic, from public on-page signals + PSI."""
+    psi = psi or {}
+
+    def clamp(v):
+        return max(0, min(100, round(v)))
+
+    schema = set(s.get("schema_types", []))
+    title_ok = 10 <= len(s.get("title", "")) <= 65
+    desc_ok = 50 <= len(s.get("meta_description", "")) <= 165
+
+    seo = {
+        "performance": psi.get("performance"),
+        "onpage": clamp(25 * title_ok + 25 * desc_ok + 20 * (s.get("h1_count") == 1)
+                        + 0.2 * s.get("alt_coverage", 0) + 10 * (s.get("og_tags", 0) >= 3)),
+        "technical": clamp(20 * bool(s.get("canonical")) + 20 * bool(s.get("robots_txt"))
+                           + 20 * bool(s.get("sitemap")) + 15 * bool(s.get("https"))
+                           + 15 * bool(s.get("viewport")) + 10 * (s.get("hreflang_count", 0) > 0)),
+        "meta": clamp(40 * title_ok + 40 * desc_ok + 20 * (s.get("og_tags", 0) >= 3)),
+        "mobile": clamp(50 * bool(s.get("viewport")) + 0.5 * (psi.get("performance") or 50)),
+        "speed": psi.get("speed", psi.get("performance")),
+    }
+
+    blocked = len(s.get("ai_crawlers_blocked", []))
+    geo = {
+        "citable": clamp(20 * title_ok + 20 * desc_ok + 20 * (s.get("word_count", 0) >= 300)
+                         + 20 * (s.get("list_table_count", 0) >= 2) + 20 * (s.get("semantic_tags", 0) >= 3)),
+        "ai_open": clamp(100 * (len(AI_CRAWLERS) - blocked) / len(AI_CRAWLERS)),
+        "schema": clamp(min(4, len(schema)) * 25),
+        "eeat": clamp(40 * ("Organization" in schema)
+                      + 30 * bool(schema & {"Article", "BlogPosting", "NewsArticle"})
+                      + 15 * ("BreadcrumbList" in schema) + 15 * (s.get("og_tags", 0) >= 3)),
+        "brand": clamp(40 * ("Organization" in schema) + 30 * (s.get("social_links", 0) >= 2)
+                       + 30 * (s.get("hreflang_count", 0) > 0)),
+        "platform": clamp(60 * bool(s.get("llms_txt")) + 20 * bool(s.get("sitemap"))
+                          + 20 * bool(s.get("robots_txt"))),
+    }
+
+    aeo = {
+        "answer": clamp(40 * desc_ok + 30 * (s.get("word_count", 0) >= 300)
+                        + 30 * (s.get("h2h3_count", 0) >= 2)),
+        "faq": 100 if schema & {"FAQPage", "QAPage"} else (40 if s.get("question_headings", 0) > 0 else 0),
+        "snippet": clamp(40 * (s.get("list_table_count", 0) >= 2) + 30 * desc_ok
+                         + 30 * (s.get("h2h3_count", 0) >= 3)),
+        "howto": 100 if "HowTo" in schema else 0,
+        "qhead": clamp(s.get("question_headings", 0) * 25),
+        "paa": clamp(50 * (s.get("question_headings", 0) > 0)
+                     + 30 * bool(schema & {"FAQPage", "QAPage"}) + 20 * (s.get("h2h3_count", 0) >= 2)),
+    }
+
+    return {"seo": seo, "geo": geo, "aeo": aeo}
+
+
 def audit_site(url, with_pagespeed=True):
     """Full audit: signals + SEO/AEO/GEO scores (+ Lighthouse if requested)."""
     signals = collect_signals(url)
@@ -249,6 +317,7 @@ def audit_site(url, with_pagespeed=True):
     }
     if with_pagespeed:
         result["psi"] = get_pagespeed(url)
+    result["subs"] = compute_subscores(signals, result.get("psi"))
     return result
 
 
@@ -264,4 +333,5 @@ def audit_competitor(url):
         "geo_score": full["geo"]["score"],
         "checks": {it["label"]: it["pass"] for it in full["seo"]["items"]},
         "schema_types": full["schema_types"],
+        "subs": full.get("subs"),
     }

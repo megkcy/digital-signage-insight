@@ -210,6 +210,43 @@ function scoreRing(label, v) {
 let compareAudit = null;
 let compareCompName = "";
 let activeCompareSite = null;
+let activeSubTab = "seo";
+
+const SUB_METRICS = {
+  seo: {
+    title: "🔍 傳統 SEO 評分 詳細比較",
+    rows: [
+      ["performance", "Performance"],
+      ["onpage", "On-Page SEO"],
+      ["technical", "Technical SEO"],
+      ["meta", "Meta Tags"],
+      ["mobile", "Mobile 友善"],
+      ["speed", "頁面速度"],
+    ],
+  },
+  geo: {
+    title: "🤖 AI 搜尋 GEO 評分 詳細比較",
+    rows: [
+      ["citable", "AI 可引用性"],
+      ["ai_open", "AI 爬蟲開放度"],
+      ["schema", "Schema 完整性"],
+      ["eeat", "E-E-A-T 專業度"],
+      ["brand", "品牌權威"],
+      ["platform", "平台優化 (llms.txt)"],
+    ],
+  },
+  aeo: {
+    title: "💬 AEO 答案引擎評分 詳細比較",
+    rows: [
+      ["answer", "答案段落最佳化"],
+      ["faq", "FAQ 結構化"],
+      ["snippet", "Featured Snippet 就緒度"],
+      ["howto", "HowTo 結構"],
+      ["qhead", "問題式標題"],
+      ["paa", "PAA 友善度"],
+    ],
+  },
+};
 
 function _overall(s) {
   const vals = [s.seo, s.aeo, s.geo].filter(v => v != null);
@@ -278,9 +315,38 @@ function renderModalAudit(audit, compName) {
     _vsRow("✅ 最佳實踐", own?.best_practices ?? null, comp.best_practices),
   ].join("");
 
+  // Detailed sub-metric comparison (SEO / GEO / AEO tabs)
+  const ownSite = activeCompareSite ? (seoHealthData?.sites || []).find(s => s.site === activeCompareSite) : null;
+  const ownSubs = ownSite?.subs || null;
+  const compSubs = audit?.subs || null;
+  let subsHtml = "";
+  if (ownSubs || compSubs) {
+    const conf = SUB_METRICS[activeSubTab];
+    const subTabs = Object.keys(SUB_METRICS).map(k =>
+      `<button class="kw-tab sub-tab ${k === activeSubTab ? "active" : ""}" onclick="selectSubTab('${k}')">${{seo: "🔍 SEO", geo: "🤖 GEO", aeo: "💬 AEO"}[k]}</button>`
+    ).join("");
+    const subRows = conf.rows.map(([key, label]) =>
+      _vsRow(label, ownSubs?.[activeSubTab]?.[key] ?? null, compSubs?.[activeSubTab]?.[key] ?? null)
+    ).join("");
+    subsHtml = `
+      <div class="vs-site-pills sub-tab-row">${subTabs}</div>
+      <div class="vs-sub-title">${conf.title}</div>
+      <div class="table-wrap vs-wrap">
+        <table class="vs-table">
+          <thead><tr>
+            <th>指標</th>
+            <th>${activeCompareSite || "自家網站"} <span class="vs-you-badge">你</span></th>
+            <th>${compareCompName}</th>
+          </tr></thead>
+          <tbody>${subRows}</tbody>
+        </table>
+      </div>`;
+  }
+
   const notes = [];
   if (!own) notes.push("自家網站健檢尚未產生（下次每週爬取後顯示）");
   if (!audit) notes.push(`${compareCompName} 的體檢尚未產生（下次月度爬取後顯示）`);
+  if ((own || audit) && !ownSubs && !compSubs) notes.push("細項評分將在下次爬取後顯示");
 
   const checks = Object.entries(audit?.checks || {}).map(([label, ok]) =>
     `<span class="audit-chip ${ok ? "chip-pass" : "chip-fail"}">${ok ? "✓" : "✗"} ${label}</span>`
@@ -300,6 +366,7 @@ function renderModalAudit(audit, compName) {
         <tbody>${rows}</tbody>
       </table>
     </div>
+    ${subsHtml}
     ${notes.map(n => `<div class="modal-kw-empty">${n}</div>`).join("")}
     ${checks ? `<div class="audit-chips-title">${compareCompName} 站內檢查</div><div class="audit-chips">${checks}</div>` : ""}
     ${schema ? `<div class="audit-schema"><span class="audit-schema-label">結構化資料：</span>${schema}</div>` : ""}
@@ -308,6 +375,11 @@ function renderModalAudit(audit, compName) {
 
 window.selectCompareSite = (site) => {
   activeCompareSite = site;
+  renderModalAudit(compareAudit, compareCompName);
+};
+
+window.selectSubTab = (tab) => {
+  activeSubTab = tab;
   renderModalAudit(compareAudit, compareCompName);
 };
 
