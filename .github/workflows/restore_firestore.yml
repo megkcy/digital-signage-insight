@@ -3,6 +3,10 @@ name: Restore Firestore from data.json
 on:
   workflow_dispatch:
 
+concurrency:
+  group: data-writes
+  cancel-in-progress: false
+
 jobs:
   restore:
     runs-on: ubuntu-latest
@@ -16,7 +20,16 @@ jobs:
       - name: Install dependencies
         run: pip install firebase-admin
 
-      - name: Import data.json → Firestore
+      - name: Smart-merge data.json ↔ Firestore
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: python backend/import_to_firestore.py
+
+      - name: Commit & push merged data.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data.json
+          git diff --cached --quiet || git commit -m "data: smart-merge restore $(date +'%Y-%m-%d')"
+          git pull --rebase origin main || (git rebase --abort && git pull --strategy-option=ours origin main)
+          git push
