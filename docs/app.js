@@ -195,6 +195,7 @@ function openModal(idx) {
     ${l.meta_title?`<div class="meta-item" style="grid-column:1/-1"><div class="label">Page Title</div><div class="value" style="font-size:12px;font-weight:400">${l.meta_title}</div></div>`:""}
   `;
   renderModalAudit(l.seo_audit, comp.name);
+  renderModalTargets(comp, l);
   renderModalKeywords(comp.name);
   document.getElementById("modal").classList.add("open");
   renderCharts(comp.history||[]);
@@ -382,6 +383,43 @@ window.selectSubTab = (tab) => {
   activeSubTab = tab;
   renderModalAudit(compareAudit, compareCompName);
 };
+
+function renderModalTargets(comp, l) {
+  const el = document.getElementById("modalTargets");
+  if (!el) return;
+  const host = safeHostname(comp.url);
+  const kws = l.target_keywords || [];
+  const ads = l.ads_transparency;
+
+  const kwHtml = kws.length ? `
+    <h3 class="modal-kw-title">🎯 推測目標關鍵字 <span class="target-hint">（由網站頁面網址結構分析）</span></h3>
+    <div class="target-kw-chips">
+      ${kws.map(k => `<span class="target-kw-chip">${k.phrase}<span class="target-kw-count">${k.pages} 頁</span></span>`).join("")}
+    </div>` : "";
+
+  const FMT_ZH = { text: "文字", image: "圖片", video: "影片", unknown: "其他" };
+  let adsHtml = "";
+  if (ads) {
+    const detail = ads.total > 0
+      ? `${ads.total}+ 則廣告素材${ads.formats ? "（" + Object.entries(ads.formats).map(([f, n]) => `${FMT_ZH[f] || f} ${n}`).join("、") + "）" : ""}${ads.last_shown ? `，最近投放：${ads.last_shown}` : ""}`
+      : "目前未偵測到 Google 廣告投放";
+    adsHtml = `
+      <h3 class="modal-kw-title">📢 Google 廣告投放</h3>
+      <div class="ads-summary ${ads.total > 0 ? "ads-active" : ""}">${detail}
+        <a class="btn-kw-action" style="margin-left:8px" target="_blank"
+           href="https://adstransparency.google.com/?region=anywhere&domain=${host}">查看廣告 ↗</a>
+      </div>`;
+  } else if (host) {
+    adsHtml = `
+      <h3 class="modal-kw-title">📢 Google 廣告投放</h3>
+      <div class="ads-summary">數據將於下次爬取產生
+        <a class="btn-kw-action" style="margin-left:8px" target="_blank"
+           href="https://adstransparency.google.com/?region=anywhere&domain=${host}">先手動查看 ↗</a>
+      </div>`;
+  }
+
+  el.innerHTML = kwHtml + adsHtml;
+}
 
 function renderModalKeywords(name) {
   const el = document.getElementById("modalKw");
