@@ -756,6 +756,13 @@ td {
   vertical-align: middle;
 }
 .audit-chips-title { font-size: 12px; font-weight: 600; color: var(--text-muted); margin: 4px 0 6px; }
+.sub-tab-row { margin-top: 14px; }
+.sub-tab { font-size: 12px; padding: 6px 18px; }
+.vs-sub-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 2px 0 8px;
+}
 
 .audit-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
 .audit-chip {
