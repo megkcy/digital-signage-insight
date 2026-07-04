@@ -82,6 +82,11 @@ def merge(fs_data, local_data):
     if sh_a.get("sites") and sh_b.get("sites") and sh_b.get("last_updated", "") > sh_a.get("last_updated", ""):
         seo_health = sh_b
 
+    ki_a, ki_b = base.get("keyword_intel"), other.get("keyword_intel")
+    keyword_intel = ki_a or ki_b
+    if ki_a and ki_b and (ki_b.get("generated_at") or "") > (ki_a.get("generated_at") or ""):
+        keyword_intel = ki_b
+
     return {
         "last_updated": max(base.get("last_updated") or "", other.get("last_updated") or "") or None,
         "competitors": merged_comps,
@@ -89,6 +94,7 @@ def merge(fs_data, local_data):
         "content_strategy": _pick_section(base.get("content_strategy"), other.get("content_strategy")),
         "gsc": _pick_section(base.get("gsc"), other.get("gsc")),
         "seo_health": seo_health,
+        "keyword_intel": keyword_intel,
     }
 
 

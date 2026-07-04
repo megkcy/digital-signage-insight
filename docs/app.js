@@ -77,6 +77,7 @@ function applyData(json) {
   allData = json.competitors;
   if (json.content_strategy) csData = json.content_strategy;
   if (json.seo_health) seoHealthData = json.seo_health;
+  if (json.keyword_intel) renderKeywordIntel(json.keyword_intel);
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
   if (json.gsc) renderGsc(json.gsc);
@@ -683,11 +684,13 @@ function renderContentStrategy(kw) {
 window.selectKwTab = selectKwTab;
 
 // ── Page switching ────────────────────────────────────────────────────────────
+const PAGE_LABELS = { competitors: "競爭對手", gsc: "Google", keywordIntel: "關鍵字情報" };
 function showPage(page) {
   document.getElementById("pageCompetitors").style.display = page === "competitors" ? "" : "none";
   document.getElementById("pageGsc").style.display = page === "gsc" ? "" : "none";
+  document.getElementById("pageKeywordIntel").style.display = page === "keywordIntel" ? "" : "none";
   document.querySelectorAll(".page-tab").forEach(t =>
-    t.classList.toggle("active", t.textContent.includes(page === "gsc" ? "Google" : "競爭對手"))
+    t.classList.toggle("active", t.textContent.includes(PAGE_LABELS[page]))
   );
 }
 window.showPage = showPage;
@@ -831,10 +834,6 @@ function renderGscTables(site) {
   const entry = gscData.results.find(r => r.site === site);
   if (!entry) return;
 
-  const fmtRow = (cols, isNA) => isNA
-    ? `<tr><td colspan="${cols}" class="loading">無資料</td></tr>`
-    : "";
-
   // Queries
   const qBody = document.getElementById("gscQueryBody");
   qBody.innerHTML = entry.queries?.length
@@ -846,7 +845,7 @@ function renderGscTables(site) {
           <td><span class="pill pill-blue">${r.ctr}%</span></td>
           <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
         </tr>`).join("")
-    : fmtRow(5, true);
+    : kiEmptyRow();
 
   // Countries
   const cBody = document.getElementById("gscCountryBody");
@@ -859,10 +858,73 @@ function renderGscTables(site) {
           <td><span class="pill pill-blue">${r.ctr}%</span></td>
           <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
         </tr>`).join("")
-    : fmtRow(5, true);
+    : kiEmptyRow();
 }
 
 window.selectGscTab = selectGscTab;
+
+// ── Keyword Intelligence ──────────────────────────────────────────────────────
+let kiData = null;
+
+function kiEmptyRow() {
+  return '<tr><td colspan="5" class="loading">無資料</td></tr>';
+}
+
+function kiRow(r, freqCol) {
+  const bidLow = r.bid_low != null ? r.bid_low.toFixed(0) : "0";
+  const bidHigh = r.bid_high != null ? r.bid_high.toFixed(0) : "0";
+  const freqCell = `<span class="num">${r.seen}/${kiData.n_exports}</span>`;
+  return freqCol === "first"
+    ? `<tr>
+        <td><span class="comp-name">${r.keyword}</span></td>
+        <td><span class="num">${r.volume.toLocaleString()}</span></td>
+        <td>${freqCell}</td>
+        <td><span class="pill pill-purple">${r.competition}</span></td>
+        <td><span class="na">NT$${bidLow}–${bidHigh}</span></td>
+      </tr>`
+    : `<tr>
+        <td><span class="comp-name">${r.keyword}</span></td>
+        <td>${freqCell}</td>
+        <td><span class="num">${r.volume.toLocaleString()}</span></td>
+        <td><span class="pill pill-purple">${r.competition}</span></td>
+        <td><span class="na">NT$${bidLow}–${bidHigh}</span></td>
+      </tr>`;
+}
+
+function renderKeywordIntel(data) {
+  kiData = data;
+  document.getElementById("kiTotal").textContent = data.total_unique?.toLocaleString() || "—";
+  document.getElementById("kiGap").textContent = data.gap?.length || 0;
+  document.getElementById("kiSources").textContent = `${data.n_exports} 份匯出 · ${data.generated_at || ""}`;
+
+  const findingEl = document.getElementById("kiFinding");
+  const subEl = document.getElementById("kiFindingSub");
+  if (data.gap?.length) {
+    findingEl.style.display = "";
+    subEl.textContent = `機會缺口表：在 2 份以上對手匯出清單中重複出現、且月搜尋量 ≥150、自家完全沒有曝光的字，依搜尋量排序。必爭字表：不論搜尋量高低，${data.n_exports} 份匯出中最多對手共同鎖定的字，依出現次數排序。`;
+  }
+
+  document.getElementById("kiGapBody").innerHTML =
+    (data.gap || []).map(r => kiRow(r, "first")).join("") || kiEmptyRow();
+  document.getElementById("kiCommonBody").innerHTML =
+    (data.top_common || []).map(r => kiRow(r, "second")).join("") || kiEmptyRow();
+  document.getElementById("kiOverallBody").innerHTML =
+    (data.overall_top || []).map(r => kiRow(r, "first")).join("") || kiEmptyRow();
+}
+
+function filterKiTable(which) {
+  if (!kiData) return;
+  const map = {
+    gap: ["kiGapSearch", "kiGapBody", kiData.gap, "first"],
+    common: ["kiCommonSearch", "kiCommonBody", kiData.top_common, "second"],
+    overall: ["kiOverallSearch", "kiOverallBody", kiData.overall_top, "first"],
+  };
+  const [searchId, bodyId, rows, freqCol] = map[which];
+  const q = document.getElementById(searchId).value.trim().toLowerCase();
+  const filtered = (rows || []).filter(r => r.keyword.toLowerCase().includes(q));
+  document.getElementById(bodyId).innerHTML = filtered.map(r => kiRow(r, freqCol)).join("") || kiEmptyRow();
+}
+window.filterKiTable = filterKiTable;
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 loadData();
