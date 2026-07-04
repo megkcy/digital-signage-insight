@@ -194,7 +194,7 @@ function openModal(idx) {
     <div class="meta-item" style="grid-column:1/-1"><div class="label">Tech Stack</div><div class="value" style="font-size:13px">${l.tech_stack||"N/A"}</div></div>
     ${l.meta_title?`<div class="meta-item" style="grid-column:1/-1"><div class="label">Page Title</div><div class="value" style="font-size:12px;font-weight:400">${l.meta_title}</div></div>`:""}
   `;
-  renderModalAudit(l.seo_audit);
+  renderModalAudit(l.seo_audit, comp.name);
   renderModalKeywords(comp.name);
   document.getElementById("modal").classList.add("open");
   renderCharts(comp.history||[]);
@@ -207,33 +207,109 @@ function scoreRing(label, v) {
   return `<div class="score-ring ${cls}" style="--pct:${v}"><span class="score-num">${v}</span><span class="score-label">${label}</span></div>`;
 }
 
-function renderModalAudit(audit) {
+let compareAudit = null;
+let compareCompName = "";
+let activeCompareSite = null;
+
+function _overall(s) {
+  const vals = [s.seo, s.aeo, s.geo].filter(v => v != null);
+  return vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
+}
+
+function _ownScores(siteName) {
+  const site = (seoHealthData?.sites || []).find(s => s.site === siteName);
+  if (!site) return null;
+  const psi = site.psi || {};
+  return {
+    seo: site.seo?.score ?? null, aeo: site.aeo?.score ?? null, geo: site.geo?.score ?? null,
+    performance: psi.performance ?? null, accessibility: psi.accessibility ?? null, best_practices: psi.best_practices ?? null,
+  };
+}
+
+function _compScores(audit) {
+  const psi = audit?.psi || {};
+  return {
+    seo: audit?.seo_score ?? null, aeo: audit?.aeo_score ?? null, geo: audit?.geo_score ?? null,
+    performance: psi.performance ?? null, accessibility: psi.accessibility ?? null, best_practices: psi.best_practices ?? null,
+  };
+}
+
+function _vsRow(label, own, comp, bold) {
+  const fmt = v => v == null ? '<span class="na">—</span>' : v;
+  const ownWin = own != null && comp != null && own > comp;
+  const compWin = own != null && comp != null && comp > own;
+  return `<tr class="${bold ? "vs-total-row" : ""}">
+    <td class="vs-label">${label}</td>
+    <td class="vs-val ${ownWin ? "vs-win" : ""}">${fmt(own)}${ownWin ? " ⭐" : ""}</td>
+    <td class="vs-val ${compWin ? "vs-win" : ""}">${fmt(comp)}${compWin ? " ⭐" : ""}</td>
+  </tr>`;
+}
+
+function renderModalAudit(audit, compName) {
   const el = document.getElementById("modalAudit");
   if (!el) return;
-  if (!audit) {
-    el.innerHTML = `<h3 class="modal-kw-title">SEO 體檢</h3><div class="modal-kw-empty">尚無體檢數據，下次月度爬取後顯示</div>`;
+  compareAudit = audit;
+  compareCompName = compName || "";
+
+  const ownSites = (seoHealthData?.sites || []).map(s => s.site);
+  if (!audit && !ownSites.length) {
+    el.innerHTML = `<h3 class="modal-kw-title">SEO 比較</h3><div class="modal-kw-empty">尚無體檢數據，下次爬取後顯示</div>`;
     return;
   }
-  const psi = audit.psi || {};
-  const rings = [
-    scoreRing("SEO", audit.seo_score),
-    scoreRing("AEO", audit.aeo_score),
-    scoreRing("GEO", audit.geo_score),
-    scoreRing("效能", psi.performance),
-    scoreRing("無障礙", psi.accessibility),
-    scoreRing("最佳實踐", psi.best_practices),
-  ].filter(Boolean).join("");
-  const checks = Object.entries(audit.checks || {}).map(([label, ok]) =>
+  if (!activeCompareSite || !ownSites.includes(activeCompareSite)) activeCompareSite = ownSites[0] || null;
+
+  const own = activeCompareSite ? _ownScores(activeCompareSite) : null;
+  const comp = _compScores(audit);
+  const ownOverall = own ? _overall(own) : null;
+  const compOverall = audit ? _overall(comp) : null;
+
+  const pills = ownSites.length > 1 ? `
+    <div class="vs-site-pills">${ownSites.map(s =>
+      `<button class="kw-tab ${s === activeCompareSite ? "active" : ""}" onclick="selectCompareSite('${s.replace(/'/g, "\\'")}')">${s}</button>`
+    ).join("")}</div>` : "";
+
+  const rows = [
+    _vsRow("綜合分數", ownOverall, compOverall, true),
+    _vsRow("🔍 SEO 搜尋引擎優化", own?.seo ?? null, comp.seo),
+    _vsRow("💬 AEO 答案引擎優化", own?.aeo ?? null, comp.aeo),
+    _vsRow("🤖 GEO AI 搜尋優化", own?.geo ?? null, comp.geo),
+    _vsRow("⚡ 效能 (Lighthouse)", own?.performance ?? null, comp.performance),
+    _vsRow("♿ 無障礙", own?.accessibility ?? null, comp.accessibility),
+    _vsRow("✅ 最佳實踐", own?.best_practices ?? null, comp.best_practices),
+  ].join("");
+
+  const notes = [];
+  if (!own) notes.push("自家網站健檢尚未產生（下次每週爬取後顯示）");
+  if (!audit) notes.push(`${compareCompName} 的體檢尚未產生（下次月度爬取後顯示）`);
+
+  const checks = Object.entries(audit?.checks || {}).map(([label, ok]) =>
     `<span class="audit-chip ${ok ? "chip-pass" : "chip-fail"}">${ok ? "✓" : "✗"} ${label}</span>`
   ).join("");
-  const schema = (audit.schema_types || []).map(t => `<span class="pill pill-purple">${t}</span>`).join(" ");
+  const schema = (audit?.schema_types || []).map(t => `<span class="pill pill-purple">${t}</span>`).join(" ");
+
   el.innerHTML = `
-    <h3 class="modal-kw-title">SEO 體檢</h3>
-    <div class="audit-rings">${rings}</div>
-    <div class="audit-chips">${checks}</div>
+    <h3 class="modal-kw-title">SEO 評分比較</h3>
+    ${pills}
+    <div class="table-wrap vs-wrap">
+      <table class="vs-table">
+        <thead><tr>
+          <th>指標</th>
+          <th>${activeCompareSite || "自家網站"} <span class="vs-you-badge">你</span></th>
+          <th>${compareCompName}</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    ${notes.map(n => `<div class="modal-kw-empty">${n}</div>`).join("")}
+    ${checks ? `<div class="audit-chips-title">${compareCompName} 站內檢查</div><div class="audit-chips">${checks}</div>` : ""}
     ${schema ? `<div class="audit-schema"><span class="audit-schema-label">結構化資料：</span>${schema}</div>` : ""}
   `;
 }
+
+window.selectCompareSite = (site) => {
+  activeCompareSite = site;
+  renderModalAudit(compareAudit, compareCompName);
+};
 
 function renderModalKeywords(name) {
   const el = document.getElementById("modalKw");
