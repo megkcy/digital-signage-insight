@@ -845,6 +845,33 @@ td {
 .health-item-label { color: var(--red); font-weight: 600; }
 .health-advice { color: var(--text); font-size: 11px; margin-top: 3px; line-height: 1.5; }
 
+/* ── Keyword Intelligence ── */
+.ki-finding {
+  background: rgba(22,163,74,.06);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ki-finding-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.ki-finding p { font-size: 13.5px; color: var(--text); }
+.ki-finding-sub { color: var(--text-muted) !important; font-size: 12.5px !important; }
+.ki-methodology {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  padding: 4px 2px;
+}
+
 /* ── RWD ── */
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -906,4 +933,7 @@ td {
   .vs-label { font-size: 11px; white-space: normal; }
   .vs-val { font-size: 13px; }
   .vs-total-row .vs-val { font-size: 15px; }
+
+  .ki-finding { padding: 12px 14px; }
+  .ki-finding p { font-size: 12.5px; }
 }

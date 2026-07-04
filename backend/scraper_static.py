@@ -855,6 +855,9 @@ def scrape_all(delay=2.0):
         "content_strategy": cs_obj,
         "gsc": gsc_obj,
         "seo_health": seo_health_obj,
+        # Manual Keyword Planner cross-analysis (not scraped automatically
+        # yet — pending Google Ads API access); carry forward untouched.
+        "keyword_intel": existing.get("keyword_intel"),
     }
     save_data(data)
     print(f"\nSaved to {DATA_PATH}")

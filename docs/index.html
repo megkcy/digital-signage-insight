@@ -30,6 +30,7 @@
     <nav class="page-tabs">
       <button class="page-tab active" onclick="showPage('competitors')">競爭對手</button>
       <button class="page-tab" onclick="showPage('gsc')">Google Search Console</button>
+      <button class="page-tab" onclick="showPage('keywordIntel')">關鍵字情報</button>
     </nav>
 
     <!-- ── Competitors page ── -->
@@ -161,6 +162,111 @@
           </div>
         </div>
       </section>
+    </div>
+
+    <!-- ── Keyword Intelligence page ── -->
+    <div id="pageKeywordIntel" style="display:none">
+      <section class="cards" id="kiCards">
+        <div class="card">
+          <div class="card-label">產業關鍵字全貌（不重複）</div>
+          <div class="card-value" id="kiTotal">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">機會缺口關鍵字（月量 ≥150）</div>
+          <div class="card-value" id="kiGap">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">與機會清單重疊的自家非品牌曝光字</div>
+          <div class="card-value" id="kiOverlap">0</div>
+        </div>
+        <div class="card">
+          <div class="card-label">資料來源</div>
+          <div class="card-value" id="kiSources" style="font-size:16px">—</div>
+        </div>
+      </section>
+
+      <div class="ki-finding" id="kiFinding" style="display:none">
+        <div class="ki-finding-tag">核心發現</div>
+        <p>CAYIN／GO CAYIN 目前在 Google 有曝光的搜尋字詞中，扣除品牌詞與產品型號後，幾乎沒有任何一個是產業通用詞——在對手都在搶的字上，自家網站目前幾乎沒有自然搜尋曝光。</p>
+        <p class="ki-finding-sub" id="kiFindingSub"></p>
+      </div>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">🎯 機會缺口關鍵字</h2>
+          <span class="kw-updated">Ads 競爭度為付費廣告競價指標，非 SEO 難度</span>
+        </div>
+        <div class="toolbar">
+          <input id="kiGapSearch" type="text" placeholder="搜尋關鍵字…" oninput="filterKiTable('gap')" />
+        </div>
+        <div class="table-wrap">
+          <table class="kw-table">
+            <thead>
+              <tr>
+                <th>關鍵字</th>
+                <th>月搜尋量</th>
+                <th>對手匯出重複次數</th>
+                <th>Ads 競爭度</th>
+                <th>出價區間 (TWD)</th>
+              </tr>
+            </thead>
+            <tbody id="kiGapBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">🏁 多方共同鎖定的必爭字</h2>
+          <span class="kw-updated">不限搜尋量，依出現次數排序</span>
+        </div>
+        <div class="toolbar">
+          <input id="kiCommonSearch" type="text" placeholder="搜尋關鍵字…" oninput="filterKiTable('common')" />
+        </div>
+        <div class="table-wrap">
+          <table class="kw-table">
+            <thead>
+              <tr>
+                <th>關鍵字</th>
+                <th>出現於幾份匯出</th>
+                <th>月搜尋量</th>
+                <th>Ads 競爭度</th>
+                <th>出價區間 (TWD)</th>
+              </tr>
+            </thead>
+            <tbody id="kiCommonBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">產業關鍵字全貌</h2>
+          <span class="kw-updated">不論自家是否已覆蓋，依搜尋量排序</span>
+        </div>
+        <div class="toolbar">
+          <input id="kiOverallSearch" type="text" placeholder="搜尋關鍵字…" oninput="filterKiTable('overall')" />
+        </div>
+        <div class="table-wrap">
+          <table class="kw-table">
+            <thead>
+              <tr>
+                <th>關鍵字</th>
+                <th>月搜尋量</th>
+                <th>出現於幾份匯出</th>
+                <th>Ads 競爭度</th>
+                <th>出價區間 (TWD)</th>
+              </tr>
+            </thead>
+            <tbody id="kiOverallBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="ki-methodology">
+        資料來源：Google Ads 關鍵字規劃工具「以競爭對手網站回推」的手動匯出（目前尚未自動化，待 Google Ads API 存取權核准後可排程更新）。
+        「Ads 競爭度」為付費廣告競價指數，不等於 SEO 難度。單一匯出來源的字詞可能僅與特定對手網站高度相關，套用前建議人工複核。
+      </p>
     </div>
   </main>
 
