@@ -714,6 +714,49 @@ td {
 .score-num { font-size: 18px; font-weight: 800; color: var(--ring-color); line-height: 1; }
 .score-label { font-size: 10px; color: var(--text-muted); }
 
+/* ── VS comparison table (modal) ── */
+.vs-site-pills { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.vs-wrap { margin-bottom: 12px; }
+.vs-table { width: 100%; border-collapse: collapse; }
+.vs-table thead th {
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.vs-table thead th:first-child { text-align: left; color: var(--text-muted); font-weight: 600; }
+.vs-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.vs-table tbody tr:last-child td { border-bottom: none; }
+.vs-label { font-size: 12px; color: var(--text); white-space: nowrap; }
+.vs-val {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.vs-val.vs-win { color: var(--green); }
+.vs-total-row td { background: rgba(79,110,247,.05); }
+.vs-total-row .vs-label { font-weight: 700; }
+.vs-total-row .vs-val { font-size: 17px; }
+.vs-you-badge {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  vertical-align: middle;
+}
+.audit-chips-title { font-size: 12px; font-weight: 600; color: var(--text-muted); margin: 4px 0 6px; }
+
 .audit-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
 .audit-chip {
   font-size: 11px;
@@ -813,4 +856,10 @@ td {
   .audit-rings, .health-rings { gap: 8px; }
   .score-ring { width: 62px; height: 62px; }
   .score-num { font-size: 15px; }
+
+  .vs-table thead th, .vs-table td { padding: 8px 8px; }
+  .vs-table thead th { font-size: 11px; }
+  .vs-label { font-size: 11px; white-space: normal; }
+  .vs-val { font-size: 13px; }
+  .vs-total-row .vs-val { font-size: 15px; }
 }
