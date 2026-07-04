@@ -5,6 +5,11 @@ on:
     - cron: "0 22 * * 0"  # 每週一 06:00 台灣時間 (UTC Sunday 22:00)
   workflow_dispatch:        # 允許手動觸發
 
+# 防止同時跑兩個造成 data.json push 衝突與 Firestore 互相覆蓋
+concurrency:
+  group: data-writes
+  cancel-in-progress: false
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
