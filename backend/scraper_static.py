@@ -686,6 +686,24 @@ def scrape_all(delay=2.0):
         if seo_audit is None:
             seo_audit = prev_latest.get("seo_audit")
 
+        # Target keywords from sitemap slugs (free) + Google ad activity
+        # (SerpAPI) — monthly only
+        if skip_monthly:
+            target_kw = prev_latest.get("target_keywords")
+            ads_info = prev_latest.get("ads_transparency")
+        else:
+            try:
+                from seo_audit import extract_target_keywords, scrape_ads_transparency
+                target_kw = extract_target_keywords(comp["url"])
+                ads_info = scrape_ads_transparency(domain)
+            except Exception as e:
+                print(f"  Target keywords/ads error: {e}")
+                target_kw, ads_info = None, None
+        if not target_kw:
+            target_kw = prev_latest.get("target_keywords")
+        if ads_info is None:
+            ads_info = prev_latest.get("ads_transparency")
+
         # Social — monthly only
         if skip_monthly:
             fb = prev_latest.get("facebook_followers")
@@ -728,6 +746,8 @@ def scrape_all(delay=2.0):
             "date": today,
             "serp_refreshed": serp_refreshed,
             "seo_audit": seo_audit,
+            "target_keywords": target_kw,
+            "ads_transparency": ads_info,
             "open_pagerank": pagerank,
             "sitemap_pages": pages,
             "meta_title": meta.get("meta_title"),
@@ -741,10 +761,11 @@ def scrape_all(delay=2.0):
             "trends_score": trends,
         }
 
-        # Keep last 52 weeks of history (seo_audit stays in latest only,
-        # to keep the Firestore document under its 1 MB limit)
+        # Keep last 52 weeks of history (large audit/keyword payloads stay in
+        # latest only, to keep the Firestore document under its 1 MB limit)
+        _latest_only = {"seo_audit", "target_keywords", "ads_transparency"}
         history = [h for h in history if h.get("date") != today]
-        history.append({k: v for k, v in snapshot.items() if k != "seo_audit"})
+        history.append({k: v for k, v in snapshot.items() if k not in _latest_only})
         history = history[-52:]
 
         result_competitors.append({

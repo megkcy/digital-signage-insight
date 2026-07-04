@@ -168,6 +168,112 @@ def get_pagespeed(url, strategy="mobile"):
         return None
 
 
+SLUG_STOPWORDS = {
+    "the", "a", "an", "and", "or", "of", "for", "to", "in", "on", "with", "your",
+    "is", "at", "by", "vs", "how", "what", "why", "best", "top", "guide", "blog",
+    "news", "page", "html", "php", "index", "www", "com", "en", "us", "org",
+    "category", "tag", "author", "wp", "content", "uploads", "product", "products",
+    "resources", "resource", "post", "posts", "article", "articles", "2020", "2021",
+    "2022", "2023", "2024", "2025", "2026",
+}
+
+
+def extract_target_keywords(url, max_urls=300, top_n=12):
+    """Infer a competitor's target keywords from their sitemap URL slugs.
+    Blog/page slugs are chosen for SEO, so their word n-grams reveal the
+    keyword targets — no API needed."""
+    from urllib.parse import urlparse
+    from collections import Counter
+
+    p = urlparse(url)
+    origin = f"{p.scheme}://{p.netloc}"
+    locs = []
+    for path in ["/sitemap.xml", "/sitemap_index.xml"]:
+        resp = _fetch(origin + path, timeout=15)
+        if resp is None or resp.status_code != 200:
+            continue
+        locs = re.findall(r"<loc>(.*?)</loc>", resp.text)[:max_urls]
+        # sitemap index → fetch first couple of child sitemaps
+        children = [l for l in locs if l.endswith(".xml")][:3]
+        if children and len(children) == len(locs[:3]):
+            locs = []
+            for c in children:
+                r2 = _fetch(c, timeout=15)
+                if r2 is not None and r2.status_code == 200:
+                    locs += re.findall(r"<loc>(.*?)</loc>", r2.text)
+                if len(locs) >= max_urls:
+                    break
+            locs = locs[:max_urls]
+        if locs:
+            break
+    if not locs:
+        return []
+
+    grams = Counter()
+    for loc in locs:
+        try:
+            path = urlparse(loc).path.lower()
+        except Exception:
+            continue
+        for seg in path.split("/"):
+            words = [w for w in re.split(r"[-_.]", seg)
+                     if w.isalpha() and len(w) > 2 and w not in SLUG_STOPWORDS]
+            for n in (2, 3):
+                for i in range(len(words) - n + 1):
+                    grams[" ".join(words[i:i + n])] += 1
+
+    # keep phrases seen on 2+ pages; prefer longer phrases, drop sub-phrases
+    ranked = [(g, c) for g, c in grams.most_common(60) if c >= 2]
+    result = []
+    for g, c in sorted(ranked, key=lambda x: (-x[1], -len(x[0]))):
+        if any(g != r and g in r for r, _ in result):
+            continue
+        result.append((g, c))
+        if len(result) >= top_n:
+            break
+    return [{"phrase": g, "pages": c} for g, c in result]
+
+
+def scrape_ads_transparency(query):
+    """Fetch a company's Google ad activity from the Ads Transparency Center
+    via SerpAPI. Returns a compact summary of their ad creatives."""
+    api_key = os.environ.get("SERPAPI_KEY")
+    if not api_key:
+        return None
+    try:
+        resp = requests.get(
+            "https://serpapi.com/search",
+            params={
+                "engine": "google_ads_transparency_center",
+                "text": query,
+                "region": "anywhere",
+                "api_key": api_key,
+            },
+            timeout=30,
+        )
+        data = resp.json()
+        creatives = data.get("ad_creatives", [])
+        if not creatives:
+            return {"total": 0}
+        formats = {}
+        last_shown = ""
+        for c in creatives:
+            fmt = c.get("format", "unknown")
+            formats[fmt] = formats.get(fmt, 0) + 1
+            ls = c.get("last_shown", "")
+            if ls > last_shown:
+                last_shown = ls
+        return {
+            "total": len(creatives),
+            "formats": formats,
+            "last_shown": last_shown or None,
+            "advertiser": creatives[0].get("advertiser"),
+        }
+    except Exception as e:
+        print(f"  Ads transparency error for {query}: {e}")
+        return None
+
+
 def _item(label, ok, advice):
     return {"label": label, "pass": bool(ok), "advice": None if ok else advice}
 
