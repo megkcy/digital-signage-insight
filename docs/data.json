@@ -13204,5 +13204,1857 @@
       }
     ]
   },
-  "keyword_intel": null
+  "keyword_intel": {
+    "generated_at": "2026-07-05",
+    "period": "2025-06 – 2026-05",
+    "n_exports": 22,
+    "total_unique": 10168,
+    "own_queries_count": 37,
+    "gap": [
+      {
+        "keyword": "e signage",
+        "volume": 301000,
+        "seen": 4,
+        "competition": 24,
+        "bid_low": 6.1,
+        "bid_high": 120.22
+      },
+      {
+        "keyword": "signage board",
+        "volume": 135000,
+        "seen": 5,
+        "competition": 39,
+        "bid_low": 15.94,
+        "bid_high": 104.37
+      },
+      {
+        "keyword": "signage now",
+        "volume": 90500,
+        "seen": 2,
+        "competition": 50,
+        "bid_low": 81.01,
+        "bid_high": 1548.59
+      },
+      {
+        "keyword": "led screen",
+        "volume": 40500,
+        "seen": 3,
+        "competition": 80,
+        "bid_low": 14.77,
+        "bid_high": 97.67
+      },
+      {
+        "keyword": "custom sign",
+        "volume": 40500,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 32.53,
+        "bid_high": 271.55
+      },
+      {
+        "keyword": "led display",
+        "volume": 33100,
+        "seen": 3,
+        "competition": 75,
+        "bid_low": 11.97,
+        "bid_high": 79.33
+      },
+      {
+        "keyword": "signage shop",
+        "volume": 33100,
+        "seen": 3,
+        "competition": 22,
+        "bid_low": 56.84,
+        "bid_high": 283.86
+      },
+      {
+        "keyword": "open signage",
+        "volume": 33100,
+        "seen": 8,
+        "competition": 100,
+        "bid_low": 12.64,
+        "bid_high": 225.86
+      },
+      {
+        "keyword": "sign shops",
+        "volume": 33100,
+        "seen": 2,
+        "competition": 22,
+        "bid_low": 56.84,
+        "bid_high": 283.86
+      },
+      {
+        "keyword": "led displays",
+        "volume": 33100,
+        "seen": 4,
+        "competition": 75,
+        "bid_low": 11.97,
+        "bid_high": 79.33
+      },
+      {
+        "keyword": "video wall",
+        "volume": 33100,
+        "seen": 2,
+        "competition": 99,
+        "bid_low": 14.93,
+        "bid_high": 92.64
+      },
+      {
+        "keyword": "led signage",
+        "volume": 27100,
+        "seen": 9,
+        "competition": 100,
+        "bid_low": 33.4,
+        "bid_high": 207.65
+      },
+      {
+        "keyword": "signage companies",
+        "volume": 27100,
+        "seen": 6,
+        "competition": 59,
+        "bid_low": 62.88,
+        "bid_high": 372.59
+      },
+      {
+        "keyword": "advertising tvs",
+        "volume": 27100,
+        "seen": 7,
+        "competition": 12,
+        "bid_low": 149.65,
+        "bid_high": 1435.39
+      },
+      {
+        "keyword": "signage design",
+        "volume": 27100,
+        "seen": 4,
+        "competition": 68,
+        "bid_low": 28.32,
+        "bid_high": 170.27
+      },
+      {
+        "keyword": "design signs",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 68,
+        "bid_low": 28.32,
+        "bid_high": 170.27
+      },
+      {
+        "keyword": "sign co",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 59,
+        "bid_low": 62.88,
+        "bid_high": 372.59
+      },
+      {
+        "keyword": "design signage",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 68,
+        "bid_low": 28.32,
+        "bid_high": 170.27
+      },
+      {
+        "keyword": "signage led",
+        "volume": 27100,
+        "seen": 6,
+        "competition": 100,
+        "bid_low": 33.4,
+        "bid_high": 207.65
+      },
+      {
+        "keyword": "signage for company",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 59,
+        "bid_low": 62.88,
+        "bid_high": 372.59
+      },
+      {
+        "keyword": "shop signs near me",
+        "volume": 22200,
+        "seen": 3,
+        "competition": 63,
+        "bid_low": 57.69,
+        "bid_high": 309.17
+      },
+      {
+        "keyword": "signage business",
+        "volume": 22200,
+        "seen": 7,
+        "competition": 100,
+        "bid_low": 48.25,
+        "bid_high": 246.5
+      },
+      {
+        "keyword": "signage for businesses",
+        "volume": 22200,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 48.25,
+        "bid_high": 246.5
+      },
+      {
+        "keyword": "business signage",
+        "volume": 22200,
+        "seen": 5,
+        "competition": 100,
+        "bid_low": 48.25,
+        "bid_high": 246.5
+      },
+      {
+        "keyword": "led board",
+        "volume": 22200,
+        "seen": 3,
+        "competition": 69,
+        "bid_low": 6.46,
+        "bid_high": 72.31
+      },
+      {
+        "keyword": "display standee",
+        "volume": 22200,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 12.9,
+        "bid_high": 125.28
+      },
+      {
+        "keyword": "easy signage",
+        "volume": 18100,
+        "seen": 11,
+        "competition": 93,
+        "bid_low": 38.38,
+        "bid_high": 130.41
+      },
+      {
+        "keyword": "signmakers near me",
+        "volume": 18100,
+        "seen": 4,
+        "competition": 70,
+        "bid_low": 67.73,
+        "bid_high": 352.26
+      },
+      {
+        "keyword": "signage makers",
+        "volume": 18100,
+        "seen": 3,
+        "competition": 85,
+        "bid_low": 30.68,
+        "bid_high": 162.18
+      },
+      {
+        "keyword": "brightsigns",
+        "volume": 18100,
+        "seen": 2,
+        "competition": 75,
+        "bid_low": 14.94,
+        "bid_high": 197.74
+      },
+      {
+        "keyword": "signage maker",
+        "volume": 18100,
+        "seen": 3,
+        "competition": 85,
+        "bid_low": 30.68,
+        "bid_high": 162.18
+      },
+      {
+        "keyword": "sign board design",
+        "volume": 18100,
+        "seen": 2,
+        "competition": 59,
+        "bid_low": 11.0,
+        "bid_high": 86.54
+      },
+      {
+        "keyword": "signage board design",
+        "volume": 18100,
+        "seen": 2,
+        "competition": 59,
+        "bid_low": 11.0,
+        "bid_high": 86.54
+      },
+      {
+        "keyword": "dooh",
+        "volume": 18100,
+        "seen": 2,
+        "competition": 17,
+        "bid_low": 37.72,
+        "bid_high": 544.37
+      },
+      {
+        "keyword": "outdoor business signage",
+        "volume": 14800,
+        "seen": 6,
+        "competition": 100,
+        "bid_low": 55.56,
+        "bid_high": 296.31
+      },
+      {
+        "keyword": "standing signage",
+        "volume": 14800,
+        "seen": 6,
+        "competition": 100,
+        "bid_low": 16.88,
+        "bid_high": 271.73
+      },
+      {
+        "keyword": "advertising displays",
+        "volume": 14800,
+        "seen": 7,
+        "competition": 28,
+        "bid_low": 74.89,
+        "bid_high": 868.03
+      },
+      {
+        "keyword": "led signage board",
+        "volume": 14800,
+        "seen": 3,
+        "competition": 90,
+        "bid_low": 7.67,
+        "bid_high": 88.57
+      },
+      {
+        "keyword": "led display screen",
+        "volume": 14800,
+        "seen": 5,
+        "competition": 100,
+        "bid_low": 10.55,
+        "bid_high": 81.9
+      },
+      {
+        "keyword": "led screen display",
+        "volume": 14800,
+        "seen": 5,
+        "competition": 100,
+        "bid_low": 10.55,
+        "bid_high": 81.9
+      },
+      {
+        "keyword": "order signs",
+        "volume": 14800,
+        "seen": 2,
+        "competition": 18,
+        "bid_low": 62.35,
+        "bid_high": 398.31
+      },
+      {
+        "keyword": "screen led display",
+        "volume": 14800,
+        "seen": 3,
+        "competition": 100,
+        "bid_low": 10.55,
+        "bid_high": 81.9
+      },
+      {
+        "keyword": "menu boards",
+        "volume": 14800,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 15.78,
+        "bid_high": 165.3
+      },
+      {
+        "keyword": "my signage",
+        "volume": 14800,
+        "seen": 7,
+        "competition": 12,
+        "bid_low": 1.61,
+        "bid_high": 6.47
+      },
+      {
+        "keyword": "board menu",
+        "volume": 14800,
+        "seen": 5,
+        "competition": 100,
+        "bid_low": 15.78,
+        "bid_high": 165.3
+      },
+      {
+        "keyword": "board for menu",
+        "volume": 14800,
+        "seen": 4,
+        "competition": 100,
+        "bid_low": 15.78,
+        "bid_high": 165.3
+      },
+      {
+        "keyword": "digital signage display",
+        "volume": 12100,
+        "seen": 16,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "digital signage monitor",
+        "volume": 12100,
+        "seen": 11,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "display digital signage",
+        "volume": 12100,
+        "seen": 14,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "digital signage display screens",
+        "volume": 12100,
+        "seen": 8,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "lcd signage display",
+        "volume": 12100,
+        "seen": 10,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "samsung displays",
+        "volume": 12100,
+        "seen": 6,
+        "competition": 33,
+        "bid_low": 5.83,
+        "bid_high": 86.26
+      },
+      {
+        "keyword": "online signage maker",
+        "volume": 12100,
+        "seen": 3,
+        "competition": 45,
+        "bid_low": 10.86,
+        "bid_high": 81.32
+      },
+      {
+        "keyword": "create signs online",
+        "volume": 12100,
+        "seen": 2,
+        "competition": 45,
+        "bid_low": 10.86,
+        "bid_high": 81.32
+      },
+      {
+        "keyword": "outdoor branding",
+        "volume": 12100,
+        "seen": 2,
+        "competition": 98,
+        "bid_low": 13.64,
+        "bid_high": 66.05
+      },
+      {
+        "keyword": "digital signage and displays",
+        "volume": 12100,
+        "seen": 11,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "digital signage display screen",
+        "volume": 12100,
+        "seen": 5,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "sign age",
+        "volume": 12100,
+        "seen": 4,
+        "competition": 1,
+        "bid_low": 1.42,
+        "bid_high": 152.7
+      },
+      {
+        "keyword": "digital displays",
+        "volume": 9900,
+        "seen": 12,
+        "competition": 70,
+        "bid_low": 24.05,
+        "bid_high": 179.21
+      },
+      {
+        "keyword": "advertising board",
+        "volume": 9900,
+        "seen": 7,
+        "competition": 99,
+        "bid_low": 29.31,
+        "bid_high": 150.47
+      },
+      {
+        "keyword": "display screens",
+        "volume": 9900,
+        "seen": 10,
+        "competition": 84,
+        "bid_low": 11.74,
+        "bid_high": 99.66
+      },
+      {
+        "keyword": "signage application",
+        "volume": 9900,
+        "seen": 7,
+        "competition": 36,
+        "bid_low": 4.9,
+        "bid_high": 129.8
+      },
+      {
+        "keyword": "d signage",
+        "volume": 9900,
+        "seen": 7,
+        "competition": 19,
+        "bid_low": 92.01,
+        "bid_high": 757.65
+      },
+      {
+        "keyword": "led display board",
+        "volume": 9900,
+        "seen": 5,
+        "competition": 100,
+        "bid_low": 4.78,
+        "bid_high": 62.13
+      },
+      {
+        "keyword": "best signs",
+        "volume": 9900,
+        "seen": 4,
+        "competition": 17,
+        "bid_low": 83.31,
+        "bid_high": 518.73
+      },
+      {
+        "keyword": "samsung professional",
+        "volume": 9900,
+        "seen": 4,
+        "competition": 97,
+        "bid_low": 8.66,
+        "bid_high": 72.8
+      },
+      {
+        "keyword": "best signage",
+        "volume": 9900,
+        "seen": 4,
+        "competition": 17,
+        "bid_low": 83.31,
+        "bid_high": 518.73
+      },
+      {
+        "keyword": "magic info",
+        "volume": 9900,
+        "seen": 2,
+        "competition": 23,
+        "bid_low": 27.09,
+        "bid_high": 205.95
+      },
+      {
+        "keyword": "led digital display board",
+        "volume": 9900,
+        "seen": 3,
+        "competition": 100,
+        "bid_low": 4.78,
+        "bid_high": 62.13
+      },
+      {
+        "keyword": "led screen display board",
+        "volume": 9900,
+        "seen": 3,
+        "competition": 100,
+        "bid_low": 4.78,
+        "bid_high": 62.13
+      },
+      {
+        "keyword": "led screen board",
+        "volume": 9900,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 4.78,
+        "bid_high": 62.13
+      },
+      {
+        "keyword": "digital display",
+        "volume": 9900,
+        "seen": 2,
+        "competition": 70,
+        "bid_low": 24.05,
+        "bid_high": 179.21
+      },
+      {
+        "keyword": "code signage",
+        "volume": 9900,
+        "seen": 2,
+        "competition": 6,
+        "bid_low": 38.97,
+        "bid_high": 151.28
+      },
+      {
+        "keyword": "ooh dooh",
+        "volume": 9900,
+        "seen": 2,
+        "competition": 20,
+        "bid_low": 65.78,
+        "bid_high": 638.93
+      },
+      {
+        "keyword": "ooh out of home advertising",
+        "volume": 9900,
+        "seen": 2,
+        "competition": 20,
+        "bid_low": 65.78,
+        "bid_high": 638.93
+      },
+      {
+        "keyword": "digital signage software",
+        "volume": 8100,
+        "seen": 15,
+        "competition": 31,
+        "bid_low": 93.5,
+        "bid_high": 798.66
+      },
+      {
+        "keyword": "digital display software",
+        "volume": 8100,
+        "seen": 14,
+        "competition": 31,
+        "bid_low": 93.5,
+        "bid_high": 798.66
+      },
+      {
+        "keyword": "digital screens",
+        "volume": 8100,
+        "seen": 10,
+        "competition": 79,
+        "bid_low": 14.06,
+        "bid_high": 158.24
+      },
+      {
+        "keyword": "digital signage programs",
+        "volume": 8100,
+        "seen": 15,
+        "competition": 31,
+        "bid_low": 93.5,
+        "bid_high": 798.66
+      },
+      {
+        "keyword": "digital menu boards",
+        "volume": 8100,
+        "seen": 14,
+        "competition": 100,
+        "bid_low": 30.24,
+        "bid_high": 292.63
+      },
+      {
+        "keyword": "digital notice board",
+        "volume": 8100,
+        "seen": 8,
+        "competition": 13,
+        "bid_low": 8.66,
+        "bid_high": 147.16
+      },
+      {
+        "keyword": "electronic menu board",
+        "volume": 8100,
+        "seen": 11,
+        "competition": 100,
+        "bid_low": 30.24,
+        "bid_high": 292.63
+      },
+      {
+        "keyword": "outdoor led screens",
+        "volume": 8100,
+        "seen": 6,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "free signage",
+        "volume": 8100,
+        "seen": 7,
+        "competition": 21,
+        "bid_low": 12.04,
+        "bid_high": 134.53
+      },
+      {
+        "keyword": "bright sign app",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 0,
+        "bid_low": 74.06,
+        "bid_high": 323.2
+      },
+      {
+        "keyword": "outdoor led display",
+        "volume": 8100,
+        "seen": 4,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "store signage",
+        "volume": 8100,
+        "seen": 3,
+        "competition": 100,
+        "bid_low": 60.14,
+        "bid_high": 319.46
+      },
+      {
+        "keyword": "storefront sign",
+        "volume": 8100,
+        "seen": 4,
+        "competition": 100,
+        "bid_low": 60.14,
+        "bid_high": 319.46
+      },
+      {
+        "keyword": "outdoor led display screen",
+        "volume": 8100,
+        "seen": 4,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "led panel outdoor",
+        "volume": 8100,
+        "seen": 4,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "signage for office",
+        "volume": 8100,
+        "seen": 4,
+        "competition": 100,
+        "bid_low": 39.95,
+        "bid_high": 353.47
+      },
+      {
+        "keyword": "digital screen",
+        "volume": 8100,
+        "seen": 6,
+        "competition": 79,
+        "bid_low": 14.06,
+        "bid_high": 158.24
+      },
+      {
+        "keyword": "digital notice boards",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 13,
+        "bid_low": 8.66,
+        "bid_high": 147.16
+      },
+      {
+        "keyword": "signs digital",
+        "volume": 8100,
+        "seen": 8,
+        "competition": 18,
+        "bid_low": 3.79,
+        "bid_high": 95.37
+      },
+      {
+        "keyword": "signage free",
+        "volume": 8100,
+        "seen": 8,
+        "competition": 21,
+        "bid_low": 12.04,
+        "bid_high": 134.53
+      },
+      {
+        "keyword": "signage works",
+        "volume": 8100,
+        "seen": 3,
+        "competition": 11,
+        "bid_low": 43.55,
+        "bid_high": 278.2
+      },
+      {
+        "keyword": "electronic menu boards",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 30.24,
+        "bid_high": 292.63
+      },
+      {
+        "keyword": "outdoor led monitor",
+        "volume": 8100,
+        "seen": 3,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "signs for stores",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 60.14,
+        "bid_high": 319.46
+      },
+      {
+        "keyword": "menu digital board",
+        "volume": 8100,
+        "seen": 3,
+        "competition": 100,
+        "bid_low": 30.24,
+        "bid_high": 292.63
+      },
+      {
+        "keyword": "outdoor screen led",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "outdoor display led",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "led screen for outdoor",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "outdoor led screen display",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "display led outdoor",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 22.6,
+        "bid_high": 166.12
+      },
+      {
+        "keyword": "instagram signage",
+        "volume": 8100,
+        "seen": 3,
+        "competition": 7,
+        "bid_low": 8.5,
+        "bid_high": 75.05
+      },
+      {
+        "keyword": "digital billboard",
+        "volume": 8100,
+        "seen": 2,
+        "competition": 40,
+        "bid_low": 43.94,
+        "bid_high": 665.72
+      },
+      {
+        "keyword": "cloud signage",
+        "volume": 6600,
+        "seen": 14,
+        "competition": 35,
+        "bid_low": 73.55,
+        "bid_high": 188.28
+      },
+      {
+        "keyword": "sign pro",
+        "volume": 6600,
+        "seen": 5,
+        "competition": 15,
+        "bid_low": 68.66,
+        "bid_high": 273.78
+      },
+      {
+        "keyword": "digital standee",
+        "volume": 6600,
+        "seen": 6,
+        "competition": 81,
+        "bid_low": 0.58,
+        "bid_high": 29.06
+      },
+      {
+        "keyword": "digital totems",
+        "volume": 6600,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 13.16,
+        "bid_high": 72.1
+      },
+      {
+        "keyword": "electronic menu",
+        "volume": 6600,
+        "seen": 4,
+        "competition": 11,
+        "bid_low": 19.17,
+        "bid_high": 174.43
+      },
+      {
+        "keyword": "online signs",
+        "volume": 6600,
+        "seen": 2,
+        "competition": 49,
+        "bid_low": 14.06,
+        "bid_high": 207.65
+      },
+      {
+        "keyword": "electronic menus",
+        "volume": 6600,
+        "seen": 6,
+        "competition": 11,
+        "bid_low": 19.17,
+        "bid_high": 174.43
+      },
+      {
+        "keyword": "signage for restaurant",
+        "volume": 6600,
+        "seen": 3,
+        "competition": 99,
+        "bid_low": 62.07,
+        "bid_high": 297.58
+      },
+      {
+        "keyword": "signage warehouse",
+        "volume": 6600,
+        "seen": 2,
+        "competition": 94,
+        "bid_low": 55.3,
+        "bid_high": 301.08
+      },
+      {
+        "keyword": "signage for restaurants",
+        "volume": 6600,
+        "seen": 2,
+        "competition": 99,
+        "bid_low": 62.07,
+        "bid_high": 297.58
+      },
+      {
+        "keyword": "restaurant signage",
+        "volume": 6600,
+        "seen": 3,
+        "competition": 99,
+        "bid_low": 62.07,
+        "bid_high": 297.58
+      },
+      {
+        "keyword": "ooh medium",
+        "volume": 6600,
+        "seen": 2,
+        "competition": 11,
+        "bid_low": 43.87,
+        "bid_high": 478.78
+      },
+      {
+        "keyword": "signage solutions",
+        "volume": 5400,
+        "seen": 14,
+        "competition": 15,
+        "bid_low": 35.9,
+        "bid_high": 234.78
+      }
+    ],
+    "top_common": [
+      {
+        "keyword": "digital signage",
+        "volume": 40500,
+        "seen": 18,
+        "competition": 97,
+        "bid_low": 32.29,
+        "bid_high": 320.49
+      },
+      {
+        "keyword": "digital signage app",
+        "volume": 1000,
+        "seen": 17,
+        "competition": 39,
+        "bid_low": 66.65,
+        "bid_high": 536.35
+      },
+      {
+        "keyword": "digital display app",
+        "volume": 390,
+        "seen": 17,
+        "competition": 12,
+        "bid_low": 0,
+        "bid_high": 0
+      },
+      {
+        "keyword": "signage app",
+        "volume": 260,
+        "seen": 17,
+        "competition": 47,
+        "bid_low": 22.4,
+        "bid_high": 383.36
+      },
+      {
+        "keyword": "digital signage website",
+        "volume": 90,
+        "seen": 17,
+        "competition": 48,
+        "bid_low": 43.13,
+        "bid_high": 481.46
+      },
+      {
+        "keyword": "digital signage display",
+        "volume": 12100,
+        "seen": 16,
+        "competition": 100,
+        "bid_low": 21.21,
+        "bid_high": 234.44
+      },
+      {
+        "keyword": "digital signage screens",
+        "volume": 1300,
+        "seen": 16,
+        "competition": 100,
+        "bid_low": 39.58,
+        "bid_high": 236.07
+      },
+      {
+        "keyword": "screen digital signage",
+        "volume": 1300,
+        "seen": 16,
+        "competition": 100,
+        "bid_low": 39.58,
+        "bid_high": 236.07
+      },
+      {
+        "keyword": "digital signage management",
+        "volume": 260,
+        "seen": 16,
+        "competition": 14,
+        "bid_low": 83.93,
+        "bid_high": 911.82
+      },
+      {
+        "keyword": "digital signage tools",
+        "volume": 70,
+        "seen": 16,
+        "competition": 59,
+        "bid_low": 115.4,
+        "bid_high": 559.76
+      },
+      {
+        "keyword": "remote digital signage",
+        "volume": 40,
+        "seen": 16,
+        "competition": 56,
+        "bid_low": 96.2,
+        "bid_high": 515.47
+      },
+      {
+        "keyword": "digital signage software",
+        "volume": 8100,
+        "seen": 15,
+        "competition": 31,
+        "bid_low": 93.5,
+        "bid_high": 798.66
+      },
+      {
+        "keyword": "digital signage programs",
+        "volume": 8100,
+        "seen": 15,
+        "competition": 31,
+        "bid_low": 93.5,
+        "bid_high": 798.66
+      },
+      {
+        "keyword": "digital signage player",
+        "volume": 3600,
+        "seen": 15,
+        "competition": 93,
+        "bid_low": 46.98,
+        "bid_high": 279.94
+      },
+      {
+        "keyword": "digital signage solutions",
+        "volume": 2900,
+        "seen": 15,
+        "competition": 33,
+        "bid_low": 51.24,
+        "bid_high": 621.58
+      },
+      {
+        "keyword": "digital signage cloud",
+        "volume": 1300,
+        "seen": 15,
+        "competition": 15,
+        "bid_low": 38.8,
+        "bid_high": 601.11
+      },
+      {
+        "keyword": "digital signage media player",
+        "volume": 1000,
+        "seen": 15,
+        "competition": 86,
+        "bid_low": 43.76,
+        "bid_high": 284.79
+      },
+      {
+        "keyword": "signage player",
+        "volume": 1000,
+        "seen": 15,
+        "competition": 63,
+        "bid_low": 45.12,
+        "bid_high": 319.29
+      },
+      {
+        "keyword": "free digital signage",
+        "volume": 880,
+        "seen": 15,
+        "competition": 44,
+        "bid_low": 69.89,
+        "bid_high": 384.12
+      },
+      {
+        "keyword": "media signage",
+        "volume": 880,
+        "seen": 15,
+        "competition": 16,
+        "bid_low": 39.96,
+        "bid_high": 401.88
+      },
+      {
+        "keyword": "digital signage hardware",
+        "volume": 720,
+        "seen": 15,
+        "competition": 71,
+        "bid_low": 58.83,
+        "bid_high": 283.08
+      },
+      {
+        "keyword": "digital signage cms",
+        "volume": 720,
+        "seen": 15,
+        "competition": 43,
+        "bid_low": 38.34,
+        "bid_high": 662.92
+      },
+      {
+        "keyword": "signage software",
+        "volume": 590,
+        "seen": 15,
+        "competition": 47,
+        "bid_low": 69.42,
+        "bid_high": 674.63
+      },
+      {
+        "keyword": "best digital signage software",
+        "volume": 590,
+        "seen": 15,
+        "competition": 34,
+        "bid_low": 144.54,
+        "bid_high": 1005.18
+      },
+      {
+        "keyword": "free digital signage software",
+        "volume": 590,
+        "seen": 15,
+        "competition": 46,
+        "bid_low": 78.33,
+        "bid_high": 425.2
+      },
+      {
+        "keyword": "digital signage software free",
+        "volume": 590,
+        "seen": 15,
+        "competition": 44,
+        "bid_low": 46.29,
+        "bid_high": 310.16
+      },
+      {
+        "keyword": "interactive signage",
+        "volume": 590,
+        "seen": 15,
+        "competition": 21,
+        "bid_low": 43.13,
+        "bid_high": 245.84
+      },
+      {
+        "keyword": "signage screen",
+        "volume": 480,
+        "seen": 15,
+        "competition": 100,
+        "bid_low": 29.36,
+        "bid_high": 207.65
+      },
+      {
+        "keyword": "digital signage for business",
+        "volume": 390,
+        "seen": 15,
+        "competition": 61,
+        "bid_low": 142.8,
+        "bid_high": 540.82
+      },
+      {
+        "keyword": "best digital signage",
+        "volume": 390,
+        "seen": 15,
+        "competition": 42,
+        "bid_low": 115.12,
+        "bid_high": 773.54
+      },
+      {
+        "keyword": "digital signage services",
+        "volume": 390,
+        "seen": 15,
+        "competition": 15,
+        "bid_low": 16.89,
+        "bid_high": 495.77
+      },
+      {
+        "keyword": "digital bulletin board software",
+        "volume": 390,
+        "seen": 15,
+        "competition": 1,
+        "bid_low": 383.36,
+        "bid_high": 570.81
+      },
+      {
+        "keyword": "signage program",
+        "volume": 320,
+        "seen": 15,
+        "competition": 29,
+        "bid_low": 94.49,
+        "bid_high": 728.03
+      },
+      {
+        "keyword": "digital signage software solution",
+        "volume": 260,
+        "seen": 15,
+        "competition": 9,
+        "bid_low": 273.21,
+        "bid_high": 1450.21
+      },
+      {
+        "keyword": "cheap digital signage",
+        "volume": 210,
+        "seen": 15,
+        "competition": 99,
+        "bid_low": 84.98,
+        "bid_high": 491.07
+      },
+      {
+        "keyword": "signage platform",
+        "volume": 170,
+        "seen": 15,
+        "competition": 56,
+        "bid_low": 75.71,
+        "bid_high": 895.26
+      },
+      {
+        "keyword": "best digital signage player",
+        "volume": 140,
+        "seen": 15,
+        "competition": 17,
+        "bid_low": 120.2,
+        "bid_high": 627.31
+      },
+      {
+        "keyword": "digital signage management software",
+        "volume": 110,
+        "seen": 15,
+        "competition": 22,
+        "bid_low": 15.09,
+        "bid_high": 747.55
+      },
+      {
+        "keyword": "free digital signage app",
+        "volume": 110,
+        "seen": 15,
+        "competition": 40,
+        "bid_low": 76.28,
+        "bid_high": 383.72
+      },
+      {
+        "keyword": "free signage software",
+        "volume": 110,
+        "seen": 15,
+        "competition": 43,
+        "bid_low": 62.37,
+        "bid_high": 442.71
+      },
+      {
+        "keyword": "tv signage software",
+        "volume": 90,
+        "seen": 15,
+        "competition": 49,
+        "bid_low": 18.35,
+        "bid_high": 1003.24
+      },
+      {
+        "keyword": "digital signage display software",
+        "volume": 90,
+        "seen": 15,
+        "competition": 25,
+        "bid_low": 34.64,
+        "bid_high": 934.06
+      },
+      {
+        "keyword": "digital signage online",
+        "volume": 90,
+        "seen": 15,
+        "competition": 80,
+        "bid_low": 26.05,
+        "bid_high": 570.21
+      },
+      {
+        "keyword": "digital notice board software",
+        "volume": 90,
+        "seen": 15,
+        "competition": 4,
+        "bid_low": 10.12,
+        "bid_high": 34.33
+      },
+      {
+        "keyword": "digital signage usa",
+        "volume": 70,
+        "seen": 15,
+        "competition": 23,
+        "bid_low": 97.28,
+        "bid_high": 214.66
+      },
+      {
+        "keyword": "free digital signage software for smart tv",
+        "volume": 70,
+        "seen": 15,
+        "competition": 29,
+        "bid_low": 112.34,
+        "bid_high": 444.59
+      },
+      {
+        "keyword": "digital signage for small business",
+        "volume": 70,
+        "seen": 15,
+        "competition": 59,
+        "bid_low": 8.72,
+        "bid_high": 479.2
+      },
+      {
+        "keyword": "display screen software",
+        "volume": 50,
+        "seen": 15,
+        "competition": 62,
+        "bid_low": 141.08,
+        "bid_high": 968.81
+      },
+      {
+        "keyword": "digital screen software",
+        "volume": 50,
+        "seen": 15,
+        "competition": 47,
+        "bid_low": 232.77,
+        "bid_high": 1118.13
+      },
+      {
+        "keyword": "best digital signage app",
+        "volume": 50,
+        "seen": 15,
+        "competition": 44,
+        "bid_low": 112.04,
+        "bid_high": 730.63
+      }
+    ],
+    "overall_top": [
+      {
+        "keyword": "poster for my wall",
+        "volume": 823000,
+        "seen": 1,
+        "competition": 1,
+        "bid_low": 1.3,
+        "bid_high": 44.73
+      },
+      {
+        "keyword": "e signage",
+        "volume": 301000,
+        "seen": 4,
+        "competition": 24,
+        "bid_low": 6.1,
+        "bid_high": 120.22
+      },
+      {
+        "keyword": "make your poster",
+        "volume": 201000,
+        "seen": 1,
+        "competition": 19,
+        "bid_low": 0.46,
+        "bid_high": 10.87
+      },
+      {
+        "keyword": "build a poster",
+        "volume": 201000,
+        "seen": 1,
+        "competition": 19,
+        "bid_low": 0.46,
+        "bid_high": 10.87
+      },
+      {
+        "keyword": "signage",
+        "volume": 165000,
+        "seen": 1,
+        "competition": 43,
+        "bid_low": 40.07,
+        "bid_high": 275.91
+      },
+      {
+        "keyword": "roku signage",
+        "volume": 165000,
+        "seen": 1,
+        "competition": 0,
+        "bid_low": 7.38,
+        "bid_high": 126.69
+      },
+      {
+        "keyword": "signage board",
+        "volume": 135000,
+        "seen": 5,
+        "competition": 39,
+        "bid_low": 15.94,
+        "bid_high": 104.37
+      },
+      {
+        "keyword": "tv wall mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "tv mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "television wall mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "tv holder wall",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "television mounting",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "tv and wall mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "tv and mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "tv wall rack",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "tv and tv mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "tv mount for tv",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "tv mount wall mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "tv mount tv",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "tv on mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "tv to mount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 8.31,
+        "bid_high": 172.39
+      },
+      {
+        "keyword": "tv wall mount wall",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "tvwallmount",
+        "volume": 135000,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 6.94,
+        "bid_high": 101.27
+      },
+      {
+        "keyword": "poster creator",
+        "volume": 110000,
+        "seen": 1,
+        "competition": 43,
+        "bid_low": 1.03,
+        "bid_high": 36.55
+      },
+      {
+        "keyword": "design a flyer",
+        "volume": 110000,
+        "seen": 1,
+        "competition": 30,
+        "bid_low": 5.44,
+        "bid_high": 100.18
+      },
+      {
+        "keyword": "make posters",
+        "volume": 110000,
+        "seen": 1,
+        "competition": 43,
+        "bid_low": 1.03,
+        "bid_high": 36.55
+      },
+      {
+        "keyword": "signage now",
+        "volume": 90500,
+        "seen": 2,
+        "competition": 50,
+        "bid_low": 81.01,
+        "bid_high": 1548.59
+      },
+      {
+        "keyword": "wallmount",
+        "volume": 60500,
+        "seen": 1,
+        "competition": 74,
+        "bid_low": 5.75,
+        "bid_high": 167.4
+      },
+      {
+        "keyword": "wall poster",
+        "volume": 60500,
+        "seen": 1,
+        "competition": 99,
+        "bid_low": 0.81,
+        "bid_high": 25.17
+      },
+      {
+        "keyword": "designing a menu",
+        "volume": 60500,
+        "seen": 1,
+        "competition": 81,
+        "bid_low": 9.23,
+        "bid_high": 149.29
+      },
+      {
+        "keyword": "bracket for tvs",
+        "volume": 49500,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 5.58,
+        "bid_high": 29.22
+      },
+      {
+        "keyword": "signage outside",
+        "volume": 49500,
+        "seen": 1,
+        "competition": 1,
+        "bid_low": 38.53,
+        "bid_high": 218.48
+      },
+      {
+        "keyword": "digital signage",
+        "volume": 40500,
+        "seen": 18,
+        "competition": 97,
+        "bid_low": 32.29,
+        "bid_high": 320.49
+      },
+      {
+        "keyword": "led screen",
+        "volume": 40500,
+        "seen": 3,
+        "competition": 80,
+        "bid_low": 14.77,
+        "bid_high": 97.67
+      },
+      {
+        "keyword": "custom sign",
+        "volume": 40500,
+        "seen": 2,
+        "competition": 100,
+        "bid_low": 32.53,
+        "bid_high": 271.55
+      },
+      {
+        "keyword": "fast signage",
+        "volume": 40500,
+        "seen": 1,
+        "competition": 77,
+        "bid_low": 84.53,
+        "bid_high": 319.46
+      },
+      {
+        "keyword": "led display",
+        "volume": 33100,
+        "seen": 3,
+        "competition": 75,
+        "bid_low": 11.97,
+        "bid_high": 79.33
+      },
+      {
+        "keyword": "sign shop",
+        "volume": 33100,
+        "seen": 1,
+        "competition": 22,
+        "bid_low": 56.84,
+        "bid_high": 283.86
+      },
+      {
+        "keyword": "signage shop",
+        "volume": 33100,
+        "seen": 3,
+        "competition": 22,
+        "bid_low": 56.84,
+        "bid_high": 283.86
+      },
+      {
+        "keyword": "open signage",
+        "volume": 33100,
+        "seen": 8,
+        "competition": 100,
+        "bid_low": 12.64,
+        "bid_high": 225.86
+      },
+      {
+        "keyword": "sign shops",
+        "volume": 33100,
+        "seen": 2,
+        "competition": 22,
+        "bid_low": 56.84,
+        "bid_high": 283.86
+      },
+      {
+        "keyword": "led displays",
+        "volume": 33100,
+        "seen": 4,
+        "competition": 75,
+        "bid_low": 11.97,
+        "bid_high": 79.33
+      },
+      {
+        "keyword": "video wall",
+        "volume": 33100,
+        "seen": 2,
+        "competition": 99,
+        "bid_low": 14.93,
+        "bid_high": 92.64
+      },
+      {
+        "keyword": "flyer maker",
+        "volume": 33100,
+        "seen": 1,
+        "competition": 67,
+        "bid_low": 7.01,
+        "bid_high": 89.47
+      },
+      {
+        "keyword": "flyer builder",
+        "volume": 33100,
+        "seen": 1,
+        "competition": 67,
+        "bid_low": 7.01,
+        "bid_high": 89.47
+      },
+      {
+        "keyword": "template for a poster",
+        "volume": 33100,
+        "seen": 1,
+        "competition": 13,
+        "bid_low": 5.29,
+        "bid_high": 42.28
+      },
+      {
+        "keyword": "design a menu card",
+        "volume": 33100,
+        "seen": 1,
+        "competition": 13,
+        "bid_low": 5.12,
+        "bid_high": 69.84
+      },
+      {
+        "keyword": "handbill maker",
+        "volume": 33100,
+        "seen": 1,
+        "competition": 67,
+        "bid_low": 7.01,
+        "bid_high": 89.47
+      },
+      {
+        "keyword": "signage open",
+        "volume": 33100,
+        "seen": 1,
+        "competition": 100,
+        "bid_low": 12.64,
+        "bid_high": 225.86
+      },
+      {
+        "keyword": "led signage",
+        "volume": 27100,
+        "seen": 9,
+        "competition": 100,
+        "bid_low": 33.4,
+        "bid_high": 207.65
+      },
+      {
+        "keyword": "signage companies",
+        "volume": 27100,
+        "seen": 6,
+        "competition": 59,
+        "bid_low": 62.88,
+        "bid_high": 372.59
+      },
+      {
+        "keyword": "advertising tvs",
+        "volume": 27100,
+        "seen": 7,
+        "competition": 12,
+        "bid_low": 149.65,
+        "bid_high": 1435.39
+      },
+      {
+        "keyword": "signage design",
+        "volume": 27100,
+        "seen": 4,
+        "competition": 68,
+        "bid_low": 28.32,
+        "bid_high": 170.27
+      },
+      {
+        "keyword": "design signs",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 68,
+        "bid_low": 28.32,
+        "bid_high": 170.27
+      },
+      {
+        "keyword": "sign co near me",
+        "volume": 27100,
+        "seen": 1,
+        "competition": 86,
+        "bid_low": 77.95,
+        "bid_high": 395.95
+      },
+      {
+        "keyword": "sign co",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 59,
+        "bid_low": 62.88,
+        "bid_high": 372.59
+      },
+      {
+        "keyword": "design signage",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 68,
+        "bid_low": 28.32,
+        "bid_high": 170.27
+      },
+      {
+        "keyword": "signage led",
+        "volume": 27100,
+        "seen": 6,
+        "competition": 100,
+        "bid_low": 33.4,
+        "bid_high": 207.65
+      },
+      {
+        "keyword": "sign and design",
+        "volume": 27100,
+        "seen": 1,
+        "competition": 68,
+        "bid_low": 28.32,
+        "bid_high": 170.27
+      },
+      {
+        "keyword": "signage for company",
+        "volume": 27100,
+        "seen": 2,
+        "competition": 59,
+        "bid_low": 62.88,
+        "bid_high": 372.59
+      }
+    ]
+  }
 }
