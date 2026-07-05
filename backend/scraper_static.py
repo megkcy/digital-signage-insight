@@ -848,6 +848,20 @@ def scrape_all(delay=2.0):
         if health_sites else existing.get("seo_health", {})
     )
 
+    # Manual Keyword Planner cross-analysis (not scraped automatically yet —
+    # pending Google Ads API access); carry forward untouched. Firestore is
+    # normally the source of truth, but if it hasn't been synced since the
+    # last manual update (e.g. the restore workflow wasn't run yet), fall
+    # back to whatever is committed in the local data.json so a scrape never
+    # wipes it out.
+    keyword_intel = existing.get("keyword_intel")
+    if not keyword_intel and os.path.exists(DATA_PATH):
+        try:
+            with open(DATA_PATH, "r", encoding="utf-8") as f:
+                keyword_intel = json.load(f).get("keyword_intel")
+        except Exception:
+            pass
+
     data = {
         "last_updated": today,
         "competitors": result_competitors,
@@ -855,9 +869,7 @@ def scrape_all(delay=2.0):
         "content_strategy": cs_obj,
         "gsc": gsc_obj,
         "seo_health": seo_health_obj,
-        # Manual Keyword Planner cross-analysis (not scraped automatically
-        # yet — pending Google Ads API access); carry forward untouched.
-        "keyword_intel": existing.get("keyword_intel"),
+        "keyword_intel": keyword_intel,
     }
     save_data(data)
     print(f"\nSaved to {DATA_PATH}")
