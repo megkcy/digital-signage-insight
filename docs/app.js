@@ -78,6 +78,7 @@ function applyData(json) {
   if (json.content_strategy) csData = json.content_strategy;
   if (json.seo_health) seoHealthData = json.seo_health;
   if (json.keyword_intel) renderKeywordIntel(json.keyword_intel);
+  renderFreshness(json);
   filterTable();
   if (json.keyword_rankings) renderKeywordRankings(json.keyword_rankings);
   if (json.gsc) renderGsc(json.gsc);
@@ -89,29 +90,82 @@ function applyData(json) {
   }
 }
 
-// ── Scrape trigger ────────────────────────────────────────────────────────────
-async function triggerScrape() {
+// ── Data freshness ────────────────────────────────────────────────────────────
+function renderFreshness(json) {
+  const el = document.getElementById("freshnessRow");
+  if (!el) return;
+
+  // latest successful SerpAPI refresh across competitors (social + Google 收錄);
+  // fall back to the newest history entry that actually has social data
+  let serpDate = "";
+  (json.competitors || []).forEach(c => {
+    const d = c.latest?.serp_refreshed || "";
+    if (d > serpDate) serpDate = d;
+  });
+  if (!serpDate) {
+    (json.competitors || []).forEach(c => {
+      (c.history || []).forEach(h => {
+        if ((h.facebook_followers != null || h.google_indexed != null) && (h.date || "") > serpDate) {
+          serpDate = h.date;
+        }
+      });
+    });
+  }
+
+  const items = [
+    ["關鍵字排名", json.keyword_rankings?.last_updated],
+    ["內容策略", json.content_strategy?.last_updated],
+    ["社群/Google收錄", serpDate],
+    ["GSC", json.gsc?.last_updated],
+    ["SEO健檢", json.seo_health?.last_updated],
+    ["關鍵字情報", json.keyword_intel?.generated_at],
+  ];
+
+  const now = Date.now();
+  el.innerHTML = items.map(([label, date]) => {
+    let cls = "fresh-none", text = "無資料";
+    if (date) {
+      const days = Math.floor((now - new Date(date + "T00:00:00Z").getTime()) / 86400000);
+      cls = days <= 14 ? "fresh-ok" : days <= 35 ? "fresh-warn" : "fresh-old";
+      text = date;
+    }
+    return `<span class="fresh-chip ${cls}"><span class="fresh-dot"></span>${label} ${text}</span>`;
+  }).join("");
+}
+
+// ── Workflow triggers ─────────────────────────────────────────────────────────
+async function dispatchWorkflow(workflowFile, btn, idleText, successMsg, cooldownMs) {
   if (!getToken()) { openSettings(); showToast("請先在設定填入 GitHub Token"); return; }
-  const btn = document.querySelector(".btn-scrape");
   btn.disabled = true; btn.textContent = "⏳ 執行中…";
   try {
-    const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches`, {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/${workflowFile}/dispatches`, {
       method: "POST",
       headers: { Authorization: `token ${getToken()}`, "Content-Type": "application/json" },
       body: JSON.stringify({ ref: "main" })
     });
     if (r.status === 204) {
-      showToast("✓ 爬取已啟動！約需 5–15 分鐘，完成後數據自動更新");
-      setTimeout(() => { btn.disabled = false; btn.textContent = "▶ 立即爬取"; }, 15000);
+      showToast(successMsg);
+      setTimeout(() => { btn.disabled = false; btn.textContent = idleText; }, cooldownMs);
     } else {
       const body = await r.text().catch(() => "");
       throw new Error(`HTTP ${r.status}: ${body || "(no body)"}`);
     }
   } catch (e) {
     showToast("❌ 觸發失敗：" + e.message);
-    btn.disabled = false; btn.textContent = "▶ 立即爬取";
+    btn.disabled = false; btn.textContent = idleText;
   }
 }
+
+function triggerScrape() {
+  dispatchWorkflow(WORKFLOW, document.querySelector(".btn-scrape"),
+    "▶ 立即爬取", "✓ 爬取已啟動！約需 5–15 分鐘，完成後數據自動更新", 15000);
+}
+
+function triggerSync() {
+  dispatchWorkflow("restore_firestore.yml", document.getElementById("btnSync"),
+    "⟳ 同步數據", "✓ 同步已啟動！約 1 分鐘後重新整理頁面即可看到最新數據", 60000);
+}
+window.triggerSync = triggerSync;
 
 // ── Table ─────────────────────────────────────────────────────────────────────
 function fmt(n) {
@@ -578,6 +632,7 @@ function renderKeywordRankings(rankings) {
 
   activeKw = rankings.keywords[0];
   renderKwTable(activeKw);
+  renderKwTrend(activeKw);
   renderContentStrategy(activeKw);
 }
 
@@ -587,7 +642,72 @@ function selectKwTab(kw) {
     t.classList.toggle("active", t.textContent === kw)
   );
   renderKwTable(kw);
+  renderKwTrend(kw);
   renderContentStrategy(kw);
+}
+
+// ── Rank trend chart ─────────────────────────────────────────────────────────
+let kwTrendChart = null;
+const TREND_COLORS = ["#7c3aed", "#0a66c2", "#16a34a", "#d97706", "#dc2626",
+                      "#0891b2", "#be185d", "#65a30d", "#7e22ce", "#b45309"];
+
+function renderKwTrend(kw) {
+  const wrap = document.getElementById("kwTrend");
+  if (!wrap || typeof Chart === "undefined") return;
+  const history = kwData?.history || [];
+  if (history.length < 2) { wrap.style.display = "none"; return; }
+
+  const dates = history.map(h => h.date);
+  // collect every competitor that ever ranked for this keyword
+  const names = [];
+  history.forEach(h => (h.results || []).forEach(r => {
+    if (r.keyword === kw && !names.includes(r.competitor)) names.push(r.competitor);
+  }));
+  if (!names.length) { wrap.style.display = "none"; return; }
+
+  const ownNames = new Set();
+  history.forEach(h => (h.results || []).forEach(r => { if (r.is_own) ownNames.add(r.competitor); }));
+
+  const datasets = names.map((name, i) => {
+    const data = history.map(h => {
+      const hit = (h.results || []).find(r => r.keyword === kw && r.competitor === name);
+      return hit ? hit.rank : null;
+    });
+    const own = ownNames.has(name);
+    const color = own ? "#4f6ef7" : TREND_COLORS[i % TREND_COLORS.length];
+    return {
+      label: own ? `${name}（自己）` : name,
+      data,
+      borderColor: color,
+      backgroundColor: color,
+      borderWidth: own ? 3 : 2,
+      tension: .3,
+      spanGaps: true,
+      pointRadius: 4,
+    };
+  });
+
+  wrap.style.display = "";
+  if (kwTrendChart) { kwTrendChart.destroy(); kwTrendChart = null; }
+  kwTrendChart = new Chart(document.getElementById("kwTrendChart"), {
+    type: "line",
+    data: { labels: dates, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#6b7280", font: { size: 11 } } } },
+      scales: {
+        x: { ticks: { color: "#6b7280", font: { size: 10 } }, grid: { color: "#f0f2f5" } },
+        y: {
+          reverse: true,
+          min: 1,
+          ticks: { color: "#6b7280", font: { size: 10 }, stepSize: 1, precision: 0 },
+          grid: { color: "#f0f2f5" },
+          title: { display: true, text: "排名", color: "#6b7280", font: { size: 10 } },
+        },
+      },
+    },
+  });
 }
 
 function renderKwTable(kw) {
@@ -742,8 +862,12 @@ function renderSeoHealth(site) {
       </div>`;
   }).join("");
 
+  const warn = entry.unreliable ? `
+    <div class="health-warn">⚠ 此網站對爬蟲回傳的內容不完整（可能為 JS 渲染），站內檢查項目僅供參考——Lighthouse 分數（效能/無障礙等）仍為 Google 實測、可信。</div>` : "";
+
   el.innerHTML = `
     <div class="health-rings">${rings}</div>
+    ${warn}
     <div class="health-grid">${cols}</div>
   `;
 }

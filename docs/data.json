@@ -3213,192 +3213,6 @@
       ]
     },
     {
-      "name": "digitalsignage.com/",
-      "url": "https://digitalsignage.com/",
-      "handles": {
-        "facebook": "",
-        "instagram": "",
-        "x": "",
-        "linkedin": ""
-      },
-      "latest": {
-        "date": "2026-07-05",
-        "serp_refreshed": "",
-        "seo_audit": {
-          "psi": {
-            "performance": 61,
-            "seo": 83,
-            "accessibility": 68,
-            "best_practices": 73,
-            "speed": 52
-          },
-          "seo_score": 65,
-          "aeo_score": 65,
-          "geo_score": 70,
-          "checks": {
-            "Title 標籤（10–60 字元）": true,
-            "Meta description（50–160 字元）": true,
-            "唯一的 H1 標題": false,
-            "Canonical 標籤": false,
-            "圖片 alt 覆蓋率 ≥80%": false,
-            "結構化資料（Schema）": true,
-            "sitemap.xml": true,
-            "robots.txt": true,
-            "Open Graph 標籤": false,
-            "HTTPS": true,
-            "行動裝置 viewport": true
-          },
-          "schema_types": [
-            "Organization",
-            "SoftwareApplication",
-            "WebSite"
-          ],
-          "subs": {
-            "seo": {
-              "performance": 61,
-              "onpage": 59,
-              "technical": 70,
-              "meta": 80,
-              "mobile": 80,
-              "speed": 52
-            },
-            "geo": {
-              "citable": 100,
-              "ai_open": 0,
-              "schema": 75,
-              "eeat": 40,
-              "brand": 40,
-              "platform": 100
-            },
-            "aeo": {
-              "answer": 100,
-              "faq": 40,
-              "snippet": 100,
-              "howto": 0,
-              "qhead": 25,
-              "paa": 70
-            }
-          }
-        },
-        "target_keywords": [
-          {
-            "phrase": "digital signage",
-            "pages": 15
-          },
-          {
-            "phrase": "internet things digital",
-            "pages": 2
-          },
-          {
-            "phrase": "things digital signage",
-            "pages": 2
-          }
-        ],
-        "ads_transparency": {
-          "total": 0
-        },
-        "open_pagerank": null,
-        "sitemap_pages": 62,
-        "meta_title": "FREE Digital Signage for everyone",
-        "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
-        "tech_stack": null,
-        "google_indexed": null,
-        "facebook_followers": null,
-        "instagram_followers": null,
-        "x_followers": null,
-        "linkedin_followers": null,
-        "trends_score": null
-      },
-      "history": [
-        {
-          "x_followers": null,
-          "open_pagerank": null,
-          "tech_stack": null,
-          "meta_title": "FREE Digital Signage for everyone",
-          "date": "2026-06-29",
-          "instagram_followers": null,
-          "trends_score": null,
-          "sitemap_pages": 62,
-          "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
-          "facebook_followers": null,
-          "linkedin_followers": null
-        },
-        {
-          "x_followers": null,
-          "open_pagerank": null,
-          "tech_stack": null,
-          "meta_title": "FREE Digital Signage for everyone",
-          "google_indexed": null,
-          "date": "2026-06-30",
-          "instagram_followers": null,
-          "trends_score": null,
-          "sitemap_pages": 62,
-          "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
-          "facebook_followers": null,
-          "linkedin_followers": null
-        },
-        {
-          "x_followers": null,
-          "open_pagerank": null,
-          "tech_stack": null,
-          "meta_title": "FREE Digital Signage for everyone",
-          "google_indexed": null,
-          "date": "2026-07-02",
-          "instagram_followers": null,
-          "trends_score": null,
-          "sitemap_pages": 62,
-          "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
-          "facebook_followers": null,
-          "linkedin_followers": null
-        },
-        {
-          "x_followers": null,
-          "open_pagerank": null,
-          "tech_stack": null,
-          "meta_title": "FREE Digital Signage for everyone",
-          "google_indexed": null,
-          "date": "2026-07-03",
-          "instagram_followers": null,
-          "trends_score": null,
-          "sitemap_pages": 62,
-          "serp_refreshed": "",
-          "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
-          "facebook_followers": null,
-          "linkedin_followers": null
-        },
-        {
-          "x_followers": null,
-          "open_pagerank": null,
-          "tech_stack": null,
-          "meta_title": "FREE Digital Signage for everyone",
-          "google_indexed": null,
-          "date": "2026-07-04",
-          "instagram_followers": null,
-          "trends_score": null,
-          "sitemap_pages": 62,
-          "serp_refreshed": "",
-          "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
-          "facebook_followers": null,
-          "linkedin_followers": null
-        },
-        {
-          "date": "2026-07-05",
-          "serp_refreshed": "",
-          "open_pagerank": null,
-          "sitemap_pages": 62,
-          "meta_title": "FREE Digital Signage for everyone",
-          "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
-          "tech_stack": null,
-          "google_indexed": null,
-          "facebook_followers": null,
-          "instagram_followers": null,
-          "x_followers": null,
-          "linkedin_followers": null,
-          "trends_score": null
-        }
-      ]
-    },
-    {
       "name": "DotSignage",
       "url": "https://www.dotsignage.com",
       "handles": {
@@ -12606,6 +12420,19 @@
           "open_pagerank": null,
           "tech_stack": null,
           "meta_title": "FREE Digital Signage for everyone",
+          "date": "2026-06-29",
+          "instagram_followers": null,
+          "trends_score": null,
+          "sitemap_pages": 62,
+          "meta_description": "Free Digital Signage for everyone. Start using the free service right now. It's the world's most popular digital signage platform and it is 100% Ad free.",
+          "facebook_followers": null,
+          "linkedin_followers": null
+        },
+        {
+          "x_followers": null,
+          "open_pagerank": null,
+          "tech_stack": null,
+          "meta_title": "FREE Digital Signage for everyone",
           "google_indexed": null,
           "date": "2026-06-30",
           "instagram_followers": null,
@@ -13204,7 +13031,151 @@
         "rank": 9
       }
     ],
-    "last_updated": "2026-06-29"
+    "last_updated": "2026-06-29",
+    "history": [
+      {
+        "date": "2026-06-26",
+        "results": [
+          {
+            "keyword": "digital signage",
+            "rank": 1,
+            "competitor": "Digital Signage",
+            "is_own": false
+          },
+          {
+            "keyword": "digital signage",
+            "rank": 2,
+            "competitor": "OptiSigns",
+            "is_own": false
+          },
+          {
+            "keyword": "digital signage",
+            "rank": 3,
+            "competitor": "BrightSign",
+            "is_own": false
+          },
+          {
+            "keyword": "digital signage",
+            "rank": 6,
+            "competitor": "Yodeck",
+            "is_own": false
+          },
+          {
+            "keyword": "menu board",
+            "rank": 8,
+            "competitor": "Yodeck",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 1,
+            "competitor": "Yodeck",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 2,
+            "competitor": "ScreenCloud",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 4,
+            "competitor": "Digital Signage",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 6,
+            "competitor": "Poppulo",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 7,
+            "competitor": "Able Sign",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 9,
+            "competitor": "NoviSign",
+            "is_own": false
+          }
+        ]
+      },
+      {
+        "date": "2026-06-29",
+        "results": [
+          {
+            "keyword": "digital signage",
+            "rank": 1,
+            "competitor": "Digital Signage",
+            "is_own": false
+          },
+          {
+            "keyword": "digital signage",
+            "rank": 2,
+            "competitor": "OptiSigns",
+            "is_own": false
+          },
+          {
+            "keyword": "digital signage",
+            "rank": 6,
+            "competitor": "Yodeck",
+            "is_own": false
+          },
+          {
+            "keyword": "menu board",
+            "rank": 9,
+            "competitor": "Yodeck",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 1,
+            "competitor": "Yodeck",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 3,
+            "competitor": "ScreenCloud",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 4,
+            "competitor": "Digital Signage",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 6,
+            "competitor": "Poppulo",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 7,
+            "competitor": "NoviSign",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 8,
+            "competitor": "Able Sign",
+            "is_own": false
+          },
+          {
+            "keyword": "cloud-based digital signage",
+            "rank": 9,
+            "competitor": "Samsung VXT",
+            "is_own": false
+          }
+        ]
+      }
+    ]
   },
   "content_strategy": {
     "results": [],
@@ -13837,7 +13808,8 @@
             "qhead": 25,
             "paa": 70
           }
-        }
+        },
+        "unreliable": true
       },
       {
         "site": "GO CAYIN",

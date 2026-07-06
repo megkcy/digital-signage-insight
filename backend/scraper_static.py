@@ -617,10 +617,30 @@ def scrape_all(delay=2.0):
     # Build effective competitor list:
     # - Use Firestore data (UI edits) as source of truth for handles/url
     # - Fall back to hardcoded COMPETITORS for any not yet in Firestore
-    hardcoded_map = {c["name"]: c for c in COMPETITORS}
+    # - Dedupe by domain so a UI-added entry can't duplicate a hardcoded one
+    #   (e.g. "digitalsignage.com/" vs "Digital Signage")
+    def _domain_key(url):
+        try:
+            return urlparse(url).netloc.lower().removeprefix("www.") or None
+        except Exception:
+            return None
+
+    hardcoded_names = {c["name"] for c in COMPETITORS}
     effective_competitors = []
-    seen = set()
+    seen_names = set()
+    seen_domains = set()
     for c in existing.get("competitors", []):
+        dom = _domain_key(c.get("url", ""))
+        if dom and dom in seen_domains:
+            print(f"  Skipping duplicate competitor (same domain): {c['name']}")
+            continue
+        # If a UI-added entry shares a domain with a hardcoded competitor of a
+        # different name, keep only the hardcoded one (processed below)
+        if dom and c["name"] not in hardcoded_names and any(
+            _domain_key(h["url"]) == dom for h in COMPETITORS
+        ):
+            print(f"  Skipping duplicate of hardcoded competitor: {c['name']}")
+            continue
         handles = c.get("handles", {})
         effective_competitors.append({
             "name": c["name"],
@@ -630,10 +650,15 @@ def scrape_all(delay=2.0):
             "x": handles.get("x", ""),
             "linkedin": handles.get("linkedin", ""),
         })
-        seen.add(c["name"])
+        seen_names.add(c["name"])
+        if dom:
+            seen_domains.add(dom)
     for c in COMPETITORS:
-        if c["name"] not in seen:
+        dom = _domain_key(c["url"])
+        if c["name"] not in seen_names and (not dom or dom not in seen_domains):
             effective_competitors.append(c)
+            if dom:
+                seen_domains.add(dom)
 
     result_competitors = []
     total = len(effective_competitors)
@@ -798,7 +823,25 @@ def scrape_all(delay=2.0):
     else:
         results = scrape_keyword_rankings(COMPETITORS)
         if results:
-            kw_obj = {"last_updated": today, "keywords": TRACKED_KEYWORDS, "results": results}
+            # Append a compact snapshot to the ranking history so the
+            # dashboard can chart rank movement over time
+            kw_history = [
+                h for h in existing_kw.get("history", []) if h.get("date") != today
+            ]
+            kw_history.append({
+                "date": today,
+                "results": [
+                    {"keyword": r["keyword"], "rank": r["rank"],
+                     "competitor": r["competitor"], "is_own": r.get("is_own", False)}
+                    for r in results
+                ],
+            })
+            kw_obj = {
+                "last_updated": today,
+                "keywords": TRACKED_KEYWORDS,
+                "results": results,
+                "history": kw_history[-26:],
+            }
         else:
             print("  No results (quota exhausted?) — keeping previous data")
             kw_obj = existing_kw
