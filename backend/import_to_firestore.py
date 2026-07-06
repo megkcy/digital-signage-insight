@@ -77,6 +77,35 @@ def merge(fs_data, local_data):
         if name not in base_names:
             merged_comps.append(oc)
 
+    # dedupe by domain (a UI-added entry can duplicate a hardcoded one under
+    # a different name, e.g. "digitalsignage.com/" vs "Digital Signage") —
+    # keep the entry with the longer history
+    from urllib.parse import urlparse
+
+    def _domain_key(c):
+        try:
+            return urlparse(c.get("url", "")).netloc.lower().removeprefix("www.") or None
+        except Exception:
+            return None
+
+    by_domain = {}
+    deduped = []
+    for c in merged_comps:
+        dom = _domain_key(c)
+        if not dom:
+            deduped.append(c)
+            continue
+        if dom not in by_domain:
+            by_domain[dom] = c
+            deduped.append(c)
+        else:
+            kept = by_domain[dom]
+            if len(c.get("history", [])) > len(kept.get("history", [])):
+                deduped[deduped.index(kept)] = c
+                by_domain[dom] = c
+            print(f"Deduped competitor by domain: dropped one of {kept['name']!r} / {c['name']!r}")
+    merged_comps = deduped
+
     sh_a, sh_b = base.get("seo_health", {}), other.get("seo_health", {})
     seo_health = sh_a if sh_a.get("sites") else sh_b
     if sh_a.get("sites") and sh_b.get("sites") and sh_b.get("last_updated", "") > sh_a.get("last_updated", ""):
@@ -87,10 +116,20 @@ def merge(fs_data, local_data):
     if ki_a and ki_b and (ki_b.get("generated_at") or "") > (ki_a.get("generated_at") or ""):
         keyword_intel = ki_b
 
+    # keyword_rankings: pick the better section, but union ranking history
+    # from both sides so no snapshot is ever lost
+    kw = dict(_pick_section(base.get("keyword_rankings"), other.get("keyword_rankings")))
+    hist_by_date = {}
+    for src in (base.get("keyword_rankings") or {}, other.get("keyword_rankings") or {}):
+        for h in src.get("history", []):
+            hist_by_date[h.get("date")] = h
+    if hist_by_date:
+        kw["history"] = sorted(hist_by_date.values(), key=lambda h: h.get("date", ""))[-26:]
+
     return {
         "last_updated": max(base.get("last_updated") or "", other.get("last_updated") or "") or None,
         "competitors": merged_comps,
-        "keyword_rankings": _pick_section(base.get("keyword_rankings"), other.get("keyword_rankings")),
+        "keyword_rankings": kw,
         "content_strategy": _pick_section(base.get("content_strategy"), other.get("content_strategy")),
         "gsc": _pick_section(base.get("gsc"), other.get("gsc")),
         "seo_health": seo_health,

@@ -12,7 +12,9 @@ import re
 import requests
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9,zh-TW;q=0.8",
 }
 
 AI_CRAWLERS = ["GPTBot", "ClaudeBot", "Google-Extended", "PerplexityBot", "CCBot"]
@@ -118,6 +120,12 @@ def collect_signals(url):
         llms is not None and llms.status_code == 200
         and llms.text.strip() and "<html" not in llms.text[:500].lower()
     )
+
+    # JS-shell detection: the fetch "succeeded" but the HTML carries almost
+    # no content (client-side-rendered SPA or a bot-block shell). On-page
+    # checks are unreliable in that case — Lighthouse (run by Google's
+    # servers with a real browser) is still trustworthy.
+    s["js_shell"] = s["word_count"] < 50 and not s["title"]
 
     return s
 
@@ -420,6 +428,7 @@ def audit_site(url, with_pagespeed=True):
         "schema_types": signals.get("schema_types", []),
         "ai_crawlers_blocked": signals.get("ai_crawlers_blocked", []),
         "llms_txt": signals.get("llms_txt", False),
+        "unreliable": signals.get("js_shell", False),
     }
     if with_pagespeed:
         result["psi"] = get_pagespeed(url)
@@ -440,4 +449,5 @@ def audit_competitor(url):
         "checks": {it["label"]: it["pass"] for it in full["seo"]["items"]},
         "schema_types": full["schema_types"],
         "subs": full.get("subs"),
+        "unreliable": full.get("unreliable", False),
     }

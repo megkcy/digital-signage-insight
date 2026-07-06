@@ -19,6 +19,7 @@
       <div class="header-actions">
         <div class="status-badge" id="statusBadge">載入中…</div>
         <button class="btn-secondary" onclick="openAddModal()">+ 新增對手</button>
+        <button class="btn-secondary" id="btnSync" onclick="triggerSync()" title="將 GitHub 上的 data.json 與 Firestore 智慧合併同步">⟳ 同步數據</button>
         <button class="btn-scrape" onclick="triggerScrape()">▶ 立即爬取</button>
         <button class="btn-settings" onclick="openSettings()" title="設定">⚙</button>
       </div>
@@ -54,6 +55,8 @@
         </div>
       </section>
 
+      <div class="freshness-row" id="freshnessRow"></div>
+
       <!-- Keyword Rankings -->
       <section class="content-section" id="kwSection" style="display:none">
         <div class="section-header">
@@ -75,6 +78,10 @@
             </thead>
             <tbody id="kwTableBody"></tbody>
           </table>
+        </div>
+        <div id="kwTrend" style="display:none">
+          <h3 class="kw-trend-title">排名趨勢（數字越小越好）</h3>
+          <div class="kw-trend-box"><canvas id="kwTrendChart"></canvas></div>
         </div>
         <div id="csSection"></div>
       </section>
