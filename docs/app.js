@@ -819,6 +819,13 @@ window.showPage = showPage;
 let gscData = null;
 let activeGscSite = null;
 let seoHealthData = null;
+let activePsiStrategy = "mobile";
+
+function selectPsiStrategy(strategy) {
+  activePsiStrategy = strategy;
+  renderSeoHealth(activeGscSite);
+}
+window.selectPsiStrategy = selectPsiStrategy;
 
 function renderSeoHealth(site) {
   const el = document.getElementById("seoHealth");
@@ -826,7 +833,14 @@ function renderSeoHealth(site) {
   const entry = (seoHealthData?.sites || []).find(s => s.site === site);
   if (!entry) { el.innerHTML = ""; return; }
 
-  const psi = entry.psi || {};
+  const hasDesktop = !!entry.psi_desktop;
+  const strategy = hasDesktop ? activePsiStrategy : "mobile";
+  const psi = (strategy === "desktop" ? entry.psi_desktop : entry.psi) || {};
+  const psiToggle = hasDesktop ? `
+    <div class="kw-tabs">
+      <button class="kw-tab ${strategy === "mobile" ? "active" : ""}" onclick="selectPsiStrategy('mobile')">📱 Mobile</button>
+      <button class="kw-tab ${strategy === "desktop" ? "active" : ""}" onclick="selectPsiStrategy('desktop')">💻 Desktop</button>
+    </div>` : "";
   const rings = [
     scoreRing("SEO", entry.seo?.score),
     scoreRing("AEO", entry.aeo?.score),
@@ -866,6 +880,7 @@ function renderSeoHealth(site) {
     <div class="health-warn">⚠ 此網站對爬蟲回傳的內容不完整（可能為 JS 渲染），站內檢查項目僅供參考——Lighthouse 分數（效能/無障礙等）仍為 Google 實測、可信。</div>` : "";
 
   el.innerHTML = `
+    ${psiToggle}
     <div class="health-rings">${rings}</div>
     ${warn}
     <div class="health-grid">${cols}</div>

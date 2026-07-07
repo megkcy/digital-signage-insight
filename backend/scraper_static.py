@@ -876,7 +876,7 @@ def scrape_all(delay=2.0):
         print(f"  {site['name']}")
         try:
             from seo_audit import audit_site
-            audit = audit_site(site["url"])
+            audit = audit_site(site["url"], with_desktop=True)
         except Exception as e:
             print(f"  audit error: {e}")
             audit = None
