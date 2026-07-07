@@ -1019,13 +1019,13 @@ function renderKeywordIntel(data) {
   kiData = data;
   document.getElementById("kiTotal").textContent = data.total_unique?.toLocaleString() || "—";
   document.getElementById("kiGap").textContent = data.gap?.length || 0;
-  document.getElementById("kiSources").textContent = `${data.n_exports} 份匯出 · ${data.generated_at || ""}`;
+  document.getElementById("kiSources").textContent = `${data.n_exports} 個對手網站 · ${data.generated_at || ""}`;
 
   const findingEl = document.getElementById("kiFinding");
   const subEl = document.getElementById("kiFindingSub");
   if (data.gap?.length) {
     findingEl.style.display = "";
-    subEl.textContent = `機會缺口表：在 2 份以上對手匯出清單中重複出現、且月搜尋量 ≥150、自家完全沒有曝光的字，依搜尋量排序。必爭字表：不論搜尋量高低，${data.n_exports} 份匯出中最多對手共同鎖定的字，依出現次數排序。`;
+    subEl.textContent = `機會缺口表：在 2 個以上對手網站同時出現、且月搜尋量 ≥150、自家完全沒有曝光的字，依搜尋量排序。必爭字表：不論搜尋量高低，在 ${data.n_exports} 個對手網站中最多共同鎖定的字，依出現次數排序。`;
   }
 
   document.getElementById("kiGapBody").innerHTML =

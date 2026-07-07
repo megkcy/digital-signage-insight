@@ -891,13 +891,41 @@ def scrape_all(delay=2.0):
         if health_sites else existing.get("seo_health", {})
     )
 
-    # Manual Keyword Planner cross-analysis (not scraped automatically yet —
-    # pending Google Ads API access); carry forward untouched. Firestore is
-    # normally the source of truth, but if it hasn't been synced since the
-    # last manual update (e.g. the restore workflow wasn't run yet), fall
-    # back to whatever is committed in the local data.json so a scrape never
-    # wipes it out.
-    keyword_intel = existing.get("keyword_intel")
+    # Competitor keyword-intel cross-analysis — monthly via the Google Ads
+    # API (GenerateKeywordIdeas seeded from each competitor's domain), same
+    # gap/top_common/overall_top shape as the original manual Keyword
+    # Planner CSV import. Falls back to whatever is already stored if the
+    # API isn't configured, errors, or hasn't reached its monthly refresh.
+    existing_ki = existing.get("keyword_intel")
+    skip_ki = _same_month((existing_ki or {}).get("generated_at", ""), today) and bool((existing_ki or {}).get("gap"))
+
+    print("\nBuilding keyword intel (Google Ads API)…")
+    if skip_ki:
+        print(f"  Skipped (refreshed {existing_ki.get('generated_at')} this month)")
+        keyword_intel = existing_ki
+    else:
+        try:
+            from google_ads_client import build_keyword_intel
+            own_gsc_queries = {
+                q["query"].strip().lower()
+                for site in gsc_data for q in site.get("queries", [])
+            }
+            competitor_domains = [
+                (c["name"], urlparse(c["url"]).netloc.lstrip("www."))
+                for c in COMPETITORS
+            ]
+            keyword_intel = build_keyword_intel(
+                competitor_domains, own_gsc_queries, set(TRACKED_KEYWORDS)
+            )
+        except Exception as e:
+            print(f"  Google Ads keyword intel error: {e}")
+            keyword_intel = None
+        if not keyword_intel:
+            print("  No result — keeping previous keyword_intel")
+            keyword_intel = existing_ki
+
+    # If Firestore hasn't been synced with a manual update yet, fall back to
+    # whatever is committed in the local data.json so a scrape never wipes it.
     if not keyword_intel and os.path.exists(DATA_PATH):
         try:
             with open(DATA_PATH, "r", encoding="utf-8") as f:

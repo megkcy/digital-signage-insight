@@ -24,7 +24,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4 lxml firebase-admin google-api-python-client google-auth
+        run: pip install requests beautifulsoup4 lxml firebase-admin google-api-python-client google-auth google-ads
 
       - name: Run scraper
         env:
@@ -33,6 +33,11 @@ jobs:
           GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
           BRIGHTDATA_KEY: ${{ secrets.BRIGHTDATA_KEY }}
           PAGESPEED_KEY: ${{ secrets.PAGESPEED_KEY }}
+          GOOGLE_ADS_DEVELOPER_TOKEN: ${{ secrets.GOOGLE_ADS_DEVELOPER_TOKEN }}
+          GOOGLE_ADS_CLIENT_ID: ${{ secrets.GOOGLE_ADS_CLIENT_ID }}
+          GOOGLE_ADS_CLIENT_SECRET: ${{ secrets.GOOGLE_ADS_CLIENT_SECRET }}
+          GOOGLE_ADS_REFRESH_TOKEN: ${{ secrets.GOOGLE_ADS_REFRESH_TOKEN }}
+          GOOGLE_ADS_LOGIN_CUSTOMER_ID: ${{ secrets.GOOGLE_ADS_LOGIN_CUSTOMER_ID }}
         run: python backend/scraper_static.py
 
       - name: Commit & push data.json
