@@ -819,6 +819,13 @@ window.showPage = showPage;
 let gscData = null;
 let activeGscSite = null;
 let seoHealthData = null;
+let activePsiStrategy = "mobile";
+
+function selectPsiStrategy(strategy) {
+  activePsiStrategy = strategy;
+  renderSeoHealth(activeGscSite);
+}
+window.selectPsiStrategy = selectPsiStrategy;
 
 function renderSeoHealth(site) {
   const el = document.getElementById("seoHealth");
@@ -826,7 +833,14 @@ function renderSeoHealth(site) {
   const entry = (seoHealthData?.sites || []).find(s => s.site === site);
   if (!entry) { el.innerHTML = ""; return; }
 
-  const psi = entry.psi || {};
+  const hasDesktop = !!entry.psi_desktop;
+  const strategy = hasDesktop ? activePsiStrategy : "mobile";
+  const psi = (strategy === "desktop" ? entry.psi_desktop : entry.psi) || {};
+  const psiToggle = hasDesktop ? `
+    <div class="kw-tabs">
+      <button class="kw-tab ${strategy === "mobile" ? "active" : ""}" onclick="selectPsiStrategy('mobile')">📱 Mobile</button>
+      <button class="kw-tab ${strategy === "desktop" ? "active" : ""}" onclick="selectPsiStrategy('desktop')">💻 Desktop</button>
+    </div>` : "";
   const rings = [
     scoreRing("SEO", entry.seo?.score),
     scoreRing("AEO", entry.aeo?.score),
@@ -866,6 +880,7 @@ function renderSeoHealth(site) {
     <div class="health-warn">⚠ 此網站對爬蟲回傳的內容不完整（可能為 JS 渲染），站內檢查項目僅供參考——Lighthouse 分數（效能/無障礙等）仍為 Google 實測、可信。</div>` : "";
 
   el.innerHTML = `
+    ${psiToggle}
     <div class="health-rings">${rings}</div>
     ${warn}
     <div class="health-grid">${cols}</div>
@@ -1019,13 +1034,13 @@ function renderKeywordIntel(data) {
   kiData = data;
   document.getElementById("kiTotal").textContent = data.total_unique?.toLocaleString() || "—";
   document.getElementById("kiGap").textContent = data.gap?.length || 0;
-  document.getElementById("kiSources").textContent = `${data.n_exports} 份匯出 · ${data.generated_at || ""}`;
+  document.getElementById("kiSources").textContent = `${data.n_exports} 個對手網站 · ${data.generated_at || ""}`;
 
   const findingEl = document.getElementById("kiFinding");
   const subEl = document.getElementById("kiFindingSub");
   if (data.gap?.length) {
     findingEl.style.display = "";
-    subEl.textContent = `機會缺口表：在 2 份以上對手匯出清單中重複出現、且月搜尋量 ≥150、自家完全沒有曝光的字，依搜尋量排序。必爭字表：不論搜尋量高低，${data.n_exports} 份匯出中最多對手共同鎖定的字，依出現次數排序。`;
+    subEl.textContent = `機會缺口表：在 2 個以上對手網站同時出現、且月搜尋量 ≥150、自家完全沒有曝光的字，依搜尋量排序。必爭字表：不論搜尋量高低，在 ${data.n_exports} 個對手網站中最多共同鎖定的字，依出現次數排序。`;
   }
 
   document.getElementById("kiGapBody").innerHTML =

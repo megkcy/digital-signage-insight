@@ -416,8 +416,11 @@ def compute_subscores(s, psi):
     return {"seo": seo, "geo": geo, "aeo": aeo}
 
 
-def audit_site(url, with_pagespeed=True):
-    """Full audit: signals + SEO/AEO/GEO scores (+ Lighthouse if requested)."""
+def audit_site(url, with_pagespeed=True, with_desktop=False):
+    """Full audit: signals + SEO/AEO/GEO scores (+ Lighthouse if requested).
+    with_desktop additionally fetches the Desktop-strategy Lighthouse run
+    (own sites only — doubling this per competitor would double PSI quota
+    and scrape runtime for comparison data nobody's asked to see twice)."""
     signals = collect_signals(url)
     if not signals.get("fetched"):
         return None
@@ -432,6 +435,8 @@ def audit_site(url, with_pagespeed=True):
     }
     if with_pagespeed:
         result["psi"] = get_pagespeed(url)
+        if with_desktop:
+            result["psi_desktop"] = get_pagespeed(url, strategy="desktop")
     result["subs"] = compute_subscores(signals, result.get("psi"))
     return result
 
