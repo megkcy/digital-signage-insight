@@ -209,27 +209,6 @@ def scrape_instagram(handle):
     return None
 
 
-def scrape_x(handle):
-    if not handle:
-        return None
-    instances = [
-        "https://xcancel.com",
-        "https://nitter.privacyredirect.com",
-        "https://nitter.poast.org",
-        "https://nitter.tiekoetter.com",
-        "https://nitter.catsarch.com",
-    ]
-    for base in instances:
-        try:
-            resp = requests.get(f"{base}/{handle}", headers=HEADERS, timeout=10)
-            m = re.search(r'([\d,]+)\s*Followers', resp.text, re.IGNORECASE)
-            if m:
-                return _parse_number(m.group(1))
-        except Exception:
-            continue
-    return None
-
-
 def scrape_linkedin_bulk(competitors):
     """Fetch LinkedIn follower counts for all competitors via Bright Data dataset API."""
     api_key = os.environ.get("BRIGHTDATA_KEY")
@@ -293,37 +272,6 @@ def scrape_linkedin_bulk(competitors):
     except Exception as e:
         print(f"  LinkedIn error: {e}")
         return {}
-
-
-def get_google_trends(name):
-    api_key = os.environ.get("SERPAPI_KEY")
-    if not api_key:
-        print(f"  Trends skipped for {name}: SERPAPI_KEY not set")
-        return None
-    try:
-        resp = requests.get(
-            "https://serpapi.com/search",
-            params={
-                "engine": "google_trends",
-                "q": name,
-                "date": "today 12-w",
-                "api_key": api_key,
-            },
-            timeout=15,
-        )
-        data = resp.json()
-        timeline = data.get("interest_over_time", {}).get("timeline_data", [])
-        if not timeline:
-            return None
-        values = [v["value"] for entry in timeline for v in entry.get("values", []) if v.get("query") == name]
-        if not values:
-            # fallback: take first value series
-            values = [v["value"] for entry in timeline for v in entry.get("values", [])]
-        avg = int(sum(values) / len(values)) if values else None
-        return avg if avg and avg > 0 else None
-    except Exception as e:
-        print(f"  Trends error for {name}: {e}")
-        return None
 
 
 def scrape_keyword_rankings(competitors):
@@ -731,7 +679,10 @@ def scrape_all(delay=2.0):
     def _serp_stamp(name):
         return existing_map.get(name, {}).get("latest", {}).get("serp_refreshed", "") or ""
 
-    batch_size = int(os.environ.get("SERP_MONTHLY_BATCH", "12"))
+    # 250 searches/month quota; per-competitor refresh now costs ≤3 (indexed
+    # count, Facebook, ads transparency — Trends/X removed, see below). 15/run
+    # × 4 weekly runs covers all 53 competitors once/month with buffer to spare.
+    batch_size = int(os.environ.get("SERP_MONTHLY_BATCH", "15"))
     needs_monthly = [c for c in effective_competitors if not _monthly_done(c["name"])]
     monthly_batch = sorted(needs_monthly, key=lambda c: _serp_stamp(c["name"]))[:batch_size]
     batch_names = {c["name"] for c in monthly_batch}
@@ -797,22 +748,18 @@ def scrape_all(delay=2.0):
         if skip_monthly:
             fb = prev_latest.get("facebook_followers")
             ig = prev_latest.get("instagram_followers")
-            x = prev_latest.get("x_followers")
             li = prev_latest.get("linkedin_followers")
-            trends = prev_latest.get("trends_score")
         else:
             fb = scrape_facebook(comp["facebook"])
             ig = scrape_instagram(comp["instagram"])
-            x = scrape_x(comp["x"])
             li = linkedin_map.get(comp["name"])
-            trends = get_google_trends(comp["name"])
         time.sleep(delay)
 
         # Stamp serp_refreshed only when the refresh actually returned data,
         # so a quota-exhausted run gets retried on the next weekly scrape
         if skip_monthly:
             serp_refreshed = prev_latest.get("serp_refreshed", "")
-        elif google_idx is not None or fb is not None or trends is not None:
+        elif google_idx is not None or fb is not None:
             serp_refreshed = today
         else:
             serp_refreshed = prev_latest.get("serp_refreshed", "")
@@ -824,9 +771,7 @@ def scrape_all(delay=2.0):
         google_idx = _keep(google_idx, "google_indexed")
         fb = _keep(fb, "facebook_followers")
         ig = _keep(ig, "instagram_followers")
-        x = _keep(x, "x_followers")
         li = _keep(li, "linkedin_followers")
-        trends = _keep(trends, "trends_score")
         pagerank = _keep(pagerank, "open_pagerank")
         pages = _keep(pages, "sitemap_pages")
         tech = _keep(tech, "tech_stack")
@@ -845,9 +790,7 @@ def scrape_all(delay=2.0):
             "google_indexed": google_idx,
             "facebook_followers": fb,
             "instagram_followers": ig,
-            "x_followers": x,
             "linkedin_followers": li,
-            "trends_score": trends,
         }
 
         # Keep last 52 weeks of history (large audit/keyword payloads stay in
@@ -871,7 +814,7 @@ def scrape_all(delay=2.0):
         })
 
         tag = "(cached)" if skip_monthly else ""
-        print(f"  PR:{pagerank} Pages:{pages} GIdx:{google_idx} LI:{li} Trends:{trends} {tag}")
+        print(f"  PR:{pagerank} Pages:{pages} GIdx:{google_idx} LI:{li} {tag}")
 
     print("\nFetching GSC data…")
     gsc_data = fetch_gsc_data()
