@@ -47,5 +47,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/data.json
           git diff --cached --quiet || git commit -m "data: weekly scrape $(date +'%Y-%m-%d')"
-          git pull --rebase origin main
+          # data.json is generated output — if something else (e.g. a manual
+          # Firestore restore) pushed while the scrape ran, the fresh scrape
+          # wins the conflict (-X theirs = our replayed commit during rebase)
+          git pull --rebase -X theirs origin main
           git push
