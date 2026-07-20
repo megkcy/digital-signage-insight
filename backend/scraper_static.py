@@ -727,6 +727,12 @@ def scrape_all(delay=2.0):
         if seo_audit is None:
             seo_audit = prev_latest.get("seo_audit")
 
+        # Auto-fill country from the audit's JSON-LD/TLD detection, but only
+        # while the field is still blank — once someone types a value in via
+        # the dashboard, it's never overwritten by auto-detection again.
+        if not comp.get("country") and seo_audit and seo_audit.get("detected_country"):
+            comp["country"] = seo_audit["detected_country"]
+
         # Target keywords from sitemap slugs (free) + Google ad activity
         # (SerpAPI) — monthly only
         if skip_monthly:

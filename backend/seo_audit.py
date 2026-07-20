@@ -19,6 +19,51 @@ HEADERS = {
 
 AI_CRAWLERS = ["GPTBot", "ClaudeBot", "Google-Extended", "PerplexityBot", "CCBot"]
 
+# Country auto-detection: JSON-LD Organization address (most reliable when
+# present), falling back to a country-code TLD. Best-effort only — the
+# result is just a suggested display string, never forced over a value the
+# user already typed into the country field.
+COUNTRY_DISPLAY = {
+    "TW": "台灣 Taiwan", "US": "美國 United States", "DE": "德國 Germany",
+    "GB": "英國 United Kingdom", "CA": "加拿大 Canada", "AU": "澳洲 Australia",
+    "FR": "法國 France", "NL": "荷蘭 Netherlands", "SE": "瑞典 Sweden",
+    "NO": "挪威 Norway", "DK": "丹麥 Denmark", "FI": "芬蘭 Finland",
+    "IT": "義大利 Italy", "ES": "西班牙 Spain", "JP": "日本 Japan",
+    "KR": "南韓 South Korea", "CN": "中國 China", "SG": "新加坡 Singapore",
+    "HK": "香港 Hong Kong", "IN": "印度 India", "IL": "以色列 Israel",
+    "CH": "瑞士 Switzerland", "AT": "奧地利 Austria", "BE": "比利時 Belgium",
+    "IE": "愛爾蘭 Ireland", "NZ": "紐西蘭 New Zealand", "BR": "巴西 Brazil",
+    "MX": "墨西哥 Mexico", "ZA": "南非 South Africa", "PL": "波蘭 Poland",
+    "PT": "葡萄牙 Portugal", "GR": "希臘 Greece", "TR": "土耳其 Turkey",
+    "AE": "阿聯 UAE", "ID": "印尼 Indonesia", "TH": "泰國 Thailand",
+    "VN": "越南 Vietnam", "MY": "馬來西亞 Malaysia", "PH": "菲律賓 Philippines",
+}
+_TLD_COUNTRY = {code.lower(): code for code in COUNTRY_DISPLAY}
+_TLD_COUNTRY["uk"] = "GB"
+
+
+def _country_code_from_address(addr):
+    ac = addr.get("addressCountry") if isinstance(addr, dict) else None
+    if isinstance(ac, dict):
+        ac = ac.get("name") or ac.get("@id")
+    if not isinstance(ac, str) or not ac.strip():
+        return None
+    ac = ac.strip()
+    if len(ac) == 2:
+        return ac.upper()
+    for code, label in COUNTRY_DISPLAY.items():
+        if ac.lower() in label.lower():
+            return code
+    return None
+
+
+def detect_country(domain, schema_country_code=None):
+    """Returns a display string like "台灣 Taiwan", or None if undetermined."""
+    code = schema_country_code
+    if not code and domain and "." in domain:
+        code = _TLD_COUNTRY.get(domain.rsplit(".", 1)[-1].lower())
+    return COUNTRY_DISPLAY.get((code or "").upper())
+
 QUESTION_HINTS = ["?", "？", "how ", "what ", "why ", "when ", "which ", "如何", "什麼", "为什么", "為什麼", "怎麼", "怎么"]
 
 
@@ -75,8 +120,9 @@ def collect_signals(url):
     s["semantic_tags"] = len(soup.find_all(["article", "section", "nav", "main", "header", "footer"]))
     s["word_count"] = len(text.split())
 
-    # JSON-LD structured data types
+    # JSON-LD structured data types (+ Organization address country, if any)
     schema_types = set()
+    schema_country_code = None
     for tag in soup.find_all("script", type="application/ld+json"):
         try:
             data = json.loads(tag.string or "")
@@ -88,15 +134,20 @@ def collect_signals(url):
                         schema_types.update(str(x) for x in t)
                     elif t:
                         schema_types.add(str(t))
+                    if schema_country_code is None:
+                        schema_country_code = _country_code_from_address(item.get("address"))
                     for g in item.get("@graph", []) if isinstance(item.get("@graph"), list) else []:
                         gt = g.get("@type") if isinstance(g, dict) else None
                         if isinstance(gt, list):
                             schema_types.update(str(x) for x in gt)
                         elif gt:
                             schema_types.add(str(gt))
+                        if schema_country_code is None and isinstance(g, dict):
+                            schema_country_code = _country_code_from_address(g.get("address"))
         except Exception:
             continue
     s["schema_types"] = sorted(schema_types)
+    s["schema_country_code"] = schema_country_code
 
     # robots.txt — existence + whether AI crawlers are blocked
     robots = _fetch(origin + "/robots.txt", timeout=10)
@@ -434,6 +485,7 @@ def audit_site(url, with_pagespeed=True, with_desktop=False):
         "aeo": score_aeo(signals),
         "geo": score_geo(signals),
         "schema_types": signals.get("schema_types", []),
+        "schema_country_code": signals.get("schema_country_code"),
         "ai_crawlers_blocked": signals.get("ai_crawlers_blocked", []),
         "llms_txt": signals.get("llms_txt", False),
         "unreliable": signals.get("js_shell", False),
@@ -448,9 +500,11 @@ def audit_site(url, with_pagespeed=True, with_desktop=False):
 
 def audit_competitor(url):
     """Compact audit for a competitor row (no advice text, smaller payload)."""
+    from urllib.parse import urlparse
     full = audit_site(url, with_pagespeed=True)
     if not full:
         return None
+    domain = urlparse(url).netloc.removeprefix("www.")
     return {
         "psi": full.get("psi"),
         "seo_score": full["seo"]["score"],
@@ -460,4 +514,5 @@ def audit_competitor(url):
         "schema_types": full["schema_types"],
         "subs": full.get("subs"),
         "unreliable": full.get("unreliable", False),
+        "detected_country": detect_country(domain, full.get("schema_country_code")),
     }
