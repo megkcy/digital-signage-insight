@@ -609,6 +609,62 @@ def scrape_all(delay=2.0):
             if dom:
                 seen_domains.add(dom)
 
+    # Sync the roster (names / URLs / additions / removals) from the company's
+    # Notion Competitors database — Notion is the source of truth when it's
+    # reachable. Matching is by domain, so a rename in Notion keeps the
+    # competitor's history; a URL change keeps history via the name key.
+    # On fetch failure, or a suspiciously tiny result (misconfigured token,
+    # page not shared with the integration), the current roster is kept.
+    print("Syncing competitor roster from Notion…")
+    try:
+        from notion_sync import fetch_notion_competitors
+        notion_rows = fetch_notion_competitors()
+    except Exception as e:
+        print(f"  Notion sync error: {e}")
+        notion_rows = None
+    if notion_rows and len(notion_rows) >= 5:
+        own_domains = {_domain_key(s["url"]) for s in OWN_SITES}
+        existing_by_domain = {}
+        for c in effective_competitors:
+            d = _domain_key(c["url"])
+            if d and d not in existing_by_domain:
+                existing_by_domain[d] = c
+        synced, notion_domains = [], set()
+        for row in notion_rows:
+            d = _domain_key(row["url"])
+            if not d or d in notion_domains or d in own_domains:
+                continue
+            notion_domains.add(d)
+            match = existing_by_domain.get(d)
+            # A manually-set dashboard country wins; else take Notion's
+            country = (match or {}).get("country", "") or row.get("country", "")
+            synced.append({
+                "name": row["name"],
+                "url": row["url"],
+                "country": country,
+                "facebook": (match or {}).get("facebook", ""),
+                "instagram": (match or {}).get("instagram", ""),
+                "x": (match or {}).get("x", ""),
+                "linkedin": (match or {}).get("linkedin", ""),
+            })
+            # Rename in Notion: point the stored history at the new name so
+            # the weekly loop's existing_map lookups keep working
+            if match and match["name"] != row["name"] and match["name"] in existing_map:
+                existing_map[row["name"]] = existing_map[match["name"]]
+        old_names = {c["name"] for c in effective_competitors}
+        added = [c["name"] for c in synced if c["name"] not in old_names]
+        removed = [c["name"] for c in effective_competitors
+                   if _domain_key(c["url"]) not in notion_domains]
+        if added:
+            print(f"  Notion sync: added {added}")
+        if removed:
+            print(f"  Notion sync: removed {removed}")
+        if not added and not removed:
+            print(f"  Notion sync: roster unchanged ({len(synced)} competitors)")
+        effective_competitors = synced
+    elif notion_rows is not None:
+        print(f"  Notion sync: only {len(notion_rows)} usable rows — keeping current roster")
+
     result_competitors = []
     total = len(effective_competitors)
 
