@@ -242,9 +242,14 @@ def extract_target_keywords(url, max_urls=300, top_n=12):
     return [{"phrase": g, "pages": c} for g, c in result]
 
 
-def scrape_ads_transparency(query):
+def scrape_ads_transparency(domain):
     """Fetch a company's Google ad activity from the Ads Transparency Center
-    via SerpAPI. Returns a compact summary of their ad creatives."""
+    via SerpAPI. Returns a compact summary of their ad creatives.
+
+    Uses SerpApi's `domain` parameter (verified advertiser domain), not
+    `text` (fuzzy name search) — passing a bare domain like "yodeck.com"
+    through `text` matched nothing for any of the 53 tracked competitors
+    and silently returned {"total": 0} for all of them."""
     api_key = os.environ.get("SERPAPI_KEY")
     if not api_key:
         return None
@@ -253,7 +258,7 @@ def scrape_ads_transparency(query):
             "https://serpapi.com/search",
             params={
                 "engine": "google_ads_transparency_center",
-                "text": query,
+                "domain": domain,
                 "region": "anywhere",
                 "api_key": api_key,
             },
@@ -278,7 +283,7 @@ def scrape_ads_transparency(query):
             "advertiser": creatives[0].get("advertiser"),
         }
     except Exception as e:
-        print(f"  Ads transparency error for {query}: {e}")
+        print(f"  Ads transparency error for {domain}: {e}")
         return None
 
 
