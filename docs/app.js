@@ -222,7 +222,7 @@ function safeHostname(url) {
 
 function renderTable(data) {
   const tbody = document.getElementById("tableBody");
-  if (!data.length) { tbody.innerHTML = '<tr><td colspan="8" class="loading">沒有符合的結果</td></tr>'; return; }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="9" class="loading">沒有符合的結果</td></tr>'; return; }
   tbody.innerHTML = data.map(d => {
     const l = d.latest || {};
     const idx = allData.indexOf(d);
@@ -232,6 +232,7 @@ function renderTable(data) {
         <div class="comp-name">${d.url ? `<a href="${d.url}" target="_blank">${d.name}</a>` : d.name}</div>
         <div class="comp-url">${d.url||""}</div>
       </td>
+      <td>${d.country || '<span class="na">—</span>'}</td>
       <td>${fmtTech(l.tech_stack)}</td>
       <td>${l.sitemap_pages!=null?`<span class="num">${l.sitemap_pages.toLocaleString()}</span>`:'<span class="na">N/A</span>'}</td>
       <td>${fmtIndexed(l.google_indexed)}</td>
@@ -547,6 +548,7 @@ function openEditModal(idx) {
   document.getElementById("editModalTitle").textContent = "編輯：" + d.name;
   document.getElementById("fName").value = d.name || "";
   document.getElementById("fUrl").value = d.url || "";
+  document.getElementById("fCountry").value = d.country || "";
   document.getElementById("fFacebook").value = d.handles?.facebook || "";
   document.getElementById("fInstagram").value = d.handles?.instagram || "";
   document.getElementById("fX").value = d.handles?.x || "";
@@ -564,6 +566,7 @@ async function saveCompetitor(e) {
   const entry = {
     name: document.getElementById("fName").value.trim(),
     url: document.getElementById("fUrl").value.trim(),
+    country: document.getElementById("fCountry").value.trim(),
     handles: {
       facebook: document.getElementById("fFacebook").value.trim(),
       instagram: document.getElementById("fInstagram").value.trim(),

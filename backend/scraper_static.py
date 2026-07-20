@@ -593,6 +593,7 @@ def scrape_all(delay=2.0):
         effective_competitors.append({
             "name": c["name"],
             "url": c.get("url", ""),
+            "country": c.get("country", ""),
             "facebook": handles.get("facebook", ""),
             "instagram": handles.get("instagram", ""),
             "x": handles.get("x", ""),
@@ -803,6 +804,7 @@ def scrape_all(delay=2.0):
         result_competitors.append({
             "name": comp["name"],
             "url": comp["url"],
+            "country": comp.get("country", ""),
             "handles": {
                 "facebook": comp["facebook"],
                 "instagram": comp["instagram"],
