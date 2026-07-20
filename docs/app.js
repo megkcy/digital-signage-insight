@@ -23,6 +23,18 @@ let charts = {};
 // ── GitHub Token (only needed for scrape trigger) ─────────────────────────────
 function getToken() { return localStorage.getItem("gh_token") || ""; }
 
+// ── Edit password gate (Firestore rules are fully open — this is just a
+// speed bump against accidental edits, not real security) ─────────────────────
+const EDIT_PASSWORD = "gocayin";
+function checkEditPassword() {
+  if (sessionStorage.getItem("edit_unlocked") === "1") return true;
+  const pw = prompt("請輸入編輯密碼：");
+  if (pw === null) return false;
+  if (pw !== EDIT_PASSWORD) { showToast("❌ 密碼錯誤"); return false; }
+  sessionStorage.setItem("edit_unlocked", "1");
+  return true;
+}
+
 // ── Firestore ─────────────────────────────────────────────────────────────────
 async function loadData() {
   try {
@@ -548,6 +560,7 @@ function closeEditModal(e) {
 }
 async function saveCompetitor(e) {
   e.preventDefault();
+  if (!checkEditPassword()) return;
   const entry = {
     name: document.getElementById("fName").value.trim(),
     url: document.getElementById("fUrl").value.trim(),
@@ -572,6 +585,7 @@ async function deleteCompetitor() {
   if (editingIndex === null) return;
   const name = allData[editingIndex].name;
   if (!confirm(`確定要刪除「${name}」？`)) return;
+  if (!checkEditPassword()) return;
   const updated = allData.filter((_, i) => i !== editingIndex);
   const ok = await saveData(updated, "");
   if (ok) { allData = updated; filterTable(); closeEditModal(); showToast("✓ 已刪除"); }
