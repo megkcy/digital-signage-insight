@@ -220,6 +220,17 @@ function safeHostname(url) {
   try { return new URL(url).hostname; } catch { return ""; }
 }
 
+// Country can hold multiple comma-separated values (Notion multi-select) —
+// the table only has room for one, so show the first and hint the rest via title.
+function firstCountry(country) {
+  if (!country) return "";
+  const parts = country.split(",").map(s => s.trim()).filter(Boolean);
+  if (!parts.length) return "";
+  return parts.length > 1
+    ? `<span title="${country.replace(/"/g, "&quot;")}">${parts[0]} +${parts.length - 1}</span>`
+    : parts[0];
+}
+
 function renderTable(data) {
   const tbody = document.getElementById("tableBody");
   if (!data.length) { tbody.innerHTML = '<tr><td colspan="9" class="loading">沒有符合的結果</td></tr>'; return; }
@@ -232,7 +243,7 @@ function renderTable(data) {
         <div class="comp-name">${d.url ? `<a href="${d.url}" target="_blank">${d.name}</a>` : d.name}</div>
         <div class="comp-url">${d.url||""}</div>
       </td>
-      <td>${d.country || '<span class="na">—</span>'}</td>
+      <td class="td-country">${firstCountry(d.country) || '<span class="na">—</span>'}</td>
       <td>${fmtTech(l.tech_stack)}</td>
       <td>${l.sitemap_pages!=null?`<span class="num">${l.sitemap_pages.toLocaleString()}</span>`:'<span class="na">N/A</span>'}</td>
       <td>${fmtIndexed(l.google_indexed)}</td>

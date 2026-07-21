@@ -264,6 +264,11 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.td-country {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .comp-name { font-weight: 600; color: var(--text); }
 .comp-url { font-size: 11px; color: var(--text-muted); }
 .pill {
