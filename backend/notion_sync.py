@@ -10,6 +10,7 @@ integration must be connected to that page in Notion). Any failure returns
 None so the scraper keeps its current roster untouched.
 """
 import os
+from urllib.parse import urlparse, urlunparse
 
 import requests
 
@@ -78,4 +79,17 @@ def parse_notion_row(row):
         return None
     if not url.startswith("http"):
         url = "https://" + url
+    url = _strip_tracking_params(url)
     return {"name": name, "url": url, "country": ", ".join(countries)}
+
+
+def _strip_tracking_params(url):
+    """Drop the query string and fragment — some Notion rows hold a pasted
+    ad-click landing link (?utm_source=...&gclid=...) instead of a clean
+    homepage URL, and a 150+ char single-line value blows out the table
+    layout (white-space: nowrap has nowhere to break)."""
+    try:
+        p = urlparse(url)
+        return urlunparse((p.scheme, p.netloc, p.path, "", "", ""))
+    except Exception:
+        return url
