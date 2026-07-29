@@ -870,7 +870,12 @@ function renderSeoHealth(site) {
       <button class="kw-tab ${strategy === "desktop" ? "active" : ""}" onclick="selectPsiStrategy('desktop')">💻 Desktop</button>
     </div>` : "";
   const rings = [
-    scoreRing("SEO", entry.seo?.score),
+    // Headline SEO number comes from Lighthouse so it matches what you get
+    // from PageSpeed Insights. Our own on-page checklist is a stricter,
+    // different rubric (it scores title/description *length*, Schema and
+    // Open Graph, none of which Lighthouse scores) — it keeps its own score
+    // on its card below. Falls back to ours if PSI didn't return.
+    scoreRing("SEO", psi.seo ?? entry.seo?.score),
     scoreRing("AEO", entry.aeo?.score),
     scoreRing("GEO", entry.geo?.score),
     scoreRing("效能", psi.performance),
@@ -879,7 +884,7 @@ function renderSeoHealth(site) {
   ].filter(Boolean).join("");
 
   const DESC = {
-    seo: ["SEO 搜尋引擎優化", "傳統 Google 搜尋排名的技術基礎"],
+    seo: ["SEO 搜尋引擎優化", "站內檢查清單：比 Lighthouse 更嚴格，另含 Schema／OG／標題長度"],
     aeo: ["AEO 答案引擎優化", "精選摘要與問答框（People Also Ask）曝光"],
     geo: ["GEO 生成式引擎優化", "讓 ChatGPT / Claude / Perplexity 等 AI 搜尋引用你的內容"],
   };
