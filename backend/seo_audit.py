@@ -488,13 +488,24 @@ def audit_site(url, with_pagespeed=True, with_desktop=False):
         "schema_country_code": signals.get("schema_country_code"),
         "ai_crawlers_blocked": signals.get("ai_crawlers_blocked", []),
         "llms_txt": signals.get("llms_txt", False),
-        "unreliable": signals.get("js_shell", False),
     }
     if with_pagespeed:
         result["psi"] = get_pagespeed(url)
         if with_desktop:
             result["psi_desktop"] = get_pagespeed(url, strategy="desktop")
     result["subs"] = compute_subscores(signals, result.get("psi"))
+
+    # A missing <title>/schema in the static fetch usually means real thin
+    # content — but Lighthouse renders JavaScript before scoring, so if it
+    # sees a much healthier SEO picture than our static HTML did, that gap
+    # itself is evidence the real title/meta/schema are injected client-side
+    # and invisible to a plain requests.get(). Flag it rather than silently
+    # showing a static-only score next to a Lighthouse score that disagrees.
+    psi_seo = (result.get("psi") or {}).get("seo")
+    lighthouse_disagrees = (
+        not signals.get("title") and psi_seo is not None and psi_seo >= 70
+    )
+    result["unreliable"] = signals.get("js_shell", False) or lighthouse_disagrees
     return result
 
 
