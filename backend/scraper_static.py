@@ -6,6 +6,7 @@ import json
 import os
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 from urllib.parse import urlparse, urljoin
 
@@ -556,7 +557,7 @@ def _within_days(date_str: str, today: str, days: int) -> bool:
         return False
 
 
-def scrape_all(delay=2.0):
+def scrape_all():
     today = datetime.utcnow().strftime("%Y-%m-%d")
     existing = load_existing()
 
@@ -665,14 +666,13 @@ def scrape_all(delay=2.0):
     elif notion_rows is not None:
         print(f"  Notion sync: only {len(notion_rows)} usable rows — keeping current roster")
 
-    result_competitors = []
     total = len(effective_competitors)
 
-    def _monthly_done(name):
-        """A competitor's monthly refresh only counts if the SerpAPI scrape
-        actually succeeded (serp_refreshed stamped in this month). A quota-
-        exhausted run leaves the stamp untouched so the next weekly run
-        retries instead of caching the failure for a month."""
+    def _serp_done(name):
+        """A competitor's monthly SerpAPI refresh only counts if it actually
+        succeeded (serp_refreshed stamped in this month). A quota-exhausted
+        run leaves the stamp untouched so the next weekly run retries
+        instead of caching the failure for a month."""
         pl = existing_map.get(name, {}).get("latest", {})
         return _same_month(pl.get("serp_refreshed", ""), today)
 
@@ -736,11 +736,12 @@ def scrape_all(delay=2.0):
     def _serp_stamp(name):
         return existing_map.get(name, {}).get("latest", {}).get("serp_refreshed", "") or ""
 
-    # 250 searches/month quota; per-competitor refresh now costs ≤3 (indexed
-    # count, Facebook, ads transparency — Trends/X removed, see below). 15/run
-    # × 4 weekly runs covers all 53 competitors once/month with buffer to spare.
+    # 250 searches/month quota; the SerpAPI part of a refresh costs 3 (indexed
+    # count, ads transparency, Facebook). 15/run × ~4 weekly runs = 180/month,
+    # inside quota. Only these three lookups are rationed — the audit,
+    # Lighthouse and target-keyword work runs for everyone every week.
     batch_size = int(os.environ.get("SERP_MONTHLY_BATCH", "15"))
-    needs_monthly = [c for c in effective_competitors if not _monthly_done(c["name"])]
+    needs_monthly = [c for c in effective_competitors if not _serp_done(c["name"])]
     monthly_batch = sorted(needs_monthly, key=lambda c: _serp_stamp(c["name"]))[:batch_size]
     batch_names = {c["name"] for c in monthly_batch}
 
@@ -748,38 +749,36 @@ def scrape_all(delay=2.0):
     print(f"\nFetching LinkedIn followers via Bright Data… (batch {len(monthly_batch)} of {len(needs_monthly)} due, {total} total)")
     linkedin_map = scrape_linkedin_bulk(monthly_batch)
 
-    for i, comp in enumerate(effective_competitors, 1):
-        print(f"[{i}/{total}] {comp['name']}")
+    def _process_competitor(comp):
+        """One competitor's full refresh. Returns (entry, log_line).
+
+        Runs in a worker thread — everything it touches is either local or a
+        read-only lookup into existing_map / linkedin_map, and the only shared
+        mutation (comp["country"]) is on this competitor's own dict.
+        """
         domain = urlparse(comp["url"]).netloc.lstrip("www.")
 
         prev = existing_map.get(comp["name"], {})
         prev_latest = prev.get("latest", {})
         history = prev.get("history", [])
-        skip_monthly = _monthly_done(comp["name"]) or comp["name"] not in batch_names
+        # Only the three SerpAPI-billed lookups are rationed. Everything else
+        # below is free (PageSpeed Insights has its own far larger quota, the
+        # rest is plain HTTP), so it runs for every competitor every week.
+        skip_serp = _serp_done(comp["name"]) or comp["name"] not in batch_names
 
-        # SEO — always weekly (no SerpAPI cost)
+        # Free: plain HTTP fetches
         pagerank = get_open_pagerank(domain)
         meta = get_meta_info(comp["url"])
         pages = get_sitemap_pages(comp["url"])
         tech = detect_tech_stack(comp["url"])
 
-        # Google indexed — monthly only
-        if skip_monthly:
-            google_idx = prev_latest.get("google_indexed")
-        else:
-            google_idx = scrape_google_indexed_count(domain)
-        time.sleep(delay)
-
-        # SEO/AEO/GEO audit + Lighthouse — monthly only (slow but free)
-        if skip_monthly:
-            seo_audit = prev_latest.get("seo_audit")
-        else:
-            try:
-                from seo_audit import audit_competitor
-                seo_audit = audit_competitor(comp["url"])
-            except Exception as e:
-                print(f"  SEO audit error: {e}")
-                seo_audit = None
+        # Free: SEO/AEO/GEO audit + Lighthouse (PageSpeed Insights)
+        try:
+            from seo_audit import audit_competitor
+            seo_audit = audit_competitor(comp["url"])
+        except Exception as e:
+            print(f"  SEO audit error for {comp['name']}: {e}")
+            seo_audit = None
         if seo_audit is None:
             seo_audit = prev_latest.get("seo_audit")
 
@@ -789,38 +788,40 @@ def scrape_all(delay=2.0):
         if not comp.get("country") and seo_audit and seo_audit.get("detected_country"):
             comp["country"] = seo_audit["detected_country"]
 
-        # Target keywords from sitemap slugs (free) + Google ad activity
-        # (SerpAPI) — monthly only
-        if skip_monthly:
-            target_kw = prev_latest.get("target_keywords")
-            ads_info = prev_latest.get("ads_transparency")
-        else:
-            try:
-                from seo_audit import extract_target_keywords, scrape_ads_transparency
-                target_kw = extract_target_keywords(comp["url"])
-                ads_info = scrape_ads_transparency(domain)
-            except Exception as e:
-                print(f"  Target keywords/ads error: {e}")
-                target_kw, ads_info = None, None
+        # Free: target keywords from sitemap slugs
+        try:
+            from seo_audit import extract_target_keywords
+            target_kw = extract_target_keywords(comp["url"])
+        except Exception as e:
+            print(f"  Target keywords error for {comp['name']}: {e}")
+            target_kw = None
         if not target_kw:
             target_kw = prev_latest.get("target_keywords")
+
+        # Free: Instagram is scraped directly, not via SerpAPI
+        ig = scrape_instagram(comp["instagram"])
+        li = linkedin_map.get(comp["name"])
+
+        # SerpAPI-billed (≈3 searches): rationed to this run's batch
+        if skip_serp:
+            google_idx = prev_latest.get("google_indexed")
+            ads_info = prev_latest.get("ads_transparency")
+            fb = prev_latest.get("facebook_followers")
+        else:
+            google_idx = scrape_google_indexed_count(domain)
+            try:
+                from seo_audit import scrape_ads_transparency
+                ads_info = scrape_ads_transparency(domain)
+            except Exception as e:
+                print(f"  Ads transparency error for {comp['name']}: {e}")
+                ads_info = None
+            fb = scrape_facebook(comp["facebook"])
         if ads_info is None:
             ads_info = prev_latest.get("ads_transparency")
 
-        # Social — monthly only
-        if skip_monthly:
-            fb = prev_latest.get("facebook_followers")
-            ig = prev_latest.get("instagram_followers")
-            li = prev_latest.get("linkedin_followers")
-        else:
-            fb = scrape_facebook(comp["facebook"])
-            ig = scrape_instagram(comp["instagram"])
-            li = linkedin_map.get(comp["name"])
-        time.sleep(delay)
-
         # Stamp serp_refreshed only when the refresh actually returned data,
         # so a quota-exhausted run gets retried on the next weekly scrape
-        if skip_monthly:
+        if skip_serp:
             serp_refreshed = prev_latest.get("serp_refreshed", "")
         elif google_idx is not None or fb is not None:
             serp_refreshed = today
@@ -859,11 +860,11 @@ def scrape_all(delay=2.0):
         # Keep last 52 weeks of history (large audit/keyword payloads stay in
         # latest only, to keep the Firestore document under its 1 MB limit)
         _latest_only = {"seo_audit", "target_keywords", "ads_transparency"}
-        history = [h for h in history if h.get("date") != today]
-        history.append({k: v for k, v in snapshot.items() if k not in _latest_only})
-        history = history[-52:]
+        hist = [h for h in history if h.get("date") != today]
+        hist.append({k: v for k, v in snapshot.items() if k not in _latest_only})
+        hist = hist[-52:]
 
-        result_competitors.append({
+        entry = {
             "name": comp["name"],
             "url": comp["url"],
             "country": comp.get("country", ""),
@@ -874,11 +875,45 @@ def scrape_all(delay=2.0):
                 "linkedin": comp["linkedin"],
             },
             "latest": snapshot,
-            "history": history,
-        })
+            "history": hist,
+        }
+        psi = (seo_audit or {}).get("psi") or {}
+        tag = "(serp cached)" if skip_serp else ""
+        log = (f"{comp['name']} — PR:{pagerank} Pages:{pages} GIdx:{google_idx} "
+               f"LI:{li} PSI:{psi.get('performance')} {tag}")
+        return entry, log
 
-        tag = "(cached)" if skip_monthly else ""
-        print(f"  PR:{pagerank} Pages:{pages} GIdx:{google_idx} LI:{li} {tag}")
+    # The per-competitor work is almost entirely waiting on other people's
+    # servers (PageSpeed runs Lighthouse on Google's side), so run it in
+    # parallel — this is what makes a full weekly Lighthouse pass over every
+    # competitor cheaper in wall-clock than the old 15-per-week rotation.
+    # 8 workers ≈ 15-25 PSI calls/min, well under the 240/min PSI limit, and
+    # each worker is on a different domain so no single site gets hammered.
+    max_workers = int(os.environ.get("SCRAPE_WORKERS", "8"))
+    print(f"\nRefreshing {total} competitors ({max_workers} workers, "
+          f"Lighthouse for all, SerpAPI for {len(monthly_batch)})…")
+    slots = [None] * total
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {
+            pool.submit(_process_competitor, comp): i
+            for i, comp in enumerate(effective_competitors)
+        }
+        for done, fut in enumerate(as_completed(futures), 1):
+            i = futures[fut]
+            comp = effective_competitors[i]
+            try:
+                entry, log = fut.result()
+            except Exception as e:
+                # A single competitor blowing up must not lose the whole run:
+                # fall back to whatever we already had stored for them.
+                print(f"[{done}/{total}] {comp['name']} — FAILED: {e}")
+                prev = existing_map.get(comp["name"])
+                if prev:
+                    slots[i] = prev
+                continue
+            slots[i] = entry
+            print(f"[{done}/{total}] {log}")
+    result_competitors = [e for e in slots if e]
 
     print("\nFetching GSC data…")
     gsc_data = fetch_gsc_data()
