@@ -894,13 +894,13 @@ function renderSeoHealth(site) {
       <button class="kw-tab ${strategy === "mobile" ? "active" : ""}" onclick="selectPsiStrategy('mobile')">📱 Mobile</button>
       <button class="kw-tab ${strategy === "desktop" ? "active" : ""}" onclick="selectPsiStrategy('desktop')">💻 Desktop</button>
     </div>` : "";
+  // Headline SEO number comes from Lighthouse so it matches what you get from
+  // PageSpeed Insights. The SEO card below reuses this exact value rather than
+  // scoring our own checklist separately — two different numbers both labelled
+  // SEO read as the page contradicting itself.
+  const seoScore = psi.seo ?? entry.seo?.score ?? null;
   const rings = [
-    // Headline SEO number comes from Lighthouse so it matches what you get
-    // from PageSpeed Insights. Our own on-page checklist is a stricter,
-    // different rubric (it scores title/description *length*, Schema and
-    // Open Graph, none of which Lighthouse scores) — it keeps its own score
-    // on its card below. Falls back to ours if PSI didn't return.
-    scoreRing("SEO", psi.seo ?? entry.seo?.score),
+    scoreRing("SEO", seoScore),
     scoreRing("AEO", entry.aeo?.score),
     scoreRing("GEO", entry.geo?.score),
     scoreRing("效能", psi.performance),
@@ -909,24 +909,26 @@ function renderSeoHealth(site) {
   ].filter(Boolean).join("");
 
   const DESC = {
-    // Titled "站內檢查清單" rather than "SEO", because the SEO ring above it
-    // shows Lighthouse's score and this card shows our own stricter checklist
-    // — two different numbers, and calling both of them "SEO" made the page
-    // look like it was contradicting itself.
-    seo: ["SEO 站內檢查清單", "我們自訂的檢查項目，比 Lighthouse 嚴格：另含 Schema／OG／標題長度"],
+    // The SEO card's score is Lighthouse's, same as the ring — so its items
+    // are framed as extra recommendations rather than as the breakdown that
+    // produced the number, because Lighthouse doesn't score Schema, Open
+    // Graph or title length at all. AEO/GEO have no Lighthouse equivalent,
+    // so their card score really is the sum of their own items.
+    seo: ["SEO 搜尋引擎優化", "分數為 Lighthouse 實測；以下為我們額外檢查的加分建議（Lighthouse 不計分）"],
     aeo: ["AEO 答案引擎優化", "精選摘要與問答框（People Also Ask）曝光"],
     geo: ["GEO 生成式引擎優化", "讓 ChatGPT / Claude / Perplexity 等 AI 搜尋引用你的內容"],
   };
   const cols = ["seo", "aeo", "geo"].map(k => {
     const sec = entry[k];
     if (!sec) return "";
+    const score = k === "seo" ? seoScore : sec.score;
     const fails = sec.items.filter(i => !i.pass);
     const passes = sec.items.filter(i => i.pass);
     return `
       <div class="health-card">
         <div class="health-card-head">
           <span class="health-title">${DESC[k][0]}</span>
-          <span class="health-score ${scoreClass(sec.score)}">${sec.score}</span>
+          <span class="health-score ${scoreClass(score)}">${score ?? "—"}</span>
         </div>
         <div class="health-sub">${DESC[k][1]}</div>
         ${fails.map(i => `
