@@ -978,17 +978,23 @@ def scrape_all():
         if health_sites else existing.get("seo_health", {})
     )
 
-    # Competitor keyword-intel cross-analysis — monthly via the Google Ads
-    # API (GenerateKeywordIdeas seeded from each competitor's domain), same
+    # Competitor keyword-intel cross-analysis via the Google Ads API
+    # (GenerateKeywordIdeas seeded from each competitor's domain), same
     # gap/top_common/overall_top shape as the original manual Keyword
     # Planner CSV import. Falls back to whatever is already stored if the
-    # API isn't configured, errors, or hasn't reached its monthly refresh.
+    # API isn't configured, errors, or already ran today.
+    #
+    # Refreshes every scrape — i.e. weekly on the schedule. The Ads API costs
+    # nothing and 138 domains is nowhere near Basic access's 15k operations a
+    # day, so there's no reason to hold this to the old monthly cadence. The
+    # guard is same-day rather than same-month purely so repeated manual
+    # 立即爬取 runs in one day don't redo work that can't have changed much.
     existing_ki = existing.get("keyword_intel")
-    skip_ki = _same_month((existing_ki or {}).get("generated_at", ""), today) and bool((existing_ki or {}).get("gap"))
+    skip_ki = _within_days((existing_ki or {}).get("generated_at", ""), today, 1) and bool((existing_ki or {}).get("gap"))
 
     print("\nBuilding keyword intel (Google Ads API)…")
     if skip_ki:
-        print(f"  Skipped (refreshed {existing_ki.get('generated_at')} this month)")
+        print(f"  Skipped (already refreshed today, {existing_ki.get('generated_at')})")
         keyword_intel = existing_ki
     else:
         try:
@@ -997,9 +1003,13 @@ def scrape_all():
                 q["query"].strip().lower()
                 for site in gsc_data for q in site.get("queries", [])
             }
+            # Seed from the live roster, not the hardcoded COMPETITORS list —
+            # that list stopped being the source of truth when the Notion sync
+            # landed, so keyword intel was silently ignoring every competitor
+            # added there and still seeding from ones already removed.
             competitor_domains = [
                 (c["name"], urlparse(c["url"]).netloc.lstrip("www."))
-                for c in COMPETITORS
+                for c in effective_competitors
             ]
             keyword_intel = build_keyword_intel(
                 competitor_domains, own_gsc_queries, set(TRACKED_KEYWORDS)
