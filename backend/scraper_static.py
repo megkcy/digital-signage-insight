@@ -623,6 +623,10 @@ def scrape_all():
     except Exception as e:
         print(f"  Notion sync error: {e}")
         notion_rows = None
+    # name -> Notion row, kept for the handle push-back after the scrape.
+    # Keyed by Notion's own name (what synced entries below use as "name"),
+    # so it survives a rename in the same run.
+    notion_by_name = {}
     if notion_rows and len(notion_rows) >= 5:
         own_domains = {_domain_key(s["url"]) for s in OWN_SITES}
         existing_by_domain = {}
@@ -636,17 +640,20 @@ def scrape_all():
             if not d or d in notion_domains or d in own_domains:
                 continue
             notion_domains.add(d)
+            notion_by_name[row["name"]] = row
             match = existing_by_domain.get(d)
-            # A manually-set dashboard country wins; else take Notion's
+            # A manually-set dashboard value wins for country and handles;
+            # Notion's own value is only a fallback for a brand-new row
+            # nobody has touched on the dashboard yet.
             country = (match or {}).get("country", "") or row.get("country", "")
             synced.append({
                 "name": row["name"],
                 "url": row["url"],
                 "country": country,
-                "facebook": (match or {}).get("facebook", ""),
-                "instagram": (match or {}).get("instagram", ""),
-                "x": (match or {}).get("x", ""),
-                "linkedin": (match or {}).get("linkedin", ""),
+                "facebook": (match or {}).get("facebook", "") or row.get("facebook", ""),
+                "instagram": (match or {}).get("instagram", "") or row.get("instagram", ""),
+                "x": (match or {}).get("x", "") or row.get("x", ""),
+                "linkedin": (match or {}).get("linkedin", "") or row.get("linkedin", ""),
             })
             # Rename in Notion: point the stored history at the new name so
             # the weekly loop's existing_map lookups keep working
@@ -914,6 +921,29 @@ def scrape_all():
             slots[i] = entry
             print(f"[{done}/{total}] {log}")
     result_competitors = [e for e in slots if e]
+
+    # Push dashboard-edited handles up to Notion, so Notion stays a mirror
+    # instead of a second place to maintain by hand. Only fires for handles
+    # that differ from what Notion already has — usually zero per run.
+    if notion_by_name:
+        try:
+            from notion_sync import update_notion_handles
+            pushed = 0
+            for c in result_competitors:
+                row = notion_by_name.get(c["name"])
+                if not row or not row.get("id"):
+                    continue
+                diff = {
+                    field: c["handles"].get(field, "")
+                    for field in ("facebook", "instagram", "x", "linkedin")
+                    if c["handles"].get(field) and c["handles"].get(field) != row.get(field, "")
+                }
+                if diff and update_notion_handles(row["id"], diff):
+                    pushed += 1
+            if pushed:
+                print(f"  Notion sync: pushed handle updates for {pushed} competitors")
+        except Exception as e:
+            print(f"  Notion handle push error: {e}")
 
     print("\nFetching GSC data…")
     gsc_data = fetch_gsc_data()
