@@ -370,24 +370,40 @@ def score_seo(s):
 
 
 def score_aeo(s):
+    """Answer-engine-optimisation heuristic. There is no official AEO score
+    from anyone — these weights are our own judgement about what earns a
+    featured snippet or an AI citation.
+
+    Reweighted after Google's Aug 2023 change: FAQ rich results are now
+    limited to authoritative government/health sites and HowTo was dropped
+    entirely, so FAQPage/HowTo no longer buys SERP real estate for a B2B
+    site — it only keeps the answers machine-readable for AI engines. It
+    used to carry 25 (the single largest weight) and now carries 10, with
+    that weight moved to signals that still work: entity identity via
+    Organization schema, and the content depth / extractable structure that
+    AI Overviews actually quote from.
+    """
     schema = set(s.get("schema_types", []))
     items = [
-        (25, _item("FAQ / HowTo / QA Schema", bool(schema & {"FAQPage", "QAPage", "HowTo"}),
-                   "為常見問題頁加入 FAQPage 結構化資料，讓 Google 精選摘要與 AI 直接引用你的答案")),
+        (20, _item("內容深度（≥300 字）", s.get("word_count", 0) >= 300,
+                   "增加頁面文字內容深度，完整回答一個主題——AI 無法引用幾乎沒有內容的頁面")),
         (15, _item("問句式標題", s.get("question_headings", 0) >= 1,
                    "在 H2/H3 使用問句（如「什麼是數位看板？」），對應使用者搜尋的問題")),
-        (15, _item("內容深度（≥300 字）", s.get("word_count", 0) >= 300,
-                   "增加頁面文字內容深度，完整回答一個主題")),
-        (10, _item("清單／表格內容", s.get("list_table_count", 0) >= 2,
-                   "用條列與表格組織內容，利於精選摘要（Featured Snippet）擷取")),
+        (15, _item("Organization Schema", "Organization" in schema,
+                   "加入 Organization schema（名稱、logo、sameAs 社群連結）建立品牌實體，"
+                   "這是 Google 知識圖譜與 AI 辨識「你是誰」的核心依據")),
+        (15, _item("清單／表格內容", s.get("list_table_count", 0) >= 2,
+                   "用條列與表格組織內容，這是 AI Overviews 與精選摘要最常擷取的格式")),
         (10, _item("Meta description 直接回答", 50 <= len(s.get("meta_description", "")) <= 165,
                    "描述直接回答頁面主題的核心問題")),
         (10, _item("清楚的標題層級", s.get("h2h3_count", 0) >= 2,
                    "用多個 H2/H3 分段，每段回答一個子問題")),
-        (10, _item("Article / Breadcrumb Schema", bool(schema & {"Article", "BlogPosting", "NewsArticle", "BreadcrumbList"}),
-                   "為文章加上 Article schema、為路徑加上 BreadcrumbList")),
-        (5, _item("Organization Schema", "Organization" in schema,
-                  "加入 Organization schema 建立品牌實體")),
+        (10, _item("FAQ / HowTo / QA Schema", bool(schema & {"FAQPage", "QAPage", "HowTo"}),
+                   "加入 FAQPage 結構化資料。注意：Google 自 2023 年起已將 FAQ 複合式結果"
+                   "限縮至政府與醫療網站、並移除 HowTo，因此這項已不再帶來搜尋版面，"
+                   "僅剩讓 ChatGPT／Perplexity 等 AI 引擎讀取答案的價值")),
+        (5, _item("Article / Breadcrumb Schema", bool(schema & {"Article", "BlogPosting", "NewsArticle", "BreadcrumbList"}),
+                  "為文章加上 Article schema、為路徑加上 BreadcrumbList（麵包屑複合式結果仍然有效）")),
     ]
     total = sum(w for w, _ in items)
     got = sum(w for w, it in items if it["pass"])
