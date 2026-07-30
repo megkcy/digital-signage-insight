@@ -909,7 +909,11 @@ function renderSeoHealth(site) {
   ].filter(Boolean).join("");
 
   const DESC = {
-    seo: ["SEO 搜尋引擎優化", "站內檢查清單：比 Lighthouse 更嚴格，另含 Schema／OG／標題長度"],
+    // Titled "站內檢查清單" rather than "SEO", because the SEO ring above it
+    // shows Lighthouse's score and this card shows our own stricter checklist
+    // — two different numbers, and calling both of them "SEO" made the page
+    // look like it was contradicting itself.
+    seo: ["SEO 站內檢查清單", "我們自訂的檢查項目，比 Lighthouse 嚴格：另含 Schema／OG／標題長度"],
     aeo: ["AEO 答案引擎優化", "精選摘要與問答框（People Also Ask）曝光"],
     geo: ["GEO 生成式引擎優化", "讓 ChatGPT / Claude / Perplexity 等 AI 搜尋引用你的內容"],
   };
