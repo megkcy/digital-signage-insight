@@ -787,12 +787,17 @@ td {
 .vs-table tbody tr:last-child td { border-bottom: none; }
 .vs-label { font-size: 12px; color: var(--text); white-space: nowrap; }
 .vs-val {
+  position: relative;
   text-align: center;
   font-size: 15px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+/* Fixed-width right-aligned number + out-of-flow star, so 0 / 50 / 100 all
+   land on the same x and the ⭐ never nudges the value it belongs to. */
+.vs-num { display: inline-block; min-width: 3ch; text-align: right; }
+.vs-star { position: absolute; margin-left: 6px; }
 .vs-val.vs-win { color: var(--green); }
 .vs-total-row td { background: rgba(79,110,247,.05); }
 .vs-total-row .vs-label { font-weight: 700; }

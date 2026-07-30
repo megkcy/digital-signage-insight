@@ -375,13 +375,21 @@ function _resolveSeoSource(own, comp) {
 }
 
 function _vsRow(label, own, comp, bold) {
+  // The number goes in its own fixed-width, right-aligned box and the ⭐ is
+  // taken out of the flow, so digits line up down the column: with the whole
+  // cell simply centred, "0" and "100" landed on different x positions, and
+  // the star shifted whichever number it sat next to.
   const fmt = v => v == null ? '<span class="na">—</span>' : v;
+  const cell = (v, win) =>
+    `<td class="vs-val ${win ? "vs-win" : ""}">` +
+    `<span class="vs-num">${fmt(v)}</span>` +
+    `<span class="vs-star">${win ? "⭐" : ""}</span></td>`;
   const ownWin = own != null && comp != null && own > comp;
   const compWin = own != null && comp != null && comp > own;
   return `<tr class="${bold ? "vs-total-row" : ""}">
     <td class="vs-label">${label}</td>
-    <td class="vs-val ${ownWin ? "vs-win" : ""}">${fmt(own)}${ownWin ? " ⭐" : ""}</td>
-    <td class="vs-val ${compWin ? "vs-win" : ""}">${fmt(comp)}${compWin ? " ⭐" : ""}</td>
+    ${cell(own, ownWin)}
+    ${cell(comp, compWin)}
   </tr>`;
 }
 
