@@ -45,10 +45,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # data.json is fully machine-generated — never content-merge it (see
+          # .gitattributes: this repo hit real corruption from `-X theirs`
+          # alone, because two writers' JSON key order differs enough that
+          # git's line diff auto-splices "non-conflicting" hunks into invalid
+          # JSON without ever reporting a conflict). The ours driver makes
+          # this file all-or-nothing: whichever side is checked out wins.
+          git config merge.ours.driver true
           git add docs/data.json
           git diff --cached --quiet || git commit -m "data: weekly scrape $(date +'%Y-%m-%d')"
-          # data.json is generated output — if something else (e.g. a manual
-          # Firestore restore) pushed while the scrape ran, the fresh scrape
-          # wins the conflict (-X theirs = our replayed commit during rebase)
-          git pull --rebase -X theirs origin main
+          git fetch origin main
+          git merge --no-edit origin/main
           git push

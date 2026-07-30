@@ -1,0 +1,15 @@
+# docs/data.json is fully machine-generated every scrape/restore run and
+# never hand-edited. Two independent writers (the scraper, the Firestore
+# restore job) can both touch it in a short window, and their JSON
+# serializations don't share key order (Firestore doesn't preserve dict
+# order on round-trip) — so git's line-based diff sees almost every line
+# as "changed" even when the content is semantically identical. That's
+# exactly the case where git silently splices mismatched hunks into
+# invalid JSON without ever reporting a conflict (see commit 7d4101a).
+#
+# The `ours` merge driver (registered via `git config merge.ours.driver
+# true` in the workflow, since driver registration can't live in a
+# tracked file) takes this path out of content-merging entirely: whoever
+# currently has it checked out keeps their version byte-for-byte, no
+# diff3 ever runs on it.
+docs/data.json merge=ours
