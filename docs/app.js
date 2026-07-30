@@ -353,18 +353,24 @@ function _compScores(audit) {
   };
 }
 
-// The health page shows Lighthouse's SEO score, so this comparison has to use
-// the same source or the same site reads as two different numbers on two
-// pages. But a comparison is only meaningful when both sides are measured the
-// same way, and not every competitor has a Lighthouse result (a slow site can
-// time out) — so switch to Lighthouse only when *both* sides have it, and
-// otherwise put both back on our own checklist score.
+// Our own SEO number follows the health page's ring (Lighthouse when we have
+// it) so the same site never reads as two different scores on two pages.
+//
+// The competitor side then has to use that same ruler or the ⭐ is meaningless
+// — but ~12% of competitors have no Lighthouse result (a slow site times the
+// PSI call out). Rather than quietly moving BOTH sides onto the checklist
+// score, which made our own headline number jump 83 -> 25 depending on which
+// competitor happened to be open, we hold our number steady and leave the
+// competitor's cell blank. A missing comparison is easier to read than a
+// comparison against a different rubric.
 function _resolveSeoSource(own, comp) {
-  const bothLh = own?.seoLh != null && comp?.seoLh != null;
+  const ownLh = own?.seoLh ?? null;
+  const useLh = ownLh != null;
   return {
-    own: own ? { ...own, seo: bothLh ? own.seoLh : own.seo } : null,
-    comp: { ...comp, seo: bothLh ? comp.seoLh : comp.seo },
-    label: bothLh ? "🔍 SEO 搜尋引擎優化 (Lighthouse)" : "🔍 SEO 搜尋引擎優化",
+    own: own ? { ...own, seo: useLh ? ownLh : own.seo } : null,
+    // null (renders as —) when we're on Lighthouse but they have no PSI result
+    comp: { ...comp, seo: useLh ? comp.seoLh : comp.seo },
+    label: useLh ? "🔍 SEO 搜尋引擎優化 (Lighthouse)" : "🔍 SEO 搜尋引擎優化",
   };
 }
 
