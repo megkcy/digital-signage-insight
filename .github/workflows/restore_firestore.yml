@@ -29,12 +29,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # data.json is fully machine-generated — never content-merge it (see
+          # .gitattributes: this repo hit real corruption from `-X theirs`
+          # alone, because this job's Firestore round-trip and the scraper's
+          # own JSON don't share key order, so git's line diff auto-splices
+          # "non-conflicting" hunks into invalid JSON without ever reporting a
+          # conflict). The ours driver makes this file all-or-nothing:
+          # whichever side is checked out wins — this job's freshly merged
+          # output, since it's what we just committed.
+          git config merge.ours.driver true
           git add docs/data.json
           git diff --cached --quiet || git commit -m "data: smart-merge restore $(date +'%Y-%m-%d')"
-          # The merged data.json is this job's output, so it wins a conflict
-          # (-X theirs = our replayed commit during a rebase). The old fallback
-          # here ran a bare `git pull`, which modern git refuses on diverged
-          # branches ("Need to specify how to reconcile divergent branches"),
-          # so every conflict took the whole job down with it.
-          git pull --rebase -X theirs origin main
+          git fetch origin main
+          git merge --no-edit origin/main
           git push
