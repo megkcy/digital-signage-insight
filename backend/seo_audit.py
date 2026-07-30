@@ -318,6 +318,14 @@ def scrape_ads_transparency(domain):
         data = resp.json()
         creatives = data.get("ad_creatives", [])
         if not creatives:
+            # Every competitor checked so far has come back {"total": 0} —
+            # before assuming that's real, log what SerpApi actually sent
+            # back (an "error" field, or a differently-named top-level key)
+            # so a genuine schema mismatch doesn't look identical to "no ads".
+            if data.get("error"):
+                print(f"  Ads transparency SerpApi error for {domain}: {data['error']}")
+            else:
+                print(f"  Ads transparency: no ad_creatives for {domain}, response keys: {list(data.keys())}")
             return {"total": 0}
         formats = {}
         last_shown = ""
