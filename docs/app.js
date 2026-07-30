@@ -200,13 +200,25 @@ function filterTable() {
   const sortBy = document.getElementById("sortBy").value;
   const dir = document.getElementById("sortDir").value;
   let data = allData.filter(d => d.name.toLowerCase().includes(q) || (d.url||"").includes(q));
+  const sortVal = (d) => {
+    if (sortBy === "name") return d.name;
+    if (sortBy === "lh_performance") return d.latest?.seo_audit?.psi?.performance ?? -Infinity;
+    return d.latest?.[sortBy] ?? -Infinity;
+  };
   data.sort((a, b) => {
-    const av = sortBy === "name" ? a.name : (a.latest?.[sortBy] ?? -Infinity);
-    const bv = sortBy === "name" ? b.name : (b.latest?.[sortBy] ?? -Infinity);
+    const av = sortVal(a), bv = sortVal(b);
     if (typeof av === "string") return dir === "asc" ? av.localeCompare(bv) : bv.localeCompare(av);
     return dir === "asc" ? av - bv : bv - av;
   });
   renderTable(data);
+}
+
+// Lighthouse performance score for the competitors table — reuses the same
+// good/mid/bad thresholds and colors as the health-page rings/cards.
+function fmtLighthouse(comp) {
+  const v = comp?.latest?.seo_audit?.psi?.performance;
+  if (v == null) return '<span class="na">N/A</span>';
+  return `<span class="health-score ${scoreClass(v)}">${v}</span>`;
 }
 
 function fmtIndexed(n) {
@@ -233,7 +245,7 @@ function firstCountry(country) {
 
 function renderTable(data) {
   const tbody = document.getElementById("tableBody");
-  if (!data.length) { tbody.innerHTML = '<tr><td colspan="9" class="loading">沒有符合的結果</td></tr>'; return; }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="10" class="loading">沒有符合的結果</td></tr>'; return; }
   tbody.innerHTML = data.map(d => {
     const l = d.latest || {};
     const idx = allData.indexOf(d);
@@ -249,6 +261,7 @@ function renderTable(data) {
       <td>${fmtIndexed(l.google_indexed)}</td>
       <td>${fmt(l.facebook_followers)}</td>
       <td>${fmt(l.linkedin_followers)}</td>
+      <td>${fmtLighthouse(d)}</td>
       <td>${l.date||'<span class="na">—</span>'}</td>
       <td style="display:flex;gap:4px;flex-wrap:wrap">
         <button class="btn-detail" onclick="openModal(${idx})">圖表</button>

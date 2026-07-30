@@ -92,6 +92,7 @@
           <option value="name">名稱排序</option>
           <option value="sitemap_pages">網站頁數排序</option>
           <option value="linkedin_followers">LinkedIn 追蹤排序</option>
+          <option value="lh_performance">Lighthouse 效能排序</option>
           <option value="facebook_followers">Facebook 追蹤排序</option>
         </select>
         <select id="sortDir" onchange="filterTable()">
@@ -111,12 +112,13 @@
               <th>Google收錄</th>
               <th>Facebook</th>
               <th>LinkedIn</th>
+              <th>效能 (Lighthouse)</th>
               <th>更新日期</th>
               <th></th>
             </tr>
           </thead>
           <tbody id="tableBody">
-            <tr><td colspan="8" class="loading">載入數據中…</td></tr>
+            <tr><td colspan="10" class="loading">載入數據中…</td></tr>
           </tbody>
         </table>
       </section>
