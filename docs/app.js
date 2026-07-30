@@ -338,7 +338,8 @@ function _ownScores(siteName) {
   if (!site) return null;
   const psi = site.psi || {};
   return {
-    seo: site.seo?.score ?? null, aeo: site.aeo?.score ?? null, geo: site.geo?.score ?? null,
+    seo: site.seo?.score ?? null, seoLh: psi.seo ?? null,
+    aeo: site.aeo?.score ?? null, geo: site.geo?.score ?? null,
     performance: psi.performance ?? null, accessibility: psi.accessibility ?? null, best_practices: psi.best_practices ?? null,
   };
 }
@@ -346,8 +347,24 @@ function _ownScores(siteName) {
 function _compScores(audit) {
   const psi = audit?.psi || {};
   return {
-    seo: audit?.seo_score ?? null, aeo: audit?.aeo_score ?? null, geo: audit?.geo_score ?? null,
+    seo: audit?.seo_score ?? null, seoLh: psi.seo ?? null,
+    aeo: audit?.aeo_score ?? null, geo: audit?.geo_score ?? null,
     performance: psi.performance ?? null, accessibility: psi.accessibility ?? null, best_practices: psi.best_practices ?? null,
+  };
+}
+
+// The health page shows Lighthouse's SEO score, so this comparison has to use
+// the same source or the same site reads as two different numbers on two
+// pages. But a comparison is only meaningful when both sides are measured the
+// same way, and not every competitor has a Lighthouse result (a slow site can
+// time out) — so switch to Lighthouse only when *both* sides have it, and
+// otherwise put both back on our own checklist score.
+function _resolveSeoSource(own, comp) {
+  const bothLh = own?.seoLh != null && comp?.seoLh != null;
+  return {
+    own: own ? { ...own, seo: bothLh ? own.seoLh : own.seo } : null,
+    comp: { ...comp, seo: bothLh ? comp.seoLh : comp.seo },
+    label: bothLh ? "🔍 SEO 搜尋引擎優化 (Lighthouse)" : "🔍 SEO 搜尋引擎優化",
   };
 }
 
@@ -377,8 +394,10 @@ function renderModalAudit(audit, compName) {
 
   const own = activeCompareSite ? _ownScores(activeCompareSite) : null;
   const comp = _compScores(audit);
-  const ownOverall = own ? _overall(own) : null;
-  const compOverall = audit ? _overall(comp) : null;
+  const seoSrc = _resolveSeoSource(own, comp);
+  const ownR = seoSrc.own, compR = seoSrc.comp;
+  const ownOverall = ownR ? _overall(ownR) : null;
+  const compOverall = audit ? _overall(compR) : null;
 
   const pills = ownSites.length > 1 ? `
     <div class="vs-site-pills">${ownSites.map(s =>
@@ -387,7 +406,7 @@ function renderModalAudit(audit, compName) {
 
   const rows = [
     _vsRow("綜合分數", ownOverall, compOverall, true),
-    _vsRow("🔍 SEO 搜尋引擎優化", own?.seo ?? null, comp.seo),
+    _vsRow(seoSrc.label, ownR?.seo ?? null, compR.seo),
     _vsRow("💬 AEO 答案引擎優化", own?.aeo ?? null, comp.aeo),
     _vsRow("🤖 GEO AI 搜尋優化", own?.geo ?? null, comp.geo),
     _vsRow("⚡ 效能 (Lighthouse)", own?.performance ?? null, comp.performance),
