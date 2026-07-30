@@ -353,29 +353,43 @@ function _compScores(audit) {
   };
 }
 
-// The health page shows Lighthouse's SEO score, so this comparison has to use
-// the same source or the same site reads as two different numbers on two
-// pages. But a comparison is only meaningful when both sides are measured the
-// same way, and not every competitor has a Lighthouse result (a slow site can
-// time out) — so switch to Lighthouse only when *both* sides have it, and
-// otherwise put both back on our own checklist score.
+// Our own SEO number follows the health page's ring (Lighthouse when we have
+// it) so the same site never reads as two different scores on two pages.
+//
+// The competitor side then has to use that same ruler or the ⭐ is meaningless
+// — but ~12% of competitors have no Lighthouse result (a slow site times the
+// PSI call out). Rather than quietly moving BOTH sides onto the checklist
+// score, which made our own headline number jump 83 -> 25 depending on which
+// competitor happened to be open, we hold our number steady and leave the
+// competitor's cell blank. A missing comparison is easier to read than a
+// comparison against a different rubric.
 function _resolveSeoSource(own, comp) {
-  const bothLh = own?.seoLh != null && comp?.seoLh != null;
+  const ownLh = own?.seoLh ?? null;
+  const useLh = ownLh != null;
   return {
-    own: own ? { ...own, seo: bothLh ? own.seoLh : own.seo } : null,
-    comp: { ...comp, seo: bothLh ? comp.seoLh : comp.seo },
-    label: bothLh ? "🔍 SEO 搜尋引擎優化 (Lighthouse)" : "🔍 SEO 搜尋引擎優化",
+    own: own ? { ...own, seo: useLh ? ownLh : own.seo } : null,
+    // null (renders as —) when we're on Lighthouse but they have no PSI result
+    comp: { ...comp, seo: useLh ? comp.seoLh : comp.seo },
+    label: useLh ? "🔍 SEO 搜尋引擎優化 (Lighthouse)" : "🔍 SEO 搜尋引擎優化",
   };
 }
 
 function _vsRow(label, own, comp, bold) {
+  // The number goes in its own fixed-width, right-aligned box and the ⭐ is
+  // taken out of the flow, so digits line up down the column: with the whole
+  // cell simply centred, "0" and "100" landed on different x positions, and
+  // the star shifted whichever number it sat next to.
   const fmt = v => v == null ? '<span class="na">—</span>' : v;
+  const cell = (v, win) =>
+    `<td class="vs-val ${win ? "vs-win" : ""}">` +
+    `<span class="vs-num">${fmt(v)}</span>` +
+    `<span class="vs-star">${win ? "⭐" : ""}</span></td>`;
   const ownWin = own != null && comp != null && own > comp;
   const compWin = own != null && comp != null && comp > own;
   return `<tr class="${bold ? "vs-total-row" : ""}">
     <td class="vs-label">${label}</td>
-    <td class="vs-val ${ownWin ? "vs-win" : ""}">${fmt(own)}${ownWin ? " ⭐" : ""}</td>
-    <td class="vs-val ${compWin ? "vs-win" : ""}">${fmt(comp)}${compWin ? " ⭐" : ""}</td>
+    ${cell(own, ownWin)}
+    ${cell(comp, compWin)}
   </tr>`;
 }
 
@@ -888,13 +902,13 @@ function renderSeoHealth(site) {
       <button class="kw-tab ${strategy === "mobile" ? "active" : ""}" onclick="selectPsiStrategy('mobile')">📱 Mobile</button>
       <button class="kw-tab ${strategy === "desktop" ? "active" : ""}" onclick="selectPsiStrategy('desktop')">💻 Desktop</button>
     </div>` : "";
+  // Headline SEO number comes from Lighthouse so it matches what you get from
+  // PageSpeed Insights. The SEO card below reuses this exact value rather than
+  // scoring our own checklist separately — two different numbers both labelled
+  // SEO read as the page contradicting itself.
+  const seoScore = psi.seo ?? entry.seo?.score ?? null;
   const rings = [
-    // Headline SEO number comes from Lighthouse so it matches what you get
-    // from PageSpeed Insights. Our own on-page checklist is a stricter,
-    // different rubric (it scores title/description *length*, Schema and
-    // Open Graph, none of which Lighthouse scores) — it keeps its own score
-    // on its card below. Falls back to ours if PSI didn't return.
-    scoreRing("SEO", psi.seo ?? entry.seo?.score),
+    scoreRing("SEO", seoScore),
     scoreRing("AEO", entry.aeo?.score),
     scoreRing("GEO", entry.geo?.score),
     scoreRing("效能", psi.performance),
@@ -903,20 +917,26 @@ function renderSeoHealth(site) {
   ].filter(Boolean).join("");
 
   const DESC = {
-    seo: ["SEO 搜尋引擎優化", "站內檢查清單：比 Lighthouse 更嚴格，另含 Schema／OG／標題長度"],
+    // The SEO card's score is Lighthouse's, same as the ring — so its items
+    // are framed as extra recommendations rather than as the breakdown that
+    // produced the number, because Lighthouse doesn't score Schema, Open
+    // Graph or title length at all. AEO/GEO have no Lighthouse equivalent,
+    // so their card score really is the sum of their own items.
+    seo: ["SEO 搜尋引擎優化", "分數為 Lighthouse 實測；以下為我們額外檢查的加分建議（Lighthouse 不計分）"],
     aeo: ["AEO 答案引擎優化", "精選摘要與問答框（People Also Ask）曝光"],
     geo: ["GEO 生成式引擎優化", "讓 ChatGPT / Claude / Perplexity 等 AI 搜尋引用你的內容"],
   };
   const cols = ["seo", "aeo", "geo"].map(k => {
     const sec = entry[k];
     if (!sec) return "";
+    const score = k === "seo" ? seoScore : sec.score;
     const fails = sec.items.filter(i => !i.pass);
     const passes = sec.items.filter(i => i.pass);
     return `
       <div class="health-card">
         <div class="health-card-head">
           <span class="health-title">${DESC[k][0]}</span>
-          <span class="health-score ${scoreClass(sec.score)}">${sec.score}</span>
+          <span class="health-score ${scoreClass(score)}">${score ?? "—"}</span>
         </div>
         <div class="health-sub">${DESC[k][1]}</div>
         ${fails.map(i => `

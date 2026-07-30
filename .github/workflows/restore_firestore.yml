@@ -31,5 +31,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/data.json
           git diff --cached --quiet || git commit -m "data: smart-merge restore $(date +'%Y-%m-%d')"
-          git pull --rebase origin main || (git rebase --abort && git pull --strategy-option=ours origin main)
+          # The merged data.json is this job's output, so it wins a conflict
+          # (-X theirs = our replayed commit during a rebase). The old fallback
+          # here ran a bare `git pull`, which modern git refuses on diverged
+          # branches ("Need to specify how to reconcile divergent branches"),
+          # so every conflict took the whole job down with it.
+          git pull --rebase -X theirs origin main
           git push
