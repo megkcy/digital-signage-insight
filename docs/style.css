@@ -232,6 +232,11 @@ main {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow-x: auto;
+  /* main is a flex column; without this, .table-wrap (a flex item) refuses
+     to shrink below the wide nowrap table's content width and pushes the
+     whole page — including the sticky header — into horizontal overflow,
+     instead of scrolling just the table internally. */
+  min-width: 0;
 }
 table {
   width: 100%;
@@ -260,7 +265,7 @@ td {
   vertical-align: middle;
 }
 .comp-name, .comp-url {
-  max-width: 320px;
+  max-width: 180px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -308,6 +313,28 @@ td {
   align-items: center;
 }
 .btn-semrush:hover { background: #fff4f0; border-color: #ff642d; }
+
+/* Actions column stays pinned to the right edge of the scrollable table so
+   the 詳細內容/編輯 buttons are always reachable without a horizontal scroll,
+   even when Tech Stack / Facebook / LinkedIn push the row wider than the
+   viewport. */
+td.td-actions {
+  position: sticky;
+  right: 0;
+  background: var(--surface);
+  box-shadow: -6px 0 6px -6px rgba(0,0,0,.15);
+}
+/* The flex layout lives on an inner div, not the cell itself — making the
+   <td> display:flex drops it out of table layout, collapsing it to its
+   minimum width and stacking the buttons vertically. */
+.actions-inner { display: flex; gap: 4px; flex-wrap: nowrap; }
+tbody tr:hover td.td-actions { background: var(--surface2); }
+th.td-actions {
+  position: sticky;
+  right: 0;
+  background: var(--surface2);
+  box-shadow: -6px 0 6px -6px rgba(0,0,0,.15);
+}
 
 /* ── Number formatting ── */
 .num { font-variant-numeric: tabular-nums; }
