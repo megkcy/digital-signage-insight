@@ -350,16 +350,22 @@ def fetch_gsc_data():
         )
         service = build("searchconsole", "v1", credentials=creds)
 
+        # Rolling 30-day window (GSC data lags ~2-3 days, so month-to-date
+        # returns nothing at the start of a month). Recorded on each result so
+        # the dashboard can state the period the numbers actually cover rather
+        # than just when the scrape ran.
+        start_date = (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d")
+        end_date = datetime.utcnow().strftime("%Y-%m-%d")
+
         results = []
         for site in OWN_SITES:
             site_url = site["url"].rstrip("/") + "/"
             print(f"  GSC: {site['name']} ({site_url})")
             try:
-                # Top queries — rolling 30-day window (GSC data lags ~2-3 days,
-                # so month-to-date returns nothing at the start of a month)
+                # Top queries
                 body = {
-                    "startDate": (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d"),
-                    "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
+                    "startDate": start_date,
+                    "endDate": end_date,
                     "dimensions": ["query"],
                     "rowLimit": 20,
                     "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
@@ -377,8 +383,8 @@ def fetch_gsc_data():
 
                 # Top countries
                 body_country = {
-                    "startDate": (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d"),
-                    "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
+                    "startDate": start_date,
+                    "endDate": end_date,
                     "dimensions": ["country"],
                     "rowLimit": 10,
                     "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
@@ -397,6 +403,8 @@ def fetch_gsc_data():
                 results.append({
                     "site": site["name"],
                     "site_url": site["url"],
+                    "start_date": start_date,
+                    "end_date": end_date,
                     "queries": queries,
                     "countries": countries,
                 })

@@ -50,9 +50,12 @@ async function loadData() {
   try {
     const r = await fetch("data.json?t=" + Date.now());
     applyData(await r.json());
-  } catch {
+  } catch (e) {
+    // Don't swallow it: this catch also covers rendering errors, not just the
+    // fetch, so a silent failure here looks identical to "no data".
+    console.error("載入或渲染數據失敗", e);
     document.getElementById("tableBody").innerHTML =
-      '<tr><td colspan="8" class="loading">⚠ 無法載入數據</td></tr>';
+      '<tr><td colspan="10" class="loading">⚠ 無法載入數據</td></tr>';
   }
 }
 
@@ -200,9 +203,12 @@ function filterTable() {
   const q = document.getElementById("search").value.toLowerCase();
   const sortBy = document.getElementById("sortBy").value;
   const dir = document.getElementById("sortDir").value;
-  let data = allData.filter(d => d.name.toLowerCase().includes(q) || (d.url||"").includes(q));
+  // Guard against a roster entry with no name/url: one null-valued record is
+  // enough to throw here, and loadData's catch swallows it — which silently
+  // blanks the whole dashboard rather than just that row.
+  let data = allData.filter(d => d && ((d.name||"").toLowerCase().includes(q) || (d.url||"").includes(q)));
   const sortVal = (d) => {
-    if (sortBy === "name") return d.name;
+    if (sortBy === "name") return d.name || "";
     if (sortBy === "lh_performance") return d.latest?.seo_audit?.psi?.seo ?? -Infinity;
     return d.latest?.[sortBy] ?? -Infinity;
   };
@@ -1055,10 +1061,36 @@ function formatCountry(code) {
   return COUNTRY_NAMES[key] || code;
 }
 
+// Both GSC tables cover the same rolling 30-day window, so they share one
+// caption: the period the numbers cover, plus when the scrape last ran.
+// start_date/end_date were only added later, so fall back to the update date
+// alone for data captured before that.
+function gscDateCaption(entry) {
+  const updated = gscData?.last_updated;
+  const period = entry?.start_date && entry?.end_date
+    ? `${entry.start_date} ~ ${entry.end_date}` : "";
+  if (period && updated) return `資料期間 ${period}．更新於 ${updated}`;
+  if (period) return `資料期間 ${period}`;
+  return updated ? `更新於 ${updated}` : "";
+}
+
+// Some stored GSC rows have no clicks/impressions key at all. Show those as
+// unknown rather than 0 — these rows still carry a non-zero CTR and position,
+// which is impossible at zero impressions, so the values are missing rather
+// than genuinely zero. (Rendering them as 0 would state something false, and
+// letting them through untouched threw and blanked the whole dashboard.)
+function gscNum(v) {
+  return typeof v === "number" ? v.toLocaleString() : '<span class="na" title="這筆資料缺少數值">—</span>';
+}
+
 function renderGscTables(site) {
   renderSeoHealth(site);
   const entry = gscData.results.find(r => r.site === site);
   if (!entry) return;
+
+  const caption = gscDateCaption(entry);
+  document.getElementById("gscQueryDate").textContent = caption;
+  document.getElementById("gscCountryDate").textContent = caption;
 
   // Queries
   const qBody = document.getElementById("gscQueryBody");
@@ -1066,8 +1098,8 @@ function renderGscTables(site) {
     ? entry.queries.map(r => `
         <tr>
           <td><span class="comp-name">${r.query}</span></td>
-          <td><span class="num">${r.clicks.toLocaleString()}</span></td>
-          <td><span class="num">${r.impressions.toLocaleString()}</span></td>
+          <td><span class="num">${gscNum(r.clicks)}</span></td>
+          <td><span class="num">${gscNum(r.impressions)}</span></td>
           <td><span class="pill pill-blue">${r.ctr}%</span></td>
           <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
         </tr>`).join("")
@@ -1079,8 +1111,8 @@ function renderGscTables(site) {
     ? entry.countries.map(r => `
         <tr>
           <td><span class="comp-name">${formatCountry(r.country)}</span></td>
-          <td><span class="num">${r.clicks.toLocaleString()}</span></td>
-          <td><span class="num">${r.impressions.toLocaleString()}</span></td>
+          <td><span class="num">${gscNum(r.clicks)}</span></td>
+          <td><span class="num">${gscNum(r.impressions)}</span></td>
           <td><span class="pill pill-blue">${r.ctr}%</span></td>
           <td><span class="rank-badge${r.position <= 3 ? " top3" : ""}">${r.position}</span></td>
         </tr>`).join("")
