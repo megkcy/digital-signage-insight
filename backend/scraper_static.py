@@ -350,16 +350,22 @@ def fetch_gsc_data():
         )
         service = build("searchconsole", "v1", credentials=creds)
 
+        # Rolling 30-day window (GSC data lags ~2-3 days, so month-to-date
+        # returns nothing at the start of a month). Recorded on each result so
+        # the dashboard can state the period the numbers actually cover rather
+        # than just when the scrape ran.
+        start_date = (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d")
+        end_date = datetime.utcnow().strftime("%Y-%m-%d")
+
         results = []
         for site in OWN_SITES:
             site_url = site["url"].rstrip("/") + "/"
             print(f"  GSC: {site['name']} ({site_url})")
             try:
-                # Top queries — rolling 30-day window (GSC data lags ~2-3 days,
-                # so month-to-date returns nothing at the start of a month)
+                # Top queries
                 body = {
-                    "startDate": (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d"),
-                    "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
+                    "startDate": start_date,
+                    "endDate": end_date,
                     "dimensions": ["query"],
                     "rowLimit": 20,
                     "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
@@ -377,8 +383,8 @@ def fetch_gsc_data():
 
                 # Top countries
                 body_country = {
-                    "startDate": (datetime.utcnow() - timedelta(days=30)).strftime("%Y-%m-%d"),
-                    "endDate": datetime.utcnow().strftime("%Y-%m-%d"),
+                    "startDate": start_date,
+                    "endDate": end_date,
                     "dimensions": ["country"],
                     "rowLimit": 10,
                     "orderBy": [{"fieldName": "clicks", "sortOrder": "DESCENDING"}],
@@ -397,6 +403,8 @@ def fetch_gsc_data():
                 results.append({
                     "site": site["name"],
                     "site_url": site["url"],
+                    "start_date": start_date,
+                    "end_date": end_date,
                     "queries": queries,
                     "countries": countries,
                 })
@@ -972,7 +980,19 @@ def scrape_all():
             if prev_site:
                 health_sites.append(prev_site)
             continue
-        health_sites.append({"site": site["name"], "url": site["url"], **audit})
+
+        # Google-indexed page count for our own sites (1 SerpAPI search each,
+        # so 2/week — trivial against the 250/month budget). Never overwrite a
+        # good number with a quota failure; fall back to last week's value.
+        own_domain = urlparse(site["url"]).netloc.lstrip("www.")
+        indexed = scrape_google_indexed_count(own_domain)
+        if indexed is None:
+            indexed = (existing_health.get(site["name"]) or {}).get("google_indexed")
+
+        health_sites.append({
+            "site": site["name"], "url": site["url"],
+            "google_indexed": indexed, **audit,
+        })
     seo_health_obj = (
         {"last_updated": today, "sites": health_sites}
         if health_sites else existing.get("seo_health", {})
@@ -1038,6 +1058,9 @@ def scrape_all():
         "gsc": gsc_obj,
         "seo_health": seo_health_obj,
         "keyword_intel": keyword_intel,
+        # Ad-hoc URL lookups are written by check_url.yml, never by this job —
+        # carry them through so a scrape doesn't wipe the lookup history.
+        "url_checks": existing.get("url_checks", []),
     }
     save_data(data)
     print(f"\nSaved to {DATA_PATH}")

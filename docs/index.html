@@ -133,10 +133,31 @@
         </div>
         <div class="kw-tabs" id="gscTabs"></div>
         <div id="seoHealth"></div>
+
+        <!-- Own-site indexing + structured data -->
+        <div class="section-header" style="margin-top:26px">
+          <h2 class="section-title">📇 收錄與結構化資料</h2>
+          <span class="kw-updated" id="indexUpdated"></span>
+        </div>
+        <div class="index-grid" id="ownIndexCards"></div>
+
+        <!-- Single-URL checker -->
+        <div class="section-header" style="margin-top:26px">
+          <h2 class="section-title">🔍 網址檢查</h2>
+          <span class="kw-updated">自家網站用 Search Console 網址檢查 API（權威）；站外網址改用 SerpAPI site: 查詢（僅供參考，會耗用配額）</span>
+        </div>
+        <div class="url-check-box">
+          <div class="url-check-form">
+            <input id="urlCheckInput" type="text" placeholder="貼上完整網址，例如 https://www.cayintech.com/digital-signage-news/t-2p.php?f=20260727" />
+            <button class="btn-scrape" id="btnUrlCheck" onclick="triggerUrlCheck()">檢查</button>
+          </div>
+          <div class="url-check-hint" id="urlCheckHint">查詢需在 GitHub Actions 上執行，約 40–60 秒；完成後結果會自動出現在下方。</div>
+        </div>
+        <div id="urlCheckResults"></div>
         <div class="gsc-grid">
           <!-- Queries table -->
           <div>
-            <h3 class="gsc-sub-title">熱門關鍵字</h3>
+            <h3 class="gsc-sub-title">熱門關鍵字 <span class="gsc-sub-date" id="gscQueryDate"></span></h3>
             <div class="table-wrap">
               <table class="kw-table">
                 <thead>
@@ -154,7 +175,7 @@
           </div>
           <!-- Countries table -->
           <div>
-            <h3 class="gsc-sub-title">流量來源國家</h3>
+            <h3 class="gsc-sub-title">流量來源國家 <span class="gsc-sub-date" id="gscCountryDate"></span></h3>
             <div class="table-wrap">
               <table class="kw-table">
                 <thead>

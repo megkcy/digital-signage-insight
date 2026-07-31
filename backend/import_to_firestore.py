@@ -126,6 +126,12 @@ def merge(fs_data, local_data):
     if hist_by_date:
         kw["history"] = sorted(hist_by_date.values(), key=lambda h: h.get("date", ""))[-26:]
 
+    # Ad-hoc URL lookups (written only by check_url.yml) — keep whichever side
+    # has more, so a restore run can't wipe the lookup history.
+    checks_a = base.get("url_checks") or []
+    checks_b = other.get("url_checks") or []
+    url_checks = checks_a if len(checks_a) >= len(checks_b) else checks_b
+
     return {
         "last_updated": max(base.get("last_updated") or "", other.get("last_updated") or "") or None,
         "competitors": merged_comps,
@@ -134,6 +140,7 @@ def merge(fs_data, local_data):
         "gsc": _pick_section(base.get("gsc"), other.get("gsc")),
         "seo_health": seo_health,
         "keyword_intel": keyword_intel,
+        "url_checks": url_checks,
     }
 
 
