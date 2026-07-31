@@ -972,7 +972,19 @@ def scrape_all():
             if prev_site:
                 health_sites.append(prev_site)
             continue
-        health_sites.append({"site": site["name"], "url": site["url"], **audit})
+
+        # Google-indexed page count for our own sites (1 SerpAPI search each,
+        # so 2/week — trivial against the 250/month budget). Never overwrite a
+        # good number with a quota failure; fall back to last week's value.
+        own_domain = urlparse(site["url"]).netloc.lstrip("www.")
+        indexed = scrape_google_indexed_count(own_domain)
+        if indexed is None:
+            indexed = (existing_health.get(site["name"]) or {}).get("google_indexed")
+
+        health_sites.append({
+            "site": site["name"], "url": site["url"],
+            "google_indexed": indexed, **audit,
+        })
     seo_health_obj = (
         {"last_updated": today, "sites": health_sites}
         if health_sites else existing.get("seo_health", {})
@@ -1038,6 +1050,9 @@ def scrape_all():
         "gsc": gsc_obj,
         "seo_health": seo_health_obj,
         "keyword_intel": keyword_intel,
+        # Ad-hoc URL lookups are written by check_url.yml, never by this job —
+        # carry them through so a scrape doesn't wipe the lookup history.
+        "url_checks": existing.get("url_checks", []),
     }
     save_data(data)
     print(f"\nSaved to {DATA_PATH}")

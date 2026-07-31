@@ -88,7 +88,8 @@ function applyData(json) {
   document.getElementById("cardLinkedin").textContent = liCount;
   allData = json.competitors;
   if (json.content_strategy) csData = json.content_strategy;
-  if (json.seo_health) seoHealthData = json.seo_health;
+  if (json.seo_health) { seoHealthData = json.seo_health; renderOwnIndex(json.seo_health); }
+  renderUrlChecks(json.url_checks);
   if (json.keyword_intel) renderKeywordIntel(json.keyword_intel);
   renderFreshness(json);
   filterTable();
@@ -1087,6 +1088,209 @@ function renderGscTables(site) {
 }
 
 window.selectGscTab = selectGscTab;
+
+// ── Indexing & structured data ────────────────────────────────────────────────
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+// Own sites: Google-indexed page count + the schema types found on the
+// homepage. Both come from the weekly scrape (seo_health).
+function renderOwnIndex(health) {
+  const el = document.getElementById("ownIndexCards");
+  if (!el) return;
+  const sites = health?.sites || [];
+  if (!sites.length) { el.innerHTML = '<div class="loading">尚無資料</div>'; return; }
+
+  document.getElementById("indexUpdated").textContent = `更新：${health.last_updated || "—"}`;
+  el.innerHTML = sites.map(s => {
+    const types = s.schema_types || [];
+    const idx = s.google_indexed;
+    return `<div class="index-card">
+      <div class="index-card-head">
+        <span class="index-card-title">${esc(s.site)}</span>
+        <a class="index-card-url" href="${esc(s.url)}" target="_blank">${esc(s.url)}</a>
+      </div>
+      <div class="index-stat">
+        <div class="index-stat-label">Google 收錄頁數（site: 查詢估計值）</div>
+        <div class="index-stat-value">${idx != null ? idx.toLocaleString() : '<span class="na">尚未取得</span>'}</div>
+      </div>
+      <div class="index-stat">
+        <div class="index-stat-label">首頁結構化資料（JSON-LD）</div>
+        <div class="index-schema">${
+          types.length
+            ? types.map(t => `<span class="pill pill-purple">${esc(t)}</span>`).join(" ")
+            : '<span class="na">首頁沒有偵測到任何 JSON-LD 結構化資料</span>'
+        }</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// GSC's indexStatusResult.verdict, plus the coverageState sentence that
+// actually explains it.
+const GSC_VERDICT = {
+  PASS: ["已收錄", "verdict-pass"],
+  PARTIAL: ["部分問題", "verdict-warn"],
+  NEUTRAL: ["未收錄", "verdict-warn"],
+  FAIL: ["有錯誤", "verdict-fail"],
+};
+
+function renderIndexVerdict(index) {
+  if (!index) return '<span class="na">無資料</span>';
+  if (index.error) {
+    return `<div class="verdict-badge verdict-fail">查詢失敗</div>
+            <div class="uc-note">${esc(index.error)}</div>`;
+  }
+
+  if (index.source === "gsc") {
+    const [label, cls] = GSC_VERDICT[index.verdict] || [index.verdict || "未知", "verdict-warn"];
+    const rows = [
+      ["涵蓋狀態", index.coverage_state],
+      ["最後檢索", index.last_crawl ? index.last_crawl.replace("T", " ").replace("Z", " UTC") : ""],
+      ["robots.txt", index.robots_state],
+      ["頁面擷取", index.page_fetch],
+      ["Google 選定的標準網址", index.google_canonical],
+      ["你宣告的標準網址", index.user_canonical],
+      ["來源 Sitemap", (index.sitemaps || []).join(", ")],
+    ].filter(([, v]) => v);
+    return `<div class="verdict-badge ${cls}">${esc(label)}</div>
+      <div class="uc-source">來源：Search Console 網址檢查 API（權威）</div>
+      <table class="uc-table">${rows.map(([k, v]) =>
+        `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</table>`;
+  }
+
+  // SerpAPI fallback — a hint, never a verdict.
+  const [label, cls] = index.exact_match
+    ? ["搜尋得到這個網址", "verdict-pass"]
+    : index.found
+      ? ["只找到同站其他頁面", "verdict-warn"]
+      : ["搜尋不到，很可能尚未收錄", "verdict-warn"];
+  return `<div class="verdict-badge ${cls}">${esc(label)}</div>
+    <div class="uc-source">來源：SerpAPI <code>site:</code> 查詢——這只是跡象，不等於 Google 的正式收錄狀態。這個網址不在我們的 Search Console 資源底下，所以拿不到權威答案。</div>
+    ${index.top_links?.length
+      ? `<div class="uc-note">搜尋結果：${index.top_links.map(l => `<div>${esc(l)}</div>`).join("")}</div>`
+      : ""}`;
+}
+
+function renderStructured(page) {
+  if (!page) return '<span class="na">無資料</span>';
+  if (!page.fetched) {
+    return `<div class="verdict-badge verdict-fail">無法讀取頁面</div>
+            <div class="uc-note">${esc(page.error || "未知錯誤")}</div>`;
+  }
+  const blocks = page.jsonld || [];
+  const meta = [
+    ["頁面標題", page.title],
+    ["meta description", page.meta_description],
+    ["meta robots", page.meta_robots || "（未設定，預設為 index, follow）"],
+    ["canonical", page.canonical],
+  ].filter(([, v]) => v);
+
+  const micro = page.microdata_types?.length
+    ? `<div class="uc-note">另偵測到 microdata：${page.microdata_types.map(t => `<span class="pill pill-purple">${esc(t)}</span>`).join(" ")}</div>`
+    : "";
+
+  return `
+    ${blocks.length
+      ? `<div class="uc-schema-types">${(page.schema_types || []).map(t =>
+          `<span class="pill pill-purple">${esc(t)}</span>`).join(" ")}</div>
+         ${blocks.map(b => `
+           <div class="uc-block">
+             <div class="uc-block-type">${esc(b.type)}</div>
+             ${Object.keys(b.fields || {}).length
+               ? `<table class="uc-table">${Object.entries(b.fields).map(([k, v]) =>
+                   `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</table>`
+               : '<div class="na">這個區塊沒有可顯示的常用欄位</div>'}
+           </div>`).join("")}`
+      : '<div class="verdict-badge verdict-warn">沒有 JSON-LD 結構化資料</div>'}
+    ${micro}
+    <table class="uc-table uc-meta">${meta.map(([k, v]) =>
+      `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</table>`;
+}
+
+function renderUrlChecks(checks) {
+  const el = document.getElementById("urlCheckResults");
+  if (!el) return;
+  if (!checks?.length) { el.innerHTML = ""; return; }
+  el.innerHTML = checks.map(c => {
+    // Google's own view of the markup, which can lag the live HTML.
+    const rich = c.index?.rich_items?.length
+      ? `<div class="uc-note">Google 目前認得的複合式搜尋結果：${
+          c.index.rich_items.map(r => `<span class="pill pill-blue">${esc(r.type)} ×${r.count}</span>`).join(" ")
+        }</div>`
+      : (c.index?.source === "gsc"
+          ? '<div class="uc-note">Google 尚未在這個網址認出任何複合式搜尋結果項目。</div>' : "");
+    return `<div class="uc-card">
+      <div class="uc-head">
+        <a class="uc-url" href="${esc(c.url)}" target="_blank">${esc(c.url)}</a>
+        <span class="uc-time">${esc(c.checked_at || "")}</span>
+      </div>
+      <div class="uc-cols">
+        <div class="uc-col">
+          <h4>是否被 Google 收錄</h4>
+          ${renderIndexVerdict(c.index)}
+          ${rich}
+          ${c.index?.inspection_link
+            ? `<a class="uc-link" href="${esc(c.index.inspection_link)}" target="_blank">在 Search Console 開啟 →</a>` : ""}
+        </div>
+        <div class="uc-col">
+          <h4>結構化資料</h4>
+          ${renderStructured(c.page)}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// Dispatch check_url.yml with the URL, then poll Firestore until the run
+// writes its result back (the workflow takes ~40-60s).
+async function triggerUrlCheck() {
+  const input = document.getElementById("urlCheckInput");
+  const btn = document.getElementById("btnUrlCheck");
+  const hint = document.getElementById("urlCheckHint");
+  let url = input.value.trim();
+  if (!url) { showToast("請先輸入網址"); return; }
+  if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+  if (!getToken()) { openSettings(); showToast("請先在設定填入 GitHub Token"); return; }
+
+  btn.disabled = true; btn.textContent = "⏳ 查詢中…";
+  hint.textContent = "已送出，等待 GitHub Actions 執行…";
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/check_url.yml/dispatches`, {
+      method: "POST",
+      headers: { Authorization: `token ${getToken()}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ ref: "main", inputs: { url } }),
+    });
+    if (r.status !== 204) throw new Error(`HTTP ${r.status}: ${(await r.text().catch(() => "")) || "(no body)"}`);
+
+    const target = url.replace(/\/$/, "");
+    for (let i = 0; i < 30; i++) {
+      await new Promise(res => setTimeout(res, 6000));
+      hint.textContent = `查詢中…已等待 ${(i + 1) * 6} 秒`;
+      let checks = null;
+      try {
+        const snap = await getDoc(doc(db, "insight", "data"));
+        checks = snap.exists() ? snap.data().url_checks : null;
+      } catch { /* transient — keep polling */ }
+      if (checks?.length && (checks[0].url || "").replace(/\/$/, "") === target) {
+        renderUrlChecks(checks);
+        hint.textContent = "查詢完成。";
+        showToast("✓ 網址檢查完成");
+        return;
+      }
+    }
+    hint.textContent = "等待逾時。工作流程可能仍在執行，稍後重新整理頁面即可看到結果。";
+    showToast("⚠ 等待逾時，請稍後重新整理");
+  } catch (e) {
+    hint.textContent = "查詢失敗：" + e.message;
+    showToast("❌ 查詢失敗：" + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = "檢查";
+  }
+}
+window.triggerUrlCheck = triggerUrlCheck;
 
 // ── Keyword Intelligence ──────────────────────────────────────────────────────
 let kiData = null;
