@@ -202,7 +202,7 @@ function filterTable() {
   let data = allData.filter(d => d.name.toLowerCase().includes(q) || (d.url||"").includes(q));
   const sortVal = (d) => {
     if (sortBy === "name") return d.name;
-    if (sortBy === "lh_performance") return d.latest?.seo_audit?.psi?.performance ?? -Infinity;
+    if (sortBy === "lh_performance") return d.latest?.seo_audit?.psi?.seo ?? -Infinity;
     return d.latest?.[sortBy] ?? -Infinity;
   };
   data.sort((a, b) => {
@@ -213,10 +213,11 @@ function filterTable() {
   renderTable(data);
 }
 
-// Lighthouse performance score for the competitors table — reuses the same
-// good/mid/bad thresholds and colors as the health-page rings/cards.
+// Lighthouse SEO score for the competitors table — same metric used by the
+// comparison page's "SEO 搜尋引擎優化 (Lighthouse)" row, so the numbers agree
+// across pages. Reuses the health-page rings/cards' good/mid/bad thresholds.
 function fmtLighthouse(comp) {
-  const v = comp?.latest?.seo_audit?.psi?.performance;
+  const v = comp?.latest?.seo_audit?.psi?.seo;
   if (v == null) return '<span class="na">N/A</span>';
   return `<span class="health-score ${scoreClass(v)}">${v}</span>`;
 }
@@ -263,12 +264,12 @@ function renderTable(data) {
       <td>${fmt(l.linkedin_followers)}</td>
       <td>${fmtLighthouse(d)}</td>
       <td>${l.date||'<span class="na">—</span>'}</td>
-      <td style="display:flex;gap:4px;flex-wrap:wrap">
-        <button class="btn-detail" onclick="openModal(${idx})">圖表</button>
+      <td class="td-actions"><div class="actions-inner">
+        <button class="btn-detail" onclick="openModal(${idx})">詳細內容</button>
         <button class="btn-edit" onclick="openEditModal(${idx})">編輯</button>
         ${host ? `<a class="btn-semrush" href="https://zh.semrush.com/analytics/overview/?q=${host}&db=us&searchType=domain" target="_blank">Semrush</a>` : ""}
         ${host ? `<a class="btn-site" href="https://www.google.com/search?q=site:${host}" target="_blank">site:</a>` : ""}
-      </td>
+      </div></td>
     </tr>`;
   }).join("");
 }
