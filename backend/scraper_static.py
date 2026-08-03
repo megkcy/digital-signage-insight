@@ -298,7 +298,12 @@ def scrape_keyword_rankings(competitors):
                 params={
                     "engine": "google",
                     "q": kw,
-                    "num": 20,
+                    # 100 is the max Google returns per page and costs the
+                    # same 1 SerpAPI credit as 20. At 20, broad keywords like
+                    # "menu board" (a SERP full of restaurant-supply shops)
+                    # never surfaced a single tracked signage domain, so the
+                    # dashboard tab sat permanently empty.
+                    "num": 100,
                     "api_key": api_key,
                 },
                 timeout=15,
@@ -698,7 +703,18 @@ def scrape_all():
     # returns nothing) — keep the old data and retry on the next weekly scrape.
     existing_kw = existing.get("keyword_rankings", {})
     existing_cs = existing.get("content_strategy", {})
-    skip_kw = _same_month(existing_kw.get("last_updated", ""), today) and bool(existing_kw.get("results"))
+    # A keyword with zero stored rows also doesn't count as done — "menu
+    # board" sat empty for a month because the July run (searched with
+    # num=20) found no tracked domain, and the monthly guard then refused to
+    # re-query it. Worst case, a keyword nobody tracked ranks for at 100
+    # results costs len(TRACKED_KEYWORDS) extra searches/week (~12/month) —
+    # affordable, and it stops a bad month from being locked in.
+    covered = {r.get("keyword") for r in existing_kw.get("results", [])}
+    skip_kw = (
+        _same_month(existing_kw.get("last_updated", ""), today)
+        and bool(existing_kw.get("results"))
+        and set(TRACKED_KEYWORDS) <= covered
+    )
 
     print("Scraping keyword rankings…")
     if skip_kw:
@@ -796,6 +812,12 @@ def scrape_all():
             seo_audit = None
         if seo_audit is None:
             seo_audit = prev_latest.get("seo_audit")
+        elif seo_audit.get("psi") is None:
+            # Audit fetched fine but the PSI call timed out — keep last run's
+            # Lighthouse scores instead of blanking the table's SEO 評分 cell.
+            prev_psi = (prev_latest.get("seo_audit") or {}).get("psi")
+            if prev_psi is not None:
+                seo_audit["psi"] = prev_psi
 
         # Auto-fill country from the audit's JSON-LD/TLD detection, but only
         # while the field is still blank — once someone types a value in via
@@ -988,6 +1010,17 @@ def scrape_all():
         indexed = scrape_google_indexed_count(own_domain)
         if indexed is None:
             indexed = (existing_health.get(site["name"]) or {}).get("google_indexed")
+
+        # PSI can time out while the rest of the audit succeeds — that stores
+        # psi: None over last week's good Lighthouse scores and the dashboard
+        # loses its 效能/無障礙/最佳實踐 rings and Mobile/Desktop toggle until
+        # a later run gets lucky. Same keep-good-values rule as everywhere
+        # else: a failed fetch never beats a real result.
+        prev_site = existing_health.get(site["name"]) or {}
+        for psi_key in ("psi", "psi_desktop"):
+            if audit.get(psi_key) is None and prev_site.get(psi_key) is not None:
+                audit[psi_key] = prev_site[psi_key]
+                print(f"    {psi_key} fetch failed — keeping previous scores")
 
         health_sites.append({
             "site": site["name"], "url": site["url"],

@@ -55,7 +55,7 @@ async function loadData() {
     // fetch, so a silent failure here looks identical to "no data".
     console.error("載入或渲染數據失敗", e);
     document.getElementById("tableBody").innerHTML =
-      '<tr><td colspan="10" class="loading">⚠ 無法載入數據</td></tr>';
+      '<tr><td colspan="9" class="loading">⚠ 無法載入數據</td></tr>';
   }
 }
 
@@ -253,7 +253,7 @@ function firstCountry(country) {
 
 function renderTable(data) {
   const tbody = document.getElementById("tableBody");
-  if (!data.length) { tbody.innerHTML = '<tr><td colspan="10" class="loading">沒有符合的結果</td></tr>'; return; }
+  if (!data.length) { tbody.innerHTML = '<tr><td colspan="9" class="loading">沒有符合的結果</td></tr>'; return; }
   tbody.innerHTML = data.map(d => {
     const l = d.latest || {};
     const idx = allData.indexOf(d);
@@ -270,7 +270,6 @@ function renderTable(data) {
       <td>${fmt(l.facebook_followers)}</td>
       <td>${fmt(l.linkedin_followers)}</td>
       <td>${fmtLighthouse(d)}</td>
-      <td>${l.date||'<span class="na">—</span>'}</td>
       <td class="td-actions"><div class="actions-inner">
         <button class="btn-detail" onclick="openModal(${idx})">詳細內容</button>
         <button class="btn-edit" onclick="openEditModal(${idx})">編輯</button>
@@ -291,6 +290,7 @@ function openModal(idx) {
   document.getElementById("modalMeta").innerHTML = `
     <div class="meta-item"><div class="label">網站頁數</div><div class="value">${l.sitemap_pages!=null?l.sitemap_pages.toLocaleString():"N/A"}</div></div>
     <div class="meta-item"><div class="label">LinkedIn</div><div class="value">${l.linkedin_followers!=null?l.linkedin_followers.toLocaleString():"N/A"}</div></div>
+    <div class="meta-item"><div class="label">更新日期</div><div class="value">${l.date||"N/A"}</div></div>
     <div class="meta-item" style="grid-column:1/-1"><div class="label">Tech Stack</div><div class="value" style="font-size:13px">${l.tech_stack||"N/A"}</div></div>
     ${l.meta_title?`<div class="meta-item" style="grid-column:1/-1"><div class="label">Page Title</div><div class="value" style="font-size:12px;font-weight:400">${l.meta_title}</div></div>`:""}
   `;
@@ -385,11 +385,16 @@ function _compScores(audit) {
 // competitor's cell blank. A missing comparison is easier to read than a
 // comparison against a different rubric.
 function _resolveSeoSource(own, comp) {
+  // Lighthouse is the ruler whenever EITHER side has a score — the main
+  // table's SEO 評分 column always shows the competitor's Lighthouse number,
+  // so the modal must never silently swap that same competitor onto the
+  // checklist score just because our own site's PSI fetch failed that week
+  // (that's how the table said 100 while the modal said 85). A side without
+  // a Lighthouse result renders — rather than a different rubric's number.
   const ownLh = own?.seoLh ?? null;
-  const useLh = ownLh != null;
+  const useLh = ownLh != null || comp?.seoLh != null;
   return {
     own: own ? { ...own, seo: useLh ? ownLh : own.seo } : null,
-    // null (renders as —) when we're on Lighthouse but they have no PSI result
     comp: { ...comp, seo: useLh ? comp.seoLh : comp.seo },
     label: useLh ? "🔍 SEO 搜尋引擎優化 (Lighthouse)" : "🔍 SEO 搜尋引擎優化",
   };
@@ -564,7 +569,7 @@ function renderModalKeywords(name) {
   if (!rows.length && !csEntries.length) {
     el.innerHTML = `
       <h3 class="modal-kw-title">關鍵字排名</h3>
-      <div class="modal-kw-empty">未進入追蹤關鍵字（${(kwData?.keywords || []).join("、") || "—"}）前 20 名</div>`;
+      <div class="modal-kw-empty">未進入追蹤關鍵字（${(kwData?.keywords || []).join("、") || "—"}）前 100 名</div>`;
     return;
   }
   const kwHtml = rows.map(r => `
@@ -580,7 +585,7 @@ function renderModalKeywords(name) {
     </div>`).join("");
   el.innerHTML = `
     <h3 class="modal-kw-title">關鍵字排名</h3>
-    ${kwHtml || '<div class="modal-kw-empty">未進入前 20 名</div>'}
+    ${kwHtml || '<div class="modal-kw-empty">未進入前 100 名</div>'}
     ${csHtml}`;
 }
 function closeModal(e) {
@@ -806,7 +811,7 @@ function renderKwTable(kw) {
   if (rows.length) {
     const ownLabel = ownRank != null
       ? `<span class="gap-own">自己最高：第 ${ownRank} 名</span>`
-      : `<span class="gap-none">自己未進前 20</span>`;
+      : `<span class="gap-none">自己未進前 100</span>`;
     const compLabel = topCompRank != null
       ? `<span class="gap-comp">競爭對手最高：第 ${topCompRank} 名</span>`
       : "";
@@ -823,7 +828,7 @@ function renderKwTable(kw) {
 
   const tbody = document.getElementById("kwTableBody");
   if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="5" class="loading">此關鍵字無競爭對手出現在前 20 名</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="loading">此關鍵字無競爭對手出現在前 100 名</td></tr>';
     return;
   }
   tbody.innerHTML = rows.map(r => {
