@@ -34,6 +34,14 @@ EXCLUDE_UNLESS_SIGNAGE = [
 KEEP_HINTS = ["digital", "signage"]
 
 
+def _login_customer_id():
+    """The API requires a bare ten-digit string, but the Ads UI displays the
+    ID as 123-456-7890 and that's how it got pasted into the repo secret —
+    every keyword-intel run since has died on 'The specified login customer
+    ID is invalid'. Accept either form."""
+    return re.sub(r"\D", "", os.environ.get("GOOGLE_ADS_LOGIN_CUSTOMER_ID", ""))
+
+
 def _get_client():
     required = [
         "GOOGLE_ADS_DEVELOPER_TOKEN", "GOOGLE_ADS_CLIENT_ID",
@@ -50,7 +58,7 @@ def _get_client():
             "client_id": os.environ["GOOGLE_ADS_CLIENT_ID"],
             "client_secret": os.environ["GOOGLE_ADS_CLIENT_SECRET"],
             "refresh_token": os.environ["GOOGLE_ADS_REFRESH_TOKEN"],
-            "login_customer_id": os.environ["GOOGLE_ADS_LOGIN_CUSTOMER_ID"],
+            "login_customer_id": _login_customer_id(),
             "use_proto_plus": True,
         }
         return GoogleAdsClient.load_from_dict(config)
@@ -68,7 +76,7 @@ def get_keyword_ideas_for_domain(client, domain):
     try:
         service = client.get_service("KeywordPlanIdeaService")
         request = client.get_type("GenerateKeywordIdeasRequest")
-        request.customer_id = os.environ["GOOGLE_ADS_LOGIN_CUSTOMER_ID"]
+        request.customer_id = _login_customer_id()
         request.language = LANGUAGE_CONSTANT
         request.geo_target_constants = GEO_TARGET_CONSTANTS
         request.keyword_plan_network = (

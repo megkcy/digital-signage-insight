@@ -192,11 +192,23 @@ def get_pagespeed(url, strategy="mobile"):
     if key:
         params["key"] = key
     try:
-        resp = requests.get(
-            "https://www.googleapis.com/pagespeedonline/v5/runPagespeed",
-            params=params,
-            timeout=90,
-        )
+        # PSI runs a full Lighthouse audit server-side, and slow target sites
+        # regularly blow the 90s window on the first try — one retry recovers
+        # most of those (the weekly logs showed ~10 competitors/run lost to
+        # single timeouts, wiping their SEO 評分 for the whole week).
+        resp = None
+        for attempt in (1, 2):
+            try:
+                resp = requests.get(
+                    "https://www.googleapis.com/pagespeedonline/v5/runPagespeed",
+                    params=params,
+                    timeout=90,
+                )
+                break
+            except requests.exceptions.Timeout:
+                if attempt == 2:
+                    raise
+                print(f"  PageSpeed timeout for {url}, retrying…")
         lh = resp.json().get("lighthouseResult", {})
         cats = lh.get("categories", {})
 
